@@ -17,7 +17,9 @@ const routes: Routes = [
   },
   { path: 'contact', loadChildren: './contact/contact.module#ContactPageModule' },
   { path: 'subtract', loadChildren: './subtract/subtract.module#SubtractPageModule' },
-  { path: 'results', loadChildren: './results/results.module#ResultsPageModule' }
+  { path: 'results', loadChildren: './results/results.module#ResultsPageModule' },
+  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
+  
 ];
 
 @NgModule({
