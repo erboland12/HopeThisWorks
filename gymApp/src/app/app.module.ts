@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './services/user.service';
+import { AuthService } from './services/auth.service';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -27,6 +28,7 @@ import { UserService } from './services/user.service';
     StatusBar,
     SplashScreen,
     UserService,
+    AuthService,
     HttpClientModule,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

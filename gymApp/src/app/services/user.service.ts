@@ -8,7 +8,7 @@ export class UserService{
     }
 
     getUser(displayName: string):IUser{
-        return USER.find(user => user.displayName === displayName);
+        return USER.find(user => user.username === displayName);
     }
 }
 
@@ -16,7 +16,7 @@ const USER:IUser[] = [
     {
         firstName: "Eric",
         lastName: "Boland",
-        displayName: "Rockkkkkkkky",
+        username: "Rockkkkkkkky",
         email: 'test@test.com',
         password: 'word'
     }
