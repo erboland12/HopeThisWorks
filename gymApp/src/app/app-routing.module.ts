@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'subtract', loadChildren: './subtract/subtract.module#SubtractPageModule' },
   { path: 'results', loadChildren: './results/results.module#ResultsPageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
+  { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
   
 ];
 
