@@ -1,0 +1,111 @@
+
+  
+  .title{
+    text-align: center;
+    font-size: 1.5em;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  
+  }
+  h2{
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  
+  }
+  .titleBox{
+    margin: 1em;
+    margin-top: 45%;
+    padding: 2em;
+    border: 2px solid rgb(52, 91, 146);
+    border-radius: 10px;
+    background-color: rgba(16, 18, 20, 0.2);
+    color: whitesmoke;
+  }
+  .mainBox{
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    border: 2px solid rgb(52, 91, 146);;
+    background-color: rgba(57, 96, 146, 0.5);
+    background-size: cover;
+    overflow: hidden;
+  }
+  
+  .start{
+    width: 100%;
+    font-size: 150%;
+  }
+  
+  .options{
+    height: auto;
+    color: whitesmoke;
+    border: 0.5px solid rgb(52, 91, 146);
+    background-color: rgba(57, 96, 146, 0.5);
+  }
+  .numbers{
+    display: inline-block;
+    margin: 0.2em;
+    color: whitesmoke;
+    
+    font-size: 250%;
+  }
+  h3{
+      font-size: 120%;
+  }
+  h4{
+      display: inline-block;
+      margin: 0.2em;
+  }
+  p{
+      display: inline-block;
+      margin: 0.2em;
+      font-size: 120%;
+  }
+
+.questions{
+    text-align: center;
+    width:auto;
+    height: auto;
+}
+
+input {
+    height:60px;
+    width:130px;
+    font-size: 200%;
+    text-align: center;
+}
+.submit {
+    width: 70%;
+    font-size: 150%;
+    margin: 0.5em;
+    text-align: center;
+}
+.digits{
+    list-style-type: none;
+    margin: auto;
+}
+.answerRight{
+  font-size: 250%;
+  text-align: center;
+  color: green;
+  margin-top: 0.5em;
+  background-color: rgba(131,235,52,0.5);
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+
+}
+.answerWrong{
+  font-size: 250%;
+  text-align: center;
+  color: red;
+  margin-top: 1em;
+  background-color: rgba(235,86,52, 0.5);
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+
+.digitInput{
+  font-size: 125%;
+  margin: 0.3em;
+}

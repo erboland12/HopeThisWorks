@@ -1,0 +1,77 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        
+      </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="mainBox">
+      <div class="titleBox" *ngIf="this.titleVisible == true">
+        <h1 class="title">Press Start to Begin:</h1>
+        <hr />
+        <ion-button class="start" (click)="readyClick()"><b>Start</b></ion-button>
+      </div>
+
+      <div class="titleBox" *ngIf="this.readyVisible == true">
+        <h1 class="title">Ready:</h1>
+        <hr />
+        <h2><b>{{readyTimeLeft}}</b></h2>
+      </div>
+      
+      <div class="questions" *ngIf="this.questionsVisible == true">
+        <div class="options">
+          <p><b>{{readyTimeLeft}} Seconds Left....</b></p>
+          <p>Score: {{this.score}}</p>
+        </div>
+        
+        <div class="numbers">
+          <h3>{{rand1}} - {{rand2}}</h3>
+          <h3>=</h3>
+        </div>
+
+        <div>
+          <input type="string" id="value" [(ngModel)] = "sum"  
+          value={{this.final}}/>
+          <li class="digits">
+            <ion-button class="digitInput" (click)="mapNum(this.sum, '1')" ngDefaultControl>1</ion-button>
+            <ion-button class="digitInput" (click)="mapNum(this.sum, '2')" >2</ion-button>
+            <ion-button class="digitInput" (click)="mapNum(this.sum, '3')">3</ion-button>
+            <ion-button class="digitInput" (click)="mapNum(this.sum, '4')">4</ion-button>
+            <ion-button class="digitInput" (click)="mapNum(this.sum, '5')">5</ion-button>
+          </li>
+          <li class="digits">
+            <ion-button class="digitInput" (click)="mapNum(this.sum, '6')">6</ion-button>
+            <ion-button class="digitInput" (click)="mapNum(this.sum, '7')">7</ion-button>
+            <ion-button class="digitInput"  (click)="mapNum(this.sum, '8')">8</ion-button>
+            <ion-button class="digitInput" (click)="mapNum(this.sum, '9')">9</ion-button>
+          </li>
+          <li class="digits">
+            <ion-button class="digitInput" (click)="mapNum(this.sum, '0')">0</ion-button>
+            <ion-button class="digitInput" (click)="mapNum(this.sum, '-')">-</ion-button>
+            <ion-button class="digitInput" (click)="clearNum()"></ion-button>
+          </li>
+        </div>
+        <div>
+          <ion-button class="submit" (click)="checkAnswerForSubtraction(this.sum)">Submit</ion-button>
+        </div>
+        <div>
+          <div class="answerRight" *ngIf="answerRight == true">
+            <b>Correct!</b>
+          </div>
+          <div class="answerWrong" *ngIf="answerRight == false">
+            <b>Wrong</b>
+          </div>
+        </div>
+      </div>
+  </div>
+</ion-content>
+
+
+
+
+  

@@ -1,0 +1,47 @@
+.welcome-card img {
+  max-height: 35vh;
+  overflow: hidden;
+}
+
+.gray {
+  color: gray;
+  
+}
+.large {
+  font-size: 4em;
+}
+
+.title{
+  text-align: center;
+  font-size: 3em;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+}
+h2{
+  text-align: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+}
+.titleBox{
+  margin: 1em;
+  padding: 2em;
+  border: 2px solid rgb(52, 91, 146);
+  border-radius: 10px;
+  background-color: rgba(16, 18, 20, 0.2);
+  color: whitesmoke;
+}
+.mainBox{
+  margin: auto;
+  height: 100%;
+  border: 2px solid rgb(52, 91, 146);;
+  background-color: rgba(57, 96, 146, 0.5);
+}
+
+ion-button{
+  width: 90%;
+}
+
+.options{
+  margin: auto;
+  text-align: center;
+}

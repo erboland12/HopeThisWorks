@@ -1,0 +1,20 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title class="title">
+        <b>Results</b>
+      </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="mainBox">
+    <div class="titleBox" *ngIf="this.sub.success == true">
+      <h1 class="title">Press Start to Begin:</h1>
+      <hr />
+      <ion-button class="start" (click)="readyClick()"><b>Start</b></ion-button>
+    </div>
+  </div>
+</ion-content>
