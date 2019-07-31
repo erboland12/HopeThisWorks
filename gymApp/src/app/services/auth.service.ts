@@ -4,6 +4,7 @@ import { IUser } from '../models/user.model';
 @Injectable()
 export class AuthService{
     currentUser: IUser;
+    logged: boolean;
     
     constructor(){
 
@@ -21,5 +22,9 @@ export class AuthService{
 
     isAuthenticated(){
         return !!this.currentUser;
+    }
+
+    isLoggedIn(){
+        return !!this.logged
     }
 }

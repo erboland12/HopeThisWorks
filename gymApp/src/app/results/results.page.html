@@ -11,10 +11,22 @@
 
 <ion-content>
   <div class="mainBox">
-    <div class="titleBox" *ngIf="this.sub.success == true">
-      <h1 class="title">Press Start to Begin:</h1>
+    <div class="answerRight" *ngIf="this.diff.success">
+      <b>Good Shit Mel</b>
       <hr />
-      <ion-button class="start" (click)="readyClick()"><b>Start</b></ion-button>
+    </div>
+    <div class="answerWrong" *ngIf="!this.diff.success">
+      <b>YOU SUCK</b> 
+    </div>
+
+    <div class="titleBox" *ngIf="!this.diff.success">
+      Here's Your Stats, Although I'm Sure You Know How Bad You Did
+    </div>
+
+    <div class="titleBox2" *ngIf="!this.diff.success">
+      <p><b>Total Questions: </b></p>
+      <p><b>Correct Answers: </b></p>
+      <p><b>Incorrect Answers: </b></p>
     </div>
   </div>
 </ion-content>

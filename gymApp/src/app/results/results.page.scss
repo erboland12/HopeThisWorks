@@ -11,11 +11,23 @@
   }
   .titleBox{
     margin: 1em;
-    padding: 2em;
+    padding: 1em;
     border: 2px solid rgb(52, 91, 146);
     border-radius: 10px;
     background-color: rgba(16, 18, 20, 0.2);
-    color: whitesmoke;
+    font-size: 140%;
+    text-align: center;
+    margin-top: 20%;
+    color: whitesmoke
+  }
+
+  .titleBox2{
+    margin: 1em;
+    padding: 1em;
+    border: 2px solid rgb(52, 91, 146);
+    border-radius: 10px;
+    background-color: rgba(16, 18, 20, 0.2);
+    color: whitesmoke
   }
   .mainBox{
     margin: auto;
@@ -52,12 +64,11 @@
       display: inline-block;
       margin: 0.2em;
   }
-  p{
-      display: inline-block;
-      margin: 0.2em;
-      font-size: 120%;
-  }
 
+  p{
+    font-size: 130%;
+    text-align: left;
+  }
 .questions{
     text-align: center;
     width:auto;
@@ -80,18 +91,17 @@ input {
     list-style-type: none;
     margin: auto;
 }
-.answerRight{
+.answerWrong{
   font-size: 250%;
   text-align: center;
-  color: green;
-  margin-top: 0.5em;
-  background-color: rgba(131,235,52,0.5);
+  color: red;
+  background-color: rgba(235,86,52, 0.5);
   width: 100%;
   position: fixed;
-  bottom: 0;
-
+  padding-top: 0.3em;
+  height: auto;
 }
-.answerWrong{
+.answerRight{
   font-size: 250%;
   text-align: center;
   color: red;
@@ -99,7 +109,6 @@ input {
   background-color: rgba(235,86,52, 0.5);
   width: 100%;
   position: fixed;
-  bottom: 0;
 }
 
 .digitInput{

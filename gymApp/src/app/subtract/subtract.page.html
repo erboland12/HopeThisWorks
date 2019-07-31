@@ -11,6 +11,17 @@
 
 <ion-content>
   <div class="mainBox">
+      <div class="diffBox" *ngIf="this.diffVisible == true">
+        <h1 class="title">Pick A Difficulty:</h1>
+        <hr />
+        <ion-button color="green" class="easyBtn" (click)="difficultyChosen('easy')"><b>Easy</b></ion-button>
+        
+        <ion-button color ="yellow" class="medBtn" (click)="difficultyChosen('intermediate')"><b>Medium</b></ion-button>
+        
+        <ion-button color="red" class="hardBtn" (click)="difficultyChosen('hard')"><b>Hard</b></ion-button>
+
+        <ion-button color ="black" class="wizBtn" (click)="difficultyChosen('wizard')"><b>Wizard</b></ion-button>
+      </div>
       <div class="titleBox" *ngIf="this.titleVisible == true">
         <h1 class="title">Press Start to Begin:</h1>
         <hr />

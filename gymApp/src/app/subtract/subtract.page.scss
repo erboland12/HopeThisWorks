@@ -11,6 +11,16 @@
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   
   }
+  .diffBox{
+    margin: 1em;
+    margin-top: 25%;
+    padding: 2em;
+    border: 2px solid rgb(52, 91, 146);
+    border-radius: 10px;
+    background-color: rgba(16, 18, 20, 0.2);
+    color: whitesmoke;
+  }
+
   .titleBox{
     margin: 1em;
     margin-top: 45%;
@@ -33,6 +43,34 @@
   .start{
     width: 100%;
     font-size: 150%;
+  }
+
+  .easyBtn{
+    width: 100%;
+    font-size: 150%;
+    background-color: rgb(34, 172, 34);
+    border: 0.5px solid black;
+  }
+
+  .medBtn{
+    width: 100%;
+    font-size: 150%;
+    background-color: rgb(197, 128, 0);
+    border: 0.5px solid black;
+  }
+
+  .hardBtn{
+    width: 100%;
+    font-size: 150%;
+    background-color: rgb(179, 28, 28);
+    border: 0.5px solid black;
+  }
+
+  .wizBtn{
+    width: 100%;
+    font-size: 150%;
+    background-color: black;
+    border: 0.5px solid black;
   }
   
   .options{

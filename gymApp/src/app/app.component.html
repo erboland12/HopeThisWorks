@@ -8,19 +8,11 @@
       </ion-header>
       <ion-content>
         <ion-list>
-            <div *ngIf="this.auth.isAuthenticated() == false">
+            <div *ngIf="this.auth.isLoggedIn() == false">
                 <ion-item [routerDirection]="'root'" [routerLink]="['/login']">
                     <ion-icon slot="start" [name]=""></ion-icon>
                     <ion-label>
                       Log In
-                    </ion-label>
-                  </ion-item>
-              </div>
-              <div *ngIf="this.auth.isAuthenticated() == true">
-                <ion-item [routerDirection]="'root'" [routerLink]="['/login']">
-                    <ion-icon slot="start" [name]=""></ion-icon>
-                    <ion-label>
-                      Sign Out
                     </ion-label>
                   </ion-item>
               </div>

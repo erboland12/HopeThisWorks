@@ -23,6 +23,8 @@
       <ion-button>Addition</ion-button>
 
       <ion-button>How to Play</ion-button>
+
+      <ion-button (click)="signOut()" *ngIf="this.auth.logged">Sign Out</ion-button>
     </div>
   </div>
 

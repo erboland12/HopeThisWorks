@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { timer } from 'rxjs';
 import { NavController } from '@ionic/angular';
+import { DifficultyService } from '../services/difficulty.service';
 
 @Component({
   selector: 'app-subtract',
@@ -10,11 +11,13 @@ import { NavController } from '@ionic/angular';
 export class SubtractPage implements OnInit {
 
   //Display booleans
-  titleVisible = true;
+  diffVisible = true;
+  titleVisible = false;
   readyVisible = false;
   questionsVisible = false;
   answerRight: boolean;
   success: boolean;
+  difficulty: string;
 
   //timer globals
   readyTimeLeft: number = 3;
@@ -25,14 +28,15 @@ export class SubtractPage implements OnInit {
   interval2;
 
   //random numbers
-  rand1: number = Math.floor((Math.random() * 100) + 1);
-  rand2: number = Math.floor((Math.random() * 100) + 1);
+  rand1: number;
+  rand2: number;
 
   //Check for right answer
   sum: string = "";
   final: string = "";
   score: number = 0;
-  constructor(public navCtrl: NavController) 
+  constructor(public navCtrl: NavController,
+              private diff: DifficultyService) 
   { 
 
   }
@@ -74,14 +78,27 @@ export class SubtractPage implements OnInit {
       console.log("Right Answer");
       this.answerRight = true;
     }
-    this.rand1 = Math.floor((Math.random() * 100) + 1);
-    this.rand2 = Math.floor((Math.random() * 100) + 1);
-
+    if(this.difficulty == "easy"){
+      this.rand1 = Math.floor((Math.random() * 100) + 1);
+      this.rand2 = Math.floor((Math.random() * 100) + 1);
+    }
+    if(this.difficulty == "intermediate"){
+      this.rand1 = Math.floor((Math.random() * 1000) + 1);
+      this.rand2 = Math.floor((Math.random() * 1000) + 1);
+    }
+    if(this.difficulty == "hard"){
+      this.rand1 = Math.floor((Math.random() * 100000) + 10);
+      this.rand2 = Math.floor((Math.random() * 100000) + 10);
+    }
+    if(this.difficulty == "wizard"){
+      this.rand1 = Math.floor((Math.random() * 1000000) + 100);
+      this.rand2 = Math.floor((Math.random() * 1000000) + 100);
+    }
     this.sum = "";
 
     if(this.score == 10){
       this.navCtrl.navigateForward('results');
-      this.success = true;
+      this.diff.succeeded();
     }
 
   }
@@ -89,7 +106,7 @@ export class SubtractPage implements OnInit {
   timesOut(){
     if(this.timesUp == 0){
       this.navCtrl.navigateForward('results');
-      this.success = false;
+      this.diff.failed();
     }
   }
 
@@ -105,6 +122,30 @@ export class SubtractPage implements OnInit {
     stringMinusOne = this.sum.substring(0, this.sum.length-1);
     this.sum = stringMinusOne;
   }
+
+  difficultyChosen(difficulty){
+    this.difficulty = difficulty;
+    if(difficulty == "easy"){
+      this.rand1 = Math.floor((Math.random() * 100) + 1);
+      this.rand2 = Math.floor((Math.random() * 100) + 1);
+    }
+    if(difficulty == "intermediate"){
+      this.rand1 = Math.floor((Math.random() * 1000) + 1);
+      this.rand2 = Math.floor((Math.random() * 1000) + 1);
+    }
+    if(difficulty == "hard"){
+      this.rand1 = Math.floor((Math.random() * 100000) + 10);
+      this.rand2 = Math.floor((Math.random() * 100000) + 10);
+    }
+    if(difficulty == "wizard"){
+      this.rand1 = Math.floor((Math.random() * 1000000) + 100);
+      this.rand2 = Math.floor((Math.random() * 1000000) + 100);
+    }
+    console.log(difficulty);
+
+    this.diffVisible = false;
+    this.titleVisible = true;
+  } 
   
 
 }

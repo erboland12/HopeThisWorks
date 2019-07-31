@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,9 @@ export class HomePage implements OnInit {
 
   constructor(private data: DataService,
               public router: Router,
-              public navCtrl: NavController) {}
+              public navCtrl: NavController,
+              private alertCtrl: AlertController,
+              private auth: AuthService) {}
 
   ngOnInit(){
     this.data.getUsers().subscribe(data => {
@@ -30,5 +33,13 @@ export class HomePage implements OnInit {
    navSubtract(){
      this.navCtrl.navigateForward('subtract');
    }
-
+   
+   signOut(){
+     this.auth.logged = false;
+     this.navCtrl.navigateBack('home');
+     let alert = this.alertCtrl.create({
+       message: 'You Have Been Signed Out',
+       buttons: ['OK']
+     }).then(alert => alert.present());
+   }
 }
