@@ -1,22 +1,19 @@
 <ion-header>
     <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
       <ion-title class="title">
         <b>Results</b>
       </ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content style="overflow-y: hidden;">
   <div class="mainBox">
     <div class="answerRight" *ngIf="this.diff.success">
       <b>Good Shit Mel</b>
       <hr />
     </div>
     <div class="answerWrong" *ngIf="!this.diff.success">
-      <b>YOU SUCK</b> 
+      <b>{{message}}</b> 
     </div>
 
     <div class="titleBox" *ngIf="!this.diff.success">
@@ -24,9 +21,16 @@
     </div>
 
     <div class="titleBox2" *ngIf="!this.diff.success">
-      <p><b>Total Questions: </b></p>
-      <p><b>Correct Answers: </b></p>
-      <p><b>Incorrect Answers: </b></p>
+      <p><b>Total Questions: <span style="float:right;">{{this.diff.totalQuestions}}</span></b></p>
+      <p><b>Correct Answers: <span class='right'>{{this.diff.correctAnswers}}</span></b></p>
+      <p><b>Incorrect Answers: <span class='wrong'>{{this.diff.incorrectAnswers}}</span></b></p>
+      <ion-list lines="none" *ngFor="let q of this.diff.questions; let i = index;
+                        let even = even; let odd = odd">
+        <ion-item *ngIf="this.diff.correctQuestions[i] === 'Right'" color="odd" [ngClass]="{ odd: odd, even: even }">{{i+1}}. {{q}} : <span class='right' style="float: right;"><b>{{ this.diff.correctQuestions[i] }}</b></span></ion-item>
+        <ion-item *ngIf="this.diff.correctQuestions[i] === 'Wrong'" color="odd" [ngClass]="{ odd: odd, even: even }">{{i+1}}. {{q}} : <span class='wrong' style="float: right;"><b>{{ this.diff.correctQuestions[i] }}</b></span></ion-item>
+      </ion-list>
+      <ion-button (click)="reset()">OK</ion-button>
     </div>
   </div>
+  
 </ion-content>

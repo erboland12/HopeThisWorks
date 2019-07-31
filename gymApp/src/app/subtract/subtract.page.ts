@@ -72,10 +72,14 @@ export class SubtractPage implements OnInit {
     if(this.rand1 - this.rand2 != parseInt(sum)){
       console.log("WRONG");
       console.log(sum);
+      this.diff.correctQuestions.push('Wrong');
+      this.diff.incorrectAnswers++;
       this.answerRight = false;
     } else {
       this.score++;
       console.log("Right Answer");
+      this.diff.correctQuestions.push('Right');
+      this.diff.correctAnswers++;
       this.answerRight = true;
     }
     if(this.difficulty == "easy"){
@@ -100,6 +104,11 @@ export class SubtractPage implements OnInit {
       this.navCtrl.navigateForward('results');
       this.diff.succeeded();
     }
+    var arrayAdd = this.rand1.toString() + " - " + this.rand2.toString();
+    this.diff.questions.push(arrayAdd);
+    console.log(arrayAdd);
+    this.diff.totalQuestions++;
+    console.log(this.diff.correctQuestions);
 
   }
 
@@ -141,7 +150,10 @@ export class SubtractPage implements OnInit {
       this.rand1 = Math.floor((Math.random() * 1000000) + 100);
       this.rand2 = Math.floor((Math.random() * 1000000) + 100);
     }
-    console.log(difficulty);
+
+    var arrayAdd = this.rand1.toString() + " - " + this.rand2.toString();
+    this.diff.questions.push(arrayAdd);
+    console.log(arrayAdd);
 
     this.diffVisible = false;
     this.titleVisible = true;

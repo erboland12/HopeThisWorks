@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SubtractPage } from '../subtract/subtract.page';
 import { DifficultyService } from '../services/difficulty.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-results',
@@ -8,11 +9,36 @@ import { DifficultyService } from '../services/difficulty.service';
   styleUrls: ['./results.page.scss'],
 })
 export class ResultsPage implements OnInit {
-  public sub: SubtractPage;
-  constructor(private diff: DifficultyService) {
+  
+  messages: string[] =
+  [
+    'YOU SUCK',
+    'FOOLED',
+    'TROGLODYTE',
+    'DEPLORABLE',
+    'WRETCHED FOOL',
+    'PATHETIC',
+    'IMBECIL'
+  ]
+  
+  message:string = '';
+
+  constructor(private diff: DifficultyService,
+              private navCtrl: NavController) {
  
   }
   ngOnInit() {
+    this.selectRandomMessage();
+  }
+
+  reset(){
+    this.diff.resetResults();
+    this.navCtrl.navigateForward('home');
+  }
+
+  selectRandomMessage(){
+    var index = Math.floor(Math.random() * Math.floor(7))
+    this.message = this.messages[index];
   }
 
 

@@ -1,5 +1,5 @@
 .title{
-    text-align: left;
+    float: left;
     font-size: 1.5em;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   
@@ -16,8 +16,8 @@
     border-radius: 10px;
     background-color: rgba(16, 18, 20, 0.2);
     font-size: 140%;
+    height: auto;
     text-align: center;
-    margin-top: 20%;
     color: whitesmoke
   }
 
@@ -30,13 +30,11 @@
     color: whitesmoke
   }
   .mainBox{
-    margin: auto;
-    height: 100%;
+    height: auto;
+    min-height: 100%;
     width: 100%;
     border: 2px solid rgb(52, 91, 146);;
     background-color: rgba(57, 96, 146, 0.5);
-    background-size: cover;
-    overflow: hidden;
   }
   
   .start{
@@ -97,21 +95,60 @@ input {
   color: red;
   background-color: rgba(235,86,52, 0.5);
   width: 100%;
-  position: fixed;
   padding-top: 0.3em;
   height: auto;
+  margin: auto;
+  border-bottom: 2px solid rgb(52, 91, 146);
 }
 .answerRight{
   font-size: 250%;
   text-align: center;
   color: red;
-  margin-top: 1em;
   background-color: rgba(235,86,52, 0.5);
   width: 100%;
-  position: fixed;
 }
 
 .digitInput{
   font-size: 125%;
   margin: 0.3em;
+}
+
+ul {
+
+  overflow: scroll;
+  margin: 0;
+  padding: 0;
+  
+  border: 2px solid #ccc;
+  
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  
+  // Again, this is where the magic happens
+  -webkit-overflow-scrolling: touch;
+}
+
+.odd{
+  height: auto;
+  background-color: var(--ion-color-odd);
+  margin: 0;
+  border: 0.5px solid black;
+  padding-top: 0;
+}
+.even{
+  height: auto;
+  background-color: var(--ion-color-even);
+  margin: 0;
+  border: 0.5px solid black;
+  padding-top: 0;
+}
+.right{
+  color: rgba(131,235,52,0.8);
+  float: right;
+  text-align: right;
+}
+.wrong{
+  color: rgba(235,86,52, 1.0);
+  float: right;
+  text-align: right;
 }
