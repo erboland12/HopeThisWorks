@@ -83,6 +83,10 @@ export class AuthService{
     signOut(){
       this.afAuth.auth.signOut();
     }
+
+    registerUser(email, password){
+      this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+    }
     
     
 }

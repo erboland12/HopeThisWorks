@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NavController } from '@ionic/angular';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { NavController, AlertController } from '@ionic/angular';
 import { DataService } from '../services/data.service';
 import * as PouchDB from 'pouchdb/dist/pouchdb';
 import { DatabaseService, User } from '../services/database.service';
 import { Storage } from '@ionic/storage';
+import { AuthService } from '../services/auth.service';
+import { MustMatch } from '../models/mustMatch';
 
 @Component({
   selector: 'app-register',
@@ -13,6 +15,9 @@ import { Storage } from '@ionic/storage';
 })
 export class RegisterPage implements OnInit {
   invalid: boolean;
+  submitted = false;
+
+  regForm: FormGroup;
 
   private username;
   private firstName;
@@ -27,65 +32,51 @@ export class RegisterPage implements OnInit {
     password: ''
   }
 
-  regForm: FormGroup;
   constructor(public navCtrl: NavController,
               private data: DatabaseService,
-              private storage: Storage) { }
+              private storage: Storage,
+              private fb: FormBuilder,
+              private auth: AuthService,
+              private alertCtrl: AlertController) { }
+
 
   ngOnInit() {
-    let username = new FormControl("", Validators.required);
-    let password = new FormControl("", Validators.required);
-    let firstName = new FormControl("", Validators.required);
-    let lastName = new FormControl("", Validators.required);
-    let email = new FormControl("", Validators.required);
-    let location = new FormControl("", Validators.required);
-
-    this.regForm = new FormGroup({
-      username: username,
-      password: password,
-      firstName: firstName,
-      lastName: lastName,
-      // email: email,
-      // location: location
-    })
-    this.setupDB();
+    this.regForm = this.fb.group({
+      email:['', [Validators.required, Validators.email]], 
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      username: ['', Validators.required]
+    }, {
+      validators: MustMatch('password', 'confirmPassword')
+    });
   }
 
-  setupDB(){
-    this.data.db = new PouchDB('users');
+  mustMatch(password, confirmPassword){
+
   }
+
+  get f() { return this.regForm.controls; }
 
   signUp(){
+    this.submitted = true;
     if (this.regForm.valid){
-      this.addUser();
+      this.auth.registerUser(this.email, this.password);
+      let alert = this.alertCtrl.create({
+        message: 'Login Successful',
+        buttons: ['OK']
+      }).then(alert => alert.present());
       this.navCtrl.navigateForward('login');
     } else{
-      this.invalid = true;
+      let alert = this.alertCtrl.create({
+        subHeader: 'Registration Failed',
+        message: 'Go Back and Complete all Required Fields',
+        buttons: ['OK']
+      }).then(alert => alert.present());
+      return;
     }
+    console.warn(this.regForm.value);
   }
-
-  addUser(){
-    this.storage.set('username',this.username);
-    this.storage.set('password',this.password);
-
-    this.storage.get('username').then((val) => {
-      console.log('Your username is', val);
-    });
-  //   this.data.db.post({
-  //     firstName: this.firstName,
-  //     lastName: this.lastName,
-  //     username: this.username,
-  //     email: this.email,
-  //     password: this.password
-  //   }, (err, result) => {
-  //     if(!err){
-  //       alert('Successful Registration')
-  //       this.addUserModel();
-  //     } else{
-  //       alert('Error.  Try Again')
-  //     }
-  // });
-  }
-
 
 }
