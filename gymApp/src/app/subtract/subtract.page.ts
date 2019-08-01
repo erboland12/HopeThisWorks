@@ -102,6 +102,8 @@ export class SubtractPage implements OnInit {
 
     if(this.score == 10){
       this.navCtrl.navigateForward('results');
+      this.timesUp = -1;
+      this.readyTimeLeft = -1;
       this.diff.succeeded();
     }
     var arrayAdd = this.rand1.toString() + " - " + this.rand2.toString();
