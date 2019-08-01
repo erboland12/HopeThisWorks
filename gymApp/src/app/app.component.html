@@ -8,11 +8,19 @@
       </ion-header>
       <ion-content>
         <ion-list>
-            <div *ngIf="this.auth.isLoggedIn() == false">
+            <div *ngIf="!this.user">
                 <ion-item [routerDirection]="'root'" [routerLink]="['/login']">
                     <ion-icon slot="start" [name]=""></ion-icon>
                     <ion-label>
                       Log In
+                    </ion-label>
+                  </ion-item>
+              </div>
+              <div *ngIf="this.user">
+                <ion-item [routerDirection]="'root'" [routerLink]="['/login']">
+                    <ion-icon slot="start" [name]=""></ion-icon>
+                    <ion-label>
+                      {{user?.displayName}}
                     </ion-label>
                   </ion-item>
               </div>
@@ -26,6 +34,14 @@
           </ion-menu-toggle>
         </ion-list>
       </ion-content>
+      <div *ngIf="this.user">
+          <ion-item [routerDirection]="'root'" [routerLink]="['/login']">
+              <ion-icon slot="start" [name]=""></ion-icon>
+              <ion-label (click)="this.auth.signOut()">
+                Sign Out
+              </ion-label>
+            </ion-item>
+        </div>
     </ion-menu>
     <ion-router-outlet main></ion-router-outlet>
   </ion-split-pane>

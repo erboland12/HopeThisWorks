@@ -28,7 +28,9 @@
           [(ngModel)]="password" name="password"></ion-input>
         </div>
         <div class="form-group">
-          <ion-button type="submit">Submit</ion-button>
+          <ion-button type="submit">Log In</ion-button>
+          <ion-button (click)="logInWithGoogle()">Log In With Google</ion-button>         
+          <ion-button (click)="signOut()">Sign Out</ion-button>
           <p>Don't have an account? <a href="/register">Sign Up</a></p>
         </div>
       </form>

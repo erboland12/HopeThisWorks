@@ -6,6 +6,7 @@ import { NavController, AlertController } from '@ionic/angular';
 import { DatabaseService } from '../services/database.service';
 import * as PouchDB from 'pouchdb/dist/pouchdb';
 import { Storage } from '@ionic/storage';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 
 @Component({
@@ -22,7 +23,10 @@ export class LoginPage implements OnInit {
   user: boolean = false;
   pass: boolean = false;
 
+  user2: firebase.User;
+
   constructor(private auth: AuthService,
+              private afAuth: AngularFireAuth,
               private navCtrl: NavController,
               private alertCtrl: AlertController,
               private data: DatabaseService,
@@ -36,19 +40,16 @@ export class LoginPage implements OnInit {
       password: password
     })
     this.loginForm.controls.username.invalid;
+
+    this.afAuth.authState
+    .subscribe(user2 => {
+      console.log(user2);
+      this.user2 = user2;
+    })
   }
 
   ionViewDidEnter(){
     this.refresh();
-  }
-
-  login(){
-    this.auth.loginUser(this.username, this.password);
-    this.navCtrl.navigateForward('home');
-    console.log(this.username);
-    console.log(this.password);
-    console.log(this.loginForm.controls.username.invalid);
-
   }
 
   refresh(){
@@ -100,18 +101,15 @@ export class LoginPage implements OnInit {
         }).then(alert => alert.present());
       }});
 
-    // if(this.user && this.pass){
-    //   this.navCtrl.navigateForward('home');
-    //   let alert = this.alertCtrl.create({
-    //     message: 'Login Successful',
-    //     buttons: ['OK']
-    //   }).then(alert => alert.present());
-    //   console.log('works?')
-    // } else{
-    //   console.log('Nope')
-    //   console.log(this.user);
-    //   console.log(this.pass);
-    // }
+  }
+
+  logInWithGoogle(){
+    this.auth.loginGoogle();
+    console.log("Button works")
+  }
+
+  signOut(){
+    this.auth.signOut();
   }
 
 }

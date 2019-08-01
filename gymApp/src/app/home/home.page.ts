@@ -3,6 +3,7 @@ import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
 import { NavController, AlertController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,8 @@ export class HomePage implements OnInit {
               public router: Router,
               public navCtrl: NavController,
               private alertCtrl: AlertController,
-              private auth: AuthService) {}
+              private auth: AuthService,
+              private app: AppComponent) {}
 
   ngOnInit(){
     this.data.getUsers().subscribe(data => {

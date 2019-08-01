@@ -9,6 +9,10 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from '@angular/fire/auth'
+import { AngularFirestoreModule } from '@angular/fire/firestore'
+
 import { IonicStorageModule } from '@ionic/storage'
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -16,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { DatabaseService } from './services/database.service';
+import { environment } from 'src/environments/environment';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -26,6 +31,9 @@ import { DatabaseService } from './services/database.service';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firestore),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
     AppRoutingModule
   ],
   providers: [
