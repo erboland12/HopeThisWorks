@@ -31,6 +31,7 @@ export class LoginPage implements OnInit {
               private alertCtrl: AlertController,
               private data: DatabaseService,
               private storage: Storage) { }
+          
 
   ngOnInit() {
     let username = new FormControl();
@@ -105,7 +106,10 @@ export class LoginPage implements OnInit {
 
   logInWithGoogle(){
     this.auth.loginGoogle();
-    console.log("Button works")
+  }
+
+  logInWithFacebook(){
+    this.auth.logInFacebook();
   }
 
   signOut(){
