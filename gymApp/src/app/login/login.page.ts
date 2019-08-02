@@ -49,61 +49,6 @@ export class LoginPage implements OnInit {
     })
   }
 
-  ionViewDidEnter(){
-    this.refresh();
-  }
-
-  refresh(){
-    this.data.db = new PouchDB('users');
-
-    this.users = [];
-
-    this.data.db.allDocs({
-      include_docs: true
-    },
-    (err, result) => {
-      if(!err){
-        let rows = result.rows;
-        for (let i = 0; i < rows.length; i++){
-          this.users.push(rows[i].doc);
-        }
-      }
-    })
-  }
-
-  logUserIn(username, password){
-    this.storage.get('username').then((val) => {
-      if(val == username){
-        this.storage.get('password').then((val) => {
-          if(val == password){
-            this.navCtrl.navigateForward('home');
-            this.auth.logged = true;
-            let alert = this.alertCtrl.create({
-              message: 'Login Successful',
-              buttons: ['OK']
-            }).then(alert => alert.present());
-          } else{
-            console.log("Error")
-            this.auth.logged = false;
-            let alert = this.alertCtrl.create({
-              message: 'Please Try Again',
-              subHeader: 'Invalid Credntials',
-              buttons: ['OK']
-            }).then(alert => alert.present());
-          } 
-        });
-      } else {
-        console.log("ERROR");
-        this.auth.logged = false;
-        let alert = this.alertCtrl.create({
-          message: 'Please Try Again',
-          subHeader: 'Invalid Credntials',
-          buttons: ['OK']
-        }).then(alert => alert.present());
-      }});
-
-  }
-
   logInWithGoogle(){
     this.auth.loginGoogle();
   }

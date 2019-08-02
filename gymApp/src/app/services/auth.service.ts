@@ -50,6 +50,7 @@ export class AuthService{
             message: 'Login Successful',
             buttons: ['OK']
           }).then(alert => alert.present());
+          this.logged = true;
           this.navCtrl.navigateForward('home');
         }).catch(err => {
           console.log("Error")
@@ -66,13 +67,15 @@ export class AuthService{
 
     loginGoogle(){
       console.log("Redirecting to Google Login Provider...");
-      this.afAuth.auth.signInWithRedirect(new auth.GoogleAuthProvider);
+      this.logged = true;
+      this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider);
       this.navCtrl.navigateForward('home');
     }
 
     logInFacebook(){
       console.log("Redirecting to Facebook Login Provider...");
-      this.afAuth.auth.signInWithRedirect(new auth.FacebookAuthProvider);
+      this.logged = true;
+      this.afAuth.auth.signInWithPopup(new auth.FacebookAuthProvider);
       this.navCtrl.navigateForward('home');
     }
 
@@ -81,6 +84,7 @@ export class AuthService{
     }
 
     signOut(){
+      this.logged = false;
       this.afAuth.auth.signOut();
     }
 
