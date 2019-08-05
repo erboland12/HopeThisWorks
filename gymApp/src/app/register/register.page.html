@@ -12,6 +12,9 @@
   <ion-content>
       <div class="mainBox">
         <div class="formWrapper">
+          <div>
+            {{this.auth.user.email}}
+          </div>
           <form [formGroup]="regForm" (ngSubmit)="signUp()">
             <div class="form-group">
               <ion-label><b>Email*</b></ion-label>

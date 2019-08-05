@@ -5,6 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { User } from 'firebase';
+import { IUser } from './models/user.model';
 
 @Component({
   selector: 'app-root',
@@ -26,11 +28,18 @@ export class AppComponent implements OnInit {
     {
       title: 'Contact Us',
       url: '/contact',
-      icon: ''
+      icon: 'contact'
     }
   ];
 
   user: firebase.User;
+  longTermUser: IUser = {
+    firstName: '',
+    lastName: '',
+    username: '',
+    email: '',
+    password: ''
+  };
 
   constructor(
     private platform: Platform,
@@ -52,8 +61,9 @@ export class AppComponent implements OnInit {
   ngOnInit(){
     this.afAuth.authState
       .subscribe(user => {
-        console.log(user);
         this.user = user;
       })
+
+      console.log(this.longTermUser);
   }
 }

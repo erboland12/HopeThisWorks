@@ -1,26 +1,31 @@
 import { Injectable } from '@angular/core';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database'
+import { AngularFireAuth } from 'angularfire2/auth';
 import { IUser } from '../models/user.model';
 
 @Injectable()
 export class UserService{
-    getUsers(){
-        return USER;
+    users: AngularFireList<IUser[]> = null;
+    userId: string;
+
+    constructor(private db: AngularFireDatabase, 
+                private afAuth: AngularFireAuth){
+        this.afAuth.authState.subscribe(user => {
+            if(user){
+                this.userId = user.uid
+            }
+        })
     }
 
-    getUser(displayName: string):IUser{
-        return USER.find(user => user.username === displayName);
+    getUsersList(): AngularFireList<IUser[]> {
+        if(!this.userId) {
+            return;
+        }
+        this.users = this.db.list(`users/${this.userId}`);
+        return this.users;
     }
+
 }
 
-const USER:IUser[] = [
-    {
-        firstName: "Eric",
-        lastName: "Boland",
-        username: "Rockkkkkkkky",
-        email: 'test@test.com',
-        password: 'word'
-    }
-
-]
 
 

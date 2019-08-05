@@ -5,22 +5,31 @@ import { Router } from '@angular/router';
 
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 import { Observable, of } from 'rxjs';
 import { switchMap} from 'rxjs/operators';
 import { AlertController, NavController } from '@ionic/angular';
+import { User } from './database.service';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Injectable()
 export class AuthService{
+    userRef: AngularFirestoreCollection<IUser>;
     user: Observable<IUser>;
-    logged: boolean;
+    user$: Observable<IUser[]>;
+    logged: boolean = false;
     emailNull: boolean = false;
     passwordNull: boolean = false;
-    
+
+    uname: string;
+
+   
     constructor(
         private afAuth: AngularFireAuth,
         private afs: AngularFirestore,
+        private db: AngularFireDatabase,
+        private firestore: AngularFirestore,
         private router: Router,
         private alertCtrl: AlertController,
         private navCtrl: NavController
@@ -36,6 +45,9 @@ export class AuthService{
               }
             })
           )
+
+          this.userRef = this.afs.collection('users');
+          this.user$ = this.userRef.valueChanges();
         }
 
     isLoggedIn(){
@@ -60,23 +72,34 @@ export class AuthService{
             buttons: ['OK']
           }).then(alert => alert.present());
         })
-
-        console.log(email);
-        console.log(password);
+        
     }
 
     loginGoogle(){
+      var provider = new auth.GoogleAuthProvider;
       console.log("Redirecting to Google Login Provider...");
-      this.logged = true;
-      this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider);
+      this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider)
+      .then(cred => {
+        return this.afs.collection('users').doc(cred.user.uid).set({
+          email: cred.user.email,
+          username: cred.user.displayName
+        });
+      });
       this.navCtrl.navigateForward('home');
+      this.logged = true;
     }
 
     logInFacebook(){
       console.log("Redirecting to Facebook Login Provider...");
-      this.logged = true;
-      this.afAuth.auth.signInWithPopup(new auth.FacebookAuthProvider);
+      this.afAuth.auth.signInWithPopup(new auth.FacebookAuthProvider)
+      .then(cred => {
+        return this.afs.collection('users').doc(cred.user.uid).set({
+          email: cred.user.email,
+          username: cred.user.displayName
+        });
+      });
       this.navCtrl.navigateForward('home');
+      this.logged = true;
     }
 
     getLoggedInUser(){
@@ -88,9 +111,35 @@ export class AuthService{
       this.afAuth.auth.signOut();
     }
 
-    registerUser(email, password){
-      this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+    registerUser(email, password, firstName, lastName, username){
+      this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+        .then(cred => {
+          return this.afs.collection('users').doc(cred.user.uid).set({
+            email: email,
+            password: password,
+            firstName: firstName,
+            lastName: lastName,
+            username: username
+          });
+        });
     }
+
+    loggedCheck(){
+      this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+        if(firebaseUser){
+          this.afs.collection('users').doc(firebaseUser.uid).get()
+            .toPromise().then(doc =>{
+              console.log(doc.data().username);
+              this.uname = doc.data().username;
+            })
+
+        } else {
+          console.log("Not logged in")
+        }
+      });
+    }
+
+
     
     
 }

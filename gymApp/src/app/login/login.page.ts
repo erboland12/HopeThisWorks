@@ -1,12 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { unwrapResolvedMetadata } from '@angular/compiler';
 import { NavController, AlertController } from '@ionic/angular';
-import { DatabaseService } from '../services/database.service';
-import * as PouchDB from 'pouchdb/dist/pouchdb';
+import { DatabaseService, User } from '../services/database.service';
+import { IUser } from '../models/user.model';
 import { Storage } from '@ionic/storage';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Observable } from 'rxjs';
+import { UserService } from '../services/user.service';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import * as _ from 'lodash';
+import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
 
 
 @Component({
@@ -18,19 +22,24 @@ export class LoginPage implements OnInit {
   username: string;
   password: string;
   loginForm: FormGroup;
-  users;
 
   user: boolean = false;
   pass: boolean = false;
 
   user2: firebase.User;
+  account: User;
+  userCollection: AngularFirestoreCollection<User>;
+  users: Observable<User[]>;
 
   constructor(private auth: AuthService,
               private afAuth: AngularFireAuth,
+              private afs: AngularFirestore,
+              private db: AngularFireDatabase,
+              private userService: UserService,
               private navCtrl: NavController,
-              private alertCtrl: AlertController,
-              private data: DatabaseService,
-              private storage: Storage) { }
+              private alertCtrl: AlertController){
+
+   }
           
 
   ngOnInit() {
@@ -47,6 +56,14 @@ export class LoginPage implements OnInit {
       console.log(user2);
       this.user2 = user2;
     })
+
+    this.auth.loggedCheck();
+
+    // this.userCollection = this.afs.collection('users', ref => {
+    //   return ref.where('email', '==', '')
+    // });
+    // this.users = this.userCollection.valueChanges();
+
   }
 
   logInWithGoogle(){

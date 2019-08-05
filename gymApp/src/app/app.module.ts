@@ -21,6 +21,8 @@ import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { DatabaseService } from './services/database.service';
 import { environment } from 'src/environments/environment';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -34,6 +36,7 @@ import { environment } from 'src/environments/environment';
     AngularFireModule.initializeApp(environment.firestore),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    AngularFireDatabaseModule,
     AppRoutingModule
   ],
   providers: [

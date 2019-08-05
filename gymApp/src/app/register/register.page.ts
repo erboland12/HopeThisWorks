@@ -7,6 +7,9 @@ import { DatabaseService, User } from '../services/database.service';
 import { Storage } from '@ionic/storage';
 import { AuthService } from '../services/auth.service';
 import { MustMatch } from '../models/mustMatch';
+import { IUser } from '../models/user.model';
+import { AppComponent } from '../app.component';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -18,6 +21,7 @@ export class RegisterPage implements OnInit {
   submitted = false;
 
   regForm: FormGroup;
+  regUser: IUser;
 
   private username;
   private firstName;
@@ -25,16 +29,16 @@ export class RegisterPage implements OnInit {
   private email; 
   private password;
 
-  private newUser: User = {
+  private newUser: IUser = {
     firstName: '',
     lastName: '',
+    username: '',
     email: '',
     password: ''
   }
 
   constructor(public navCtrl: NavController,
-              private data: DatabaseService,
-              private storage: Storage,
+              private userService: UserService,
               private fb: FormBuilder,
               private auth: AuthService,
               private alertCtrl: AlertController) { }
@@ -51,22 +55,31 @@ export class RegisterPage implements OnInit {
     }, {
       validators: MustMatch('password', 'confirmPassword')
     });
+
+    console.log(this.newUser);
+    console.log(this.auth.user);
   }
 
-  mustMatch(password, confirmPassword){
-
-  }
 
   get f() { return this.regForm.controls; }
 
   signUp(){
     this.submitted = true;
     if (this.regForm.valid){
-      this.auth.registerUser(this.email, this.password);
+      this.auth.registerUser(this.email, this.password, this.firstName,
+                             this.lastName, this.username);
       let alert = this.alertCtrl.create({
         message: 'Login Successful',
         buttons: ['OK']
       }).then(alert => alert.present());
+      this.newUser.email = this.regForm.get('email').value;
+      this.newUser.firstName = this.regForm.get('firstName').value;
+      this.newUser.lastName = this.regForm.get('lastName').value;
+      this.newUser.password = this.regForm.get('password').value;
+      this.newUser.username = this.regForm.get('username').value;
+      //this.auth.updateUserData(this.newUser);
+      //this.auth.currentUser = this.newUser;
+      console.log(this.newUser);
       this.navCtrl.navigateForward('login');
     } else{
       let alert = this.alertCtrl.create({
@@ -74,7 +87,7 @@ export class RegisterPage implements OnInit {
         message: 'Go Back and Complete all Required Fields',
         buttons: ['OK']
       }).then(alert => alert.present());
-      return;
+      return;    
     }
     console.warn(this.regForm.value);
   }
