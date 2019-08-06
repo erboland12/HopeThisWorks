@@ -21,7 +21,8 @@ const routes: Routes = [
   { path: 'results', loadChildren: './results/results.module#ResultsPageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
-  { path: 'user', loadChildren: './models/user-profile/user-profile.module#UserProfilePageModule'}
+  { path: 'user', loadChildren: './models/user-profile/user-profile.module#UserProfilePageModule'},  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' }
+
   
 ];
 

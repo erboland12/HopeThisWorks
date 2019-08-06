@@ -8,7 +8,7 @@
       </ion-header>
       <ion-content>
         <ion-list>
-            <ion-menu-toggle auto-hide="false" *ngIf="!this.user && auth.logged == false">
+            <ion-menu-toggle auto-hide="false" *ngIf="!this.user || auth.logged == false">
               <ion-item [routerDirection]="'root'" [routerLink]="['/login']">
                 <ion-icon slot="start" [name]="'md-key'"></ion-icon>
                 <ion-label>
@@ -16,8 +16,8 @@
                 </ion-label>
               </ion-item>
             </ion-menu-toggle>
-            <div *ngIf="this.user">
-              <ion-item [routerDirection]="'root'" [routerLink]="['/home']">
+            <div *ngIf="this.user && auth.logged">
+              <ion-item [routerDirection]="'root'" [routerLink]="['/profile']">
                 <ion-icon slot="start" [name]="'contact'"></ion-icon>
                 <ion-label>
                   {{this.auth.uname}}

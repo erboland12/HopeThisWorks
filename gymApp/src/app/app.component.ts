@@ -33,13 +33,6 @@ export class AppComponent implements OnInit {
   ];
 
   user: firebase.User;
-  longTermUser: IUser = {
-    firstName: '',
-    lastName: '',
-    username: '',
-    email: '',
-    password: ''
-  };
 
   constructor(
     private platform: Platform,
@@ -63,7 +56,5 @@ export class AppComponent implements OnInit {
       .subscribe(user => {
         this.user = user;
       })
-
-      console.log(this.longTermUser);
   }
 }

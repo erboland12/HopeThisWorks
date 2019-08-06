@@ -23,6 +23,11 @@ export class AuthService{
     passwordNull: boolean = false;
 
     uname: string;
+    fname: string;
+    lname: string;
+    age: string;
+    location: string;
+    bio: string;
 
    
     constructor(
@@ -122,6 +127,30 @@ export class AuthService{
             username: username
           });
         });
+    }
+
+    updateUser(username, firstName, lastName, age, location, bio){
+      this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+        if(firebaseUser){
+          this.afs.collection('users').doc(firebaseUser.uid).set({
+            username: username,
+            firstName: firstName,
+            lastName: lastName,
+            age: age,
+            location: location,
+            bio: bio
+          })
+          this.afs.collection('users').doc(firebaseUser.uid).get()
+            .toPromise().then(doc =>{
+              this.uname = doc.data().username;
+              this.fname = doc.data().firstName;
+              this.lname = doc.data().lastName;
+              this.age = doc.data().age;
+              this.location = doc.data().location;
+              this.bio = doc.data().bio;
+            })
+        }
+      })
     }
 
     loggedCheck(){

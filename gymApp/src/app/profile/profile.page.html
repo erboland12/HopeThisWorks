@@ -1,0 +1,90 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title class="title">
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+  <div class="mainBox">
+    <div class="formWrapper">
+      <div class="pictureBox">
+        <img src="../../assets/icon/randomDude.jpg">
+        <h2><b>{{this.auth.uname}}</b></h2>
+      </div>
+
+      <div class="infoBox" *ngIf="updated">
+        <h3><b>Age: {{this.auth.age}}</b></h3>
+        <h3><b>Location: </b></h3>
+        <h3><b>Bio: </b></h3>
+        <div class="submitBtns">
+          <ion-button (click)="edit()">Update Your Information</ion-button>
+        </div>
+      </div>
+
+      <div class="infoBox" *ngIf="!updated">
+        <form [formGroup]="updateForm" (ngSubmit)="submitInfo()">
+            <div class="form-group">
+              <ion-label><b>First Name*</b></ion-label>
+              <ion-input formControlName="firstName" placeholder="" 
+              [(ngModel)]="firstName" required></ion-input>
+              <div *ngIf="updated && f.firstName.errors" class="invalid-feedback">
+                <div class="error" *ngIf="f.firstName.errors.required"><b>First Name is Required</b></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <ion-label><b>Last Name*</b></ion-label>
+              <ion-input formControlName="lastName" placeholder="" 
+              [(ngModel)]="lastName" required></ion-input>
+              <div *ngIf="updated && f.lastName.errors" class="invalid-feedback">
+                <div class="error" *ngIf="f.lastName.errors.required"><b>Last Name is Required</b></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <ion-label><b>Display Name*</b></ion-label>
+              <ion-input formControlName="username" placeholder="" 
+              [(ngModel)]="username" required></ion-input>
+              <div *ngIf="updated && f.username.errors" class="invalid-feedback">
+                <div class="error" *ngIf="f.username.errors.required"><b>Display Name is Required</b></div>
+              </div>
+            </div>
+            <div class="form-group">
+                <ion-label><b>Age*</b></ion-label>
+                <ion-input formControlName="age" placeholder="" 
+                [(ngModel)]="age" required></ion-input>
+                <div *ngIf="updated && f.age.errors" class="invalid-feedback">
+                  <div class="error" *ngIf="f.age.errors.required"><b>Age is Required</b></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <ion-label><b>Location*</b></ion-label>
+                <ion-input formControlName="location" placeholder="" 
+                [(ngModel)]="location" required></ion-input>
+                <div *ngIf="updated && f.location.errors" class="invalid-feedback">
+                  <div class="error" *ngIf="f.location.errors.required"><b>Location is Required</b></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <ion-label><b>Bio</b></ion-label>
+                <ion-input formControlName="bio" placeholder="" 
+                [(ngModel)]="bio" required></ion-input>
+                <div *ngIf="updated && f.bio.errors" class="invalid-feedback">
+                  <div class="error" *ngIf="f.bio.errors.required"><b>Bio is Required</b></div>
+                </div>
+              </div>
+
+          
+
+          <div class="submitBtns">
+            <ion-button type="submit">Save Changes</ion-button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+</ion-content>

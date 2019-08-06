@@ -1,0 +1,104 @@
+.title{
+    text-align: left;
+    font-size: 1.5em;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  
+  }
+  h2{
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  
+  }
+  .titleBox{
+    margin: 1em;
+    padding: 2em;
+    border: 2px solid rgb(52, 91, 146);
+    border-radius: 10px;
+    background-color: rgba(16, 18, 20, 0.2);
+    color: whitesmoke;
+  }
+  .mainBox{
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    border: 2px solid rgb(52, 91, 146);;
+    background-color: rgba(57, 96, 146, 0.5);
+    background-size: cover;
+    overflow: scroll;
+  }
+  
+  .formWrapper{
+    height: auto;
+    padding: 1em;
+    margin: 1em;
+    border: 2px solid rgb(52, 91, 146);
+    border-radius: 5px;
+    background-color: rgb(210, 216, 221);
+  }
+
+  .form-group{
+    margin: 1em;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+
+  .submitBtns{
+    text-align: center;
+  }
+
+  .submitBtns2{
+    text-align: center;
+    padding: 0.25em;
+    border-radius: 10px;
+  }
+
+  .subBtn{
+    width: 100%;
+  }
+
+  .google {
+    width: 90%;
+    color: black;
+    background-color: whitesmoke;
+    border: 0.5px solid grey;
+    border-radius: 10px;
+  }
+  .facebook {
+    width: 90%;
+    color: white;
+    background-color: rgba(56, 84, 153, 1.0);
+    border: 0.5px solid grey;
+    border-radius: 10px;
+  }
+
+  ion-label{
+    font-size: 125%;
+  }
+
+  ion-input{
+    border: 0.5px solid black;
+  }
+
+  img{
+    height: 280px;
+    width: 280px;
+    border-radius: 50%;
+    border: 1.5px solid black;
+    margin: 0.5em;
+    position: inherit;
+  }
+
+  .pictureBox{
+    text-align: center;
+    background-color: rgb(239, 240, 241);
+    border-radius: 5px;
+    padding: 0.5em;
+    margin: 1em;
+  }
+
+  .infoBox{
+    text-align: left;
+    background-color: rgb(239, 240, 241);
+    border-radius: 5px;
+    padding: 0.5em;
+    margin: 1em;
+  }

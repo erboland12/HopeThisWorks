@@ -11,11 +11,6 @@
 
 <ion-content>
   <div class="mainBox">
-    <div>
-      <div *ngFor="let user of users | async">
-        {{user.email}}
-      </div>
-   </div>
     <div class="formWrapper">
       <div class="submitBtns2">
         <ion-button class='google' color="black" (click)="logInWithGoogle()"><img src="../../assets/icon/googleIcon.png"><b>Log In With Google</b></ion-button> 
