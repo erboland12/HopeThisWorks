@@ -83,26 +83,14 @@ export class AuthService{
     loginGoogle(){
       var provider = new auth.GoogleAuthProvider;
       console.log("Redirecting to Google Login Provider...");
-      this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider)
-      .then(cred => {
-        return this.afs.collection('users').doc(cred.user.uid).set({
-          email: cred.user.email,
-          username: cred.user.displayName
-        });
-      });
+      this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider);
       this.navCtrl.navigateForward('home');
       this.logged = true;
     }
 
     logInFacebook(){
       console.log("Redirecting to Facebook Login Provider...");
-      this.afAuth.auth.signInWithPopup(new auth.FacebookAuthProvider)
-      .then(cred => {
-        return this.afs.collection('users').doc(cred.user.uid).set({
-          email: cred.user.email,
-          username: cred.user.displayName
-        });
-      });
+      this.afAuth.auth.signInWithPopup(new auth.FacebookAuthProvider);
       this.navCtrl.navigateForward('home');
       this.logged = true;
     }
@@ -132,7 +120,7 @@ export class AuthService{
     updateUser(username, firstName, lastName, age, location, bio){
       this.afAuth.auth.onAuthStateChanged(firebaseUser => {
         if(firebaseUser){
-          this.afs.collection('users').doc(firebaseUser.uid).set({
+          this.afs.collection('users').doc(firebaseUser.uid).update({
             username: username,
             firstName: firstName,
             lastName: lastName,
@@ -160,6 +148,11 @@ export class AuthService{
             .toPromise().then(doc =>{
               console.log(doc.data().username);
               this.uname = doc.data().username;
+              this.fname = doc.data().firstName;
+              this.lname = doc.data().lastName;
+              this.age = doc.data().age;
+              this.location = doc.data().location;
+              this.bio = doc.data().bio;
             })
 
         } else {

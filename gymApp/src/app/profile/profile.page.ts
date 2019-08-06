@@ -31,11 +31,11 @@ export class ProfilePage implements OnInit {
 
     this.updateForm = this.fb.group({
       firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      lastName: [''],
       username: ['', Validators.required],
-      age: ['', Validators.required],
-      location: ['', Validators.required],
-      bio: ['', Validators.required]
+      age: [''],
+      location: [''],
+      bio: ['']
     });
   }
 
@@ -55,7 +55,7 @@ export class ProfilePage implements OnInit {
                            this.age, this.location, this.bio);
       let alert = this.alertCtrl.create({
         subHeader: 'Info Updated Successfully',
-        message: 'Your Updated Information Will Display After Next Login',
+        message: 'Your Updated Information Will Display on Your Profile Page',
         buttons: ['OK']
       }).then(alert => alert.present());
       this.navCtrl.navigateBack('profile');

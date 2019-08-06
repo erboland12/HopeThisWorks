@@ -28,6 +28,7 @@ export class RegisterPage implements OnInit {
   private lastName;
   private email; 
   private password;
+  
 
   private newUser: IUser = {
     firstName: '',
@@ -72,14 +73,6 @@ export class RegisterPage implements OnInit {
         message: 'Login Successful',
         buttons: ['OK']
       }).then(alert => alert.present());
-      this.newUser.email = this.regForm.get('email').value;
-      this.newUser.firstName = this.regForm.get('firstName').value;
-      this.newUser.lastName = this.regForm.get('lastName').value;
-      this.newUser.password = this.regForm.get('password').value;
-      this.newUser.username = this.regForm.get('username').value;
-      //this.auth.updateUserData(this.newUser);
-      //this.auth.currentUser = this.newUser;
-      console.log(this.newUser);
       this.navCtrl.navigateForward('login');
     } else{
       let alert = this.alertCtrl.create({
