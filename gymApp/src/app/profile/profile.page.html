@@ -10,12 +10,15 @@
 
 <ion-content>
   <div class="mainBox" [ngClass]="{'bgRed': this.auth.color === 'red',
-                                   'bgBlue': this.auth.color ==='blue'}">
+                                   'bgBlue': this.auth.color ==='blue',
+                                   'bgGreen': this.auth.color === 'green',
+                                   'bgOrange': this.auth.color === 'orange'}">
     <div class="formWrapper">
       <div class="pictureBox">
-        <img [src]="imgSrc">
+        <img *ngIf="this.auth.photoURL == null" src="../../assets/icon/profilePH.png">
+        <img *ngIf="this.auth.photoURL != null" [src]="imgSrc">
         <div class="imageBox">
-          <h2><b>{{this.auth.uname}}</b></h2>
+          <h1 style="font-size: 150%;"><b>{{this.auth.uname}}</b></h1>
           <hr />
         </div>
         <h4 *ngIf="this.auth.bio == null"><i>Nothing is known about this mysterious individual....</i></h4>

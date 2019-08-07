@@ -169,10 +169,16 @@ export class AuthService{
     updateProfileURL(photoURL){
       this.afAuth.auth.onAuthStateChanged(firebaseUser => {
         if(firebaseUser){
-          this.afs.collection('users').doc(firebaseUser.uid).update({
-            photoURL: photoURL
-          })
-      }
+          if(photoURL == null){
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              photoURL: '../../assets/icon/profilePH.png'
+            })
+          } else{
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              photoURL: photoURL
+            })
+          }
+                }
       this.afs.collection('users').doc(firebaseUser.uid).get()
         .toPromise().then(doc => {
           this.photoURL = doc.data().photoURL;

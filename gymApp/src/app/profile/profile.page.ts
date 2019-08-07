@@ -89,11 +89,13 @@ export class ProfilePage implements OnInit {
       this.storage.upload(filePath, this.selectedImg).snapshotChanges().pipe(
         finalize(() =>{
           fileRef.getDownloadURL().subscribe((url) =>{
-            this.photoURL = url;
-            this.auth.updateProfileURL(this.photoURL);
-            console.log(this.photoURL);
-            console.log(url);
-            this.upSvc.insertImageDetails(url);
+            if(url){
+              this.photoURL = url;
+              this.auth.updateProfileURL(this.photoURL);
+              console.log(this.photoURL);
+              console.log(url);
+              this.upSvc.insertImageDetails(url);
+            }
           })
         })
       ).subscribe();

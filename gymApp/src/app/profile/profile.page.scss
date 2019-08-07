@@ -33,7 +33,7 @@
     margin: 1em;
     border: 2px solid rgb(52, 91, 146);
     border-radius: 5px;
-    background-color: rgb(210, 216, 221);
+    background-color: whitesmoke;
   }
 
   .form-group{
@@ -101,7 +101,11 @@
   .infoBox{
     text-align: left;
     border-radius: 5px;
+    background-color: rgb(210, 216, 221);
+    border: 0.5px solid rgb(52, 91, 146);
+    box-shadow: 10px 10px 5px grey;
     margin: 1em;
+    padding: 0.3em;
   }
 
   ion-icon{
@@ -111,11 +115,23 @@
   }
 
   .bgRed{
-    background-color: rgb(228, 49, 49);
+    background-color: rgb(240, 96, 96);
   }
 
   .bgBlue{
-    background-color: rgb(44, 44, 190);
+    background-color: rgb(73, 73, 224);
+  }
+
+  .bgGreen{
+    background-color: rgb(31, 156, 31);
+  }
+
+  .bgOrange{
+    background-color: rgb(194, 129, 8)
+  }
+  
+  .bgDefault{
+    background-color: rgb(239,240,241)
   }
 
   progress{
