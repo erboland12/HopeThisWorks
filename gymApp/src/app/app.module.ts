@@ -22,6 +22,8 @@ import { AuthService } from './services/auth.service';
 import { DatabaseService } from './services/database.service';
 import { environment } from 'src/environments/environment';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { UploadService } from './services/upload.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,6 +39,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireDatabaseModule,
+    AngularFireStorageModule,
     AppRoutingModule
   ],
   providers: [
@@ -44,6 +47,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
     SplashScreen,
     UserService,
     AuthService,
+    UploadService,
     DatabaseService,
     HttpClientModule,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

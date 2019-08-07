@@ -28,6 +28,8 @@ export class AuthService{
     age: string;
     location: string;
     bio: string;
+    color: string;
+    photoURL: string;
 
    
     constructor(
@@ -117,17 +119,39 @@ export class AuthService{
         });
     }
 
-    updateUser(username, firstName, lastName, age, location, bio){
+    updateUser(username, firstName, lastName, age, 
+               location, bio, color){
       this.afAuth.auth.onAuthStateChanged(firebaseUser => {
         if(firebaseUser){
           this.afs.collection('users').doc(firebaseUser.uid).update({
             username: username,
-            firstName: firstName,
-            lastName: lastName,
-            age: age,
-            location: location,
-            bio: bio
+            firstName: firstName
           })
+          if(age != null){
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              age: age
+            });
+          }
+          if(location != null){
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              location: location
+            });
+          }
+          if(bio != null){
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              bio: bio
+            });
+          }
+          if(lastName != null){
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              lastName: lastName
+            });
+          }
+          if(color != null){
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              color: color
+            });
+          }
           this.afs.collection('users').doc(firebaseUser.uid).get()
             .toPromise().then(doc =>{
               this.uname = doc.data().username;
@@ -136,14 +160,30 @@ export class AuthService{
               this.age = doc.data().age;
               this.location = doc.data().location;
               this.bio = doc.data().bio;
+              this.color = doc.data().color;
             })
         }
       })
     }
 
+    updateProfileURL(photoURL){
+      this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+        if(firebaseUser){
+          this.afs.collection('users').doc(firebaseUser.uid).update({
+            photoURL: photoURL
+          })
+      }
+      this.afs.collection('users').doc(firebaseUser.uid).get()
+        .toPromise().then(doc => {
+          this.photoURL = doc.data().photoURL;
+        })
+      }) 
+    }
+
     loggedCheck(){
       this.afAuth.auth.onAuthStateChanged(firebaseUser => {
         if(firebaseUser){
+          this.logged = true;
           this.afs.collection('users').doc(firebaseUser.uid).get()
             .toPromise().then(doc =>{
               console.log(doc.data().username);
@@ -153,9 +193,12 @@ export class AuthService{
               this.age = doc.data().age;
               this.location = doc.data().location;
               this.bio = doc.data().bio;
+              this.color = doc.data().color;
+              this.photoURL = doc.data().photoURL;
             })
 
         } else {
+          this.logged = false;
           console.log("Not logged in")
         }
       });

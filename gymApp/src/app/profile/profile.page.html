@@ -9,16 +9,23 @@
   </ion-header>
 
 <ion-content>
-  <div class="mainBox">
+  <div class="mainBox" [ngClass]="{'bgRed': this.auth.color === 'red',
+                                   'bgBlue': this.auth.color ==='blue'}">
     <div class="formWrapper">
       <div class="pictureBox">
-        <img src="../../assets/icon/randomDude.jpg">
-        <h2><b>{{this.auth.uname}}</b></h2>
+        <img [src]="imgSrc">
+        <div class="imageBox">
+          <h2><b>{{this.auth.uname}}</b></h2>
+          <hr />
+        </div>
+        <h4 *ngIf="this.auth.bio == null"><i>Nothing is known about this mysterious individual....</i></h4>
+        <h4 *ngIf="this.auth.bio != null"><i>{{this.auth.bio}}</i></h4>
       </div>
 
       <div class="infoBox" *ngIf="updated">
+        
         <h3 *ngIf="this.auth.fname == null"><b>Real Name: </b>Unknown Entity</h3>
-        <h3 *ngIf="this.auth.fname != null"><b>Real Name: </b>{{this.auth.fname}}</h3>
+        <h3 *ngIf="this.auth.fname != null"><b>Real Name: </b>{{this.auth.fname}} {{this.auth.lname}}</h3>
 
         <h3 *ngIf="this.auth.age == null"><b>Age: </b>Unknown</h3>
         <h3 *ngIf="this.auth.age != null"><b>Age: </b>{{this.auth.age}}</h3>
@@ -26,10 +33,8 @@
         <h3 *ngIf="this.auth.location == null"><b>Location: </b>Unknown Location</h3>
         <h3 *ngIf="this.auth.location != null"><b>Location: </b>{{this.auth.location}}</h3>
 
-        <h3 *ngIf="this.auth.bio == null"><b>Bio: </b>Nothing is known about this mysterious individual....</h3>
-        <h3 *ngIf="this.auth.bio != null"><b>Bio: </b>{{this.auth.bio}}</h3>
         <div class="submitBtns">
-          <ion-button (click)="edit()">Update Your Information</ion-button>
+          <ion-button (click)="edit()"><b>Update Your Information</b></ion-button>
         </div>
       </div>
 
@@ -46,7 +51,7 @@
             <div class="form-group">
               <ion-label><b>Last Name</b></ion-label>
               <ion-input formControlName="lastName" placeholder="" 
-              [(ngModel)]="lastName" required></ion-input>
+              [(ngModel)]="lastName"></ion-input>
               <div *ngIf="updated && f.lastName.errors" class="invalid-feedback">
                 <div class="error" *ngIf="f.lastName.errors.required"><b>Last Name is Required</b></div>
               </div>
@@ -62,7 +67,7 @@
             <div class="form-group">
                 <ion-label><b>Age</b></ion-label>
                 <ion-input formControlName="age" placeholder="" 
-                [(ngModel)]="age" required></ion-input>
+                [(ngModel)]="age"></ion-input>
                 <div *ngIf="updated && f.age.errors" class="invalid-feedback">
                   <div class="error" *ngIf="f.age.errors.required"><b>Age is Required</b></div>
                 </div>
@@ -320,20 +325,32 @@
                 <div *ngIf="updated && f.location.errors" class="invalid-feedback">
                   <div class="error" *ngIf="f.location.errors.required"><b>Location is Required</b></div>
                 </div>
+                <ion-label><b>Background Color</b></ion-label>
+                <ion-select id="color" name="color" formControlName="color" [(ngModel)]="color">
+                  <ion-select-option value="white">Default</ion-select-option>
+                  <ion-select-option value="red">red</ion-select-option>
+                  <ion-select-option value="orange">orange</ion-select-option>
+                  <ion-select-option value="green">green</ion-select-option>
+                  <ion-select-option value="blue">blue</ion-select-option>
+                </ion-select>
               </div>
               <div class="form-group">
                 <ion-label><b>Bio</b></ion-label>
                 <ion-input formControlName="bio" placeholder="" 
-                [(ngModel)]="bio" required></ion-input>
+                [(ngModel)]="bio"></ion-input>
                 <div *ngIf="updated && f.bio.errors" class="invalid-feedback">
                   <div class="error" *ngIf="f.bio.errors.required"><b>Bio is Required</b></div>
                 </div>
               </div>
-
-          
-
+              <div class="form-group">
+                <ion-label><b>Upload Profile Picture</b></ion-label>
+                <ion-input accept="image/*" type="file" (change)="showPicture($event)"></ion-input>
+                <div *ngIf="percentage | async as pct">
+                  <progress [value]="pct" max="100"></progress>
+                </div>
+              </div>
           <div class="submitBtns">
-            <ion-button type="submit">Save Changes</ion-button>
+            <ion-button type="submit"><b>Save Changes</b></ion-button>
           </div>
         </form>
       </div>
