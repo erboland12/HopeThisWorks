@@ -362,8 +362,15 @@
         <h2>Statistics</h2>
         <hr />
         <div>
-          <ion-list *ngFor="let stat of this.stats.personalStats">
-            <ion-item>{{stat.name}} - {{stat.mode}} : {{stat.highScore}}</ion-item>
+          <ion-list>
+            <ion-item *ngIf="this.auth.highScoreSubEasy != 0" lines="none" color="odd" class="odd">
+              Subtraction Easy -- High Score: <span text-align: right><b>{{this.auth.highScoreSubEasy}}</b></span></ion-item>
+            <ion-item *ngIf="this.auth.highScoreSubIntermediate != 0" lines="none" color="even" class="even">
+              Subtraction Inter. -- High Score: <span><b>{{this.auth.highScoreSubIntermediate}}</b></span></ion-item>
+            <ion-item *ngIf="this.auth.highScoreSubHard != 0" lines="none" color="odd" class="odd">
+              Subtraction Hard -- High Score: <span><b>{{this.auth.highScoreSubHard}}</b></span></ion-item>
+            <ion-item *ngIf="this.auth.highScoreSubWizard != 0" lines="none" color="even" class="even">
+              Subtraction Wizard -- High Score: <span><b>{{this.auth.highScoreSubWizard}}</b></span></ion-item>
           </ion-list>
         </div>
       </div>
