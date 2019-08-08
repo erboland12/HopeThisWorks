@@ -99,6 +99,18 @@
       font-size: 120%;
   }
 
+  .scorePass{
+    color: var(--ion-color-success);
+  }
+
+  .time15{
+    color: var(--ion-color-warning);
+  }
+
+  .time5{
+    color: var(--ion-color-danger-tint);
+  }
+
 .questions{
     text-align: center;
     width:auto;

@@ -9,7 +9,7 @@
 <ion-content style="overflow-y: hidden;">
   <div class="mainBox">
     <div class="answerRight" *ngIf="this.diff.success">
-      <b>Good Shit Mel</b>
+      <b>{{goodMessage}}</b>
       <hr />
     </div>
 
@@ -46,9 +46,19 @@
         <ion-item *ngIf="this.diff.correctQuestions[i] === 'Wrong'" color="odd" [ngClass]="{ odd: odd, even: even }"><b>{{i+1}}. {{q}} : <span class='wrong' style="float: right;">{{ this.diff.correctQuestions[i] }}</span></b></ion-item>
       </ion-list>
     </div>
-    <div class='buttonBox'>
-      <ion-button class='submit' (click)="reset()">OK</ion-button>
-    </div>
+    <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+             <ion-button *ngIf="this.diff.correctAnswers >= 10" class="btnPass" 
+              color="success" (click)="updateHighScore(this.diff.correctAnswers)">OK</ion-button>
+              <ion-button *ngIf="this.diff.correctAnswers < 10" class="btnFail" 
+              color="danger" (click)="updateHighScore(this.diff.correctAnswers)">OK</ion-button>
+          </ion-col>
+          <ion-col col-6>
+             <ion-button class='submit' (click)="playAgain(this.diff.correctAnswers)">Play Again</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
   </div>
   
 </ion-content>

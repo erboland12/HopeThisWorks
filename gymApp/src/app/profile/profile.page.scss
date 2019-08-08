@@ -52,7 +52,7 @@
   }
 
   .subBtn{
-    width: 100%;
+    width: 90%;
   }
 
   .google {
@@ -134,12 +134,11 @@
     background-color: rgb(239,240,241)
   }
 
-  progress{
-    width:90%;
-    margin: 0.5em;
-  }
-
-  progress::-webkit-progress-value {
-    transition: width 0.1s ease;
- 
+  hr {
+    border: 0;
+    clear:both;
+    display:block;
+    width: 96%;               
+    background-color: black;
+    height: 1px;
   }

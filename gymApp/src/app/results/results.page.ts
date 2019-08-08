@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { SubtractPage } from '../subtract/subtract.page';
 import { DifficultyService } from '../services/difficulty.service';
 import { NavController } from '@ionic/angular';
+import { StatsService } from '../stats/stats.service';
+import { AuthService } from '../services/auth.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-results',
@@ -9,7 +12,7 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./results.page.scss'],
 })
 export class ResultsPage implements OnInit {
-  
+
   messages: string[] =
   [
     'YOU SUCK',
@@ -20,15 +23,32 @@ export class ResultsPage implements OnInit {
     'PATHETIC',
     'IMBECIL'
   ]
+
+  goodMessages: string[] = 
+  [
+    'Well Done!',
+    'Exquisite!',
+    'Are You A Genius?',
+    'Mathematics Master',
+    'Arithmetic Acrobat',
+    'Excellent Work!',
+  ]
   
   message:string = '';
+  goodMessage: string = '';
 
   constructor(private diff: DifficultyService,
-              private navCtrl: NavController) {
+              private navCtrl: NavController,
+              private auth: AuthService,
+              private sub: SubtractPage) {
  
   }
   ngOnInit() {
     this.selectRandomMessage();
+    this.selectRandomGoodMessage();
+    console.log(this.diff.mode);
+    console.log(this.diff.gameType);
+    
   }
 
   reset(){
@@ -39,6 +59,28 @@ export class ResultsPage implements OnInit {
   selectRandomMessage(){
     var index = Math.floor(Math.random() * Math.floor(7))
     this.message = this.messages[index];
+  }
+
+  selectRandomGoodMessage(){
+    var index = Math.floor(Math.random() * Math.floor(6));
+    this.goodMessage = this.goodMessages[index];
+  }
+
+  updateHighScore(highScore: number){
+    if(highScore >= this.auth.highScoreSubEasy){
+        this.auth.updateHighScore(this.diff.mode, this.diff.gameType, highScore);
+       }
+    console.log(highScore);
+    console.log(this.diff.mode);
+    console.log(this.diff.gameType);
+    this.reset();
+  }
+
+  playAgain(highScore: number){
+    this.updateHighScore(highScore);
+    this.reset();
+    //this.navCtrl.navigateForward('subtract');
+    this.navCtrl.back();
   }
 
 

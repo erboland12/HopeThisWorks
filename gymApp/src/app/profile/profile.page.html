@@ -23,6 +23,7 @@
         </div>
         <h4 *ngIf="this.auth.bio == null"><i>Nothing is known about this mysterious individual....</i></h4>
         <h4 *ngIf="this.auth.bio != null"><i>{{this.auth.bio}}</i></h4>
+        <hr />
       </div>
 
       <div class="infoBox" *ngIf="updated">
@@ -357,7 +358,15 @@
           </div>
         </form>
       </div>
-
+      <div class="statsBox">
+        <h2>Statistics</h2>
+        <hr />
+        <div>
+          <ion-list *ngFor="let stat of this.stats.personalStats">
+            <ion-item>{{stat.name}} - {{stat.mode}} : {{stat.highScore}}</ion-item>
+          </ion-list>
+        </div>
+      </div>
     </div>
   </div>
 

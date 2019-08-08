@@ -24,6 +24,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { UploadService } from './services/upload.service';
+import { StatsService } from './stats/stats.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -49,6 +50,7 @@ import { UploadService } from './services/upload.service';
     AuthService,
     UploadService,
     DatabaseService,
+    StatsService,
     HttpClientModule,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

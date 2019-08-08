@@ -9,6 +9,7 @@ import * as _ from "lodash";
 import { Observable } from 'rxjs';
 import { inspectNativeElement } from '@angular/platform-browser/src/dom/debug/ng_probe';
 import { finalize } from 'rxjs/operators';
+import { StatsService } from '../stats/stats.service';
 
 @Component({
   selector: 'app-profile',
@@ -43,16 +44,19 @@ export class ProfilePage implements OnInit {
   private imgSrc: string = this.auth.photoURL;
   private selectedImg: any = null;
 
+  private statistics: any[] = [
+    "Hello", "World"
+  ];
+
   constructor(private auth: AuthService,
               private fb: FormBuilder,
               private navCtrl: NavController,
               private alertCtrl: AlertController,
-              private http: HttpClient,
+              private stats: StatsService,
               private storage: AngularFireStorage,
               private upSvc: UploadService) 
   { 
     const ref = this.storage.ref(``)
-
   }
 
   ngOnInit() {
@@ -70,6 +74,7 @@ export class ProfilePage implements OnInit {
     });
 
     this.upSvc.getImageDetailList();
+    this.stats.testing();
   }
 
   get f() { return this.updateForm.controls; }

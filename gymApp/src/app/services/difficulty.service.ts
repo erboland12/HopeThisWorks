@@ -5,6 +5,9 @@ import { NavController } from '@ionic/angular';
   providedIn: 'root'
 })
 export class DifficultyService {
+  mode: string;
+  gameType: string;
+
   success: boolean;
   totalQuestions: number = 0;
   correctAnswers: number = 0;

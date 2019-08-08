@@ -31,7 +31,30 @@ export class AuthService{
     color: string;
     photoURL: string;
 
-   
+    //Subtraction High Scores
+    highScoreSubEasy: number;
+    highScoreSubIntermediate: number;
+    highScoreSubHard: number;
+    highScoreSubWizard: number;
+
+    //Addition High Scores
+    highScoreAddEasy: number;
+    highScoreAddIntermediate: number;
+    highScoreAddHard: number;
+    highScoreAddWizard: number;
+
+    //Multiplication High Scores
+    highScoreMultEasy: number;
+    highScoreMultIntermediate: number;
+    highScoreMultHard: number;
+    highScoreMultWizard: number;
+
+    //Division High Scores
+    highScoreDivEasy: number;
+    highScoreDivIntermediate: number;
+    highScoreDivHard: number;
+    highScoreDivWizard: number;
+  
     constructor(
         private afAuth: AngularFireAuth,
         private afs: AngularFirestore,
@@ -114,7 +137,27 @@ export class AuthService{
             password: password,
             firstName: firstName,
             lastName: lastName,
-            username: username
+            username: username,
+
+            highScoreSubEasy: 0,
+            highScoreSubIntermediate: 0,
+            highScoreSubHard: 0,
+            highScoreSubWizard: 0,
+
+            highScoreAddEasy: 0,
+            highScoreAddIntermediate: 0,
+            highScoreAddHard: 0,
+            highScoreAddWizard: 0,
+
+            highScoreMultEasy: 0,
+            highScoreMultIntermediate: 0,
+            highScoreMultHard: 0,
+            highScoreMultWizard: 0,
+
+            highScoreDivEasy: 0,
+            highScoreDivIntermediate: 0,
+            highScoreDivHard: 0,
+            highScoreDivWizard: 0
           });
         });
     }
@@ -201,6 +244,26 @@ export class AuthService{
               this.bio = doc.data().bio;
               this.color = doc.data().color;
               this.photoURL = doc.data().photoURL;
+
+              this.highScoreSubEasy = doc.data().highScoreSubEasy;
+              this.highScoreSubIntermediate = doc.data().highScoreSubIntermediate;
+              this.highScoreSubHard = doc.data().highScoreSubHard;
+              this.highScoreSubWizard = doc.data().highScoreSubWizard;
+
+              this.highScoreAddEasy = doc.data().highScoreAddEasy;
+              this.highScoreAddIntermediate = doc.data().highScoreAddIntermediate;
+              this.highScoreAddHard = doc.data().highScoreAddHard;
+              this.highScoreAddWizard = doc.data().highScoreAddWizard;
+
+              this.highScoreMultEasy = doc.data().highScoreMultEasy;
+              this.highScoreMultIntermediate = doc.data().highScoreMultIntermediate;
+              this.highScoreMultHard = doc.data().highScoreMultHard;
+              this.highScoreMultWizard = doc.data().highScoreMultWizard;
+
+              this.highScoreDivEasy = doc.data().highScoreDivEasy;
+              this.highScoreDivIntermediate = doc.data().highScoreDivIntermediate;
+              this.highScoreDivHard = doc.data().highScoreDivHard;
+              this.highScoreDivWizard = doc.data().highScoreDivWizard;
             })
 
         } else {
@@ -208,6 +271,236 @@ export class AuthService{
           console.log("Not logged in")
         }
       });
+    }
+
+    updateHighScore(mode: string, gameType: string, highScore: number){
+      if(mode == null){
+        return;
+      }
+      //Easy
+      if(mode == "easy"){
+        if(gameType == "subtraction"){
+          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+            if(firebaseUser){
+              this.afs.collection('users').doc(firebaseUser.uid).update({
+                highScoreSubEasy: highScore
+              })
+
+              this.afs.collection('users').doc(firebaseUser.uid).get()
+              .toPromise().then(doc =>{
+                this.highScoreSubEasy = doc.data().highScoreSubEasy;
+              })
+            }
+          })
+        } else if(gameType == "addition"){
+          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+            if(firebaseUser){
+              this.afs.collection('users').doc(firebaseUser.uid).update({
+                highScoreAddEasy: highScore
+              })
+
+              this.afs.collection('users').doc(firebaseUser.uid).get()
+              .toPromise().then(doc =>{
+                this.highScoreAddEasy = doc.data().highScoreAddEasy;
+              })
+            }
+          })
+        } else if(gameType == "multiplication"){
+          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+            if(firebaseUser){
+              this.afs.collection('users').doc(firebaseUser.uid).update({
+                highScoreMultEasy: highScore
+              })
+
+              this.afs.collection('users').doc(firebaseUser.uid).get()
+              .toPromise().then(doc =>{
+                this.highScoreMultEasy = doc.data().highScoreMultEasy;
+              })
+            }
+          })
+        } else if(gameType == "division"){
+          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+            if(firebaseUser){
+              this.afs.collection('users').doc(firebaseUser.uid).update({
+                highScoreDivEasy: highScore
+              })
+
+              this.afs.collection('users').doc(firebaseUser.uid).get()
+              .toPromise().then(doc =>{
+                this.highScoreDivEasy = doc.data().highScoreDivEasy;
+              })
+            }
+          })
+        }
+      }
+      //Intermediate
+      if(mode == "intermediate"){
+        if(gameType == "subtraction"){
+          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+            if(firebaseUser){
+              this.afs.collection('users').doc(firebaseUser.uid).update({
+                highScoreSubIntermediate: highScore
+              })
+
+              this.afs.collection('users').doc(firebaseUser.uid).get()
+              .toPromise().then(doc =>{
+                this.highScoreSubIntermediate = doc.data().highScoreSubIntermediate;
+              })
+            }
+          })
+        } else if(gameType == "addition"){
+          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+            if(firebaseUser){
+              this.afs.collection('users').doc(firebaseUser.uid).update({
+                highScoreAddIntermediate: highScore
+              })
+
+              this.afs.collection('users').doc(firebaseUser.uid).get()
+              .toPromise().then(doc =>{
+                this.highScoreAddIntermediate = doc.data().highScoreAddIntermediate;
+              })
+            }
+          })
+        } else if(gameType == "multiplication"){
+          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+            if(firebaseUser){
+              this.afs.collection('users').doc(firebaseUser.uid).update({
+                highScoreMultIntermediate: highScore
+              })
+
+              this.afs.collection('users').doc(firebaseUser.uid).get()
+              .toPromise().then(doc =>{
+                this.highScoreMultIntermediate = doc.data().highScoreMultIntermediate;
+              })
+            }
+          })
+        } else if(gameType == "division"){
+          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+            if(firebaseUser){
+              this.afs.collection('users').doc(firebaseUser.uid).update({
+                highScoreDivIntermediate: highScore
+              })
+
+              this.afs.collection('users').doc(firebaseUser.uid).get()
+              .toPromise().then(doc =>{
+                this.highScoreDivIntermediate = doc.data().highScoreDivIntermediate;
+              })
+            }
+          })
+        }
+      }
+      //Hard
+      if(mode == "hard"){
+        if(gameType == "subtraction"){
+          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+            if(firebaseUser){
+              this.afs.collection('users').doc(firebaseUser.uid).update({
+                highScoreSubHard: highScore
+              })
+
+              this.afs.collection('users').doc(firebaseUser.uid).get()
+              .toPromise().then(doc =>{
+                this.highScoreSubHard = doc.data().highScoreSubHard;
+              })
+            }
+          })
+        } else if(gameType == "addition"){
+          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+            if(firebaseUser){
+              this.afs.collection('users').doc(firebaseUser.uid).update({
+                highScoreAddHard: highScore
+              })
+
+              this.afs.collection('users').doc(firebaseUser.uid).get()
+              .toPromise().then(doc =>{
+                this.highScoreAddHard = doc.data().highScoreAddHard;
+              })
+            }
+          })
+        } else if(gameType == "multiplication"){
+          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+            if(firebaseUser){
+              this.afs.collection('users').doc(firebaseUser.uid).update({
+                highScoreMultHard: highScore
+              })
+
+              this.afs.collection('users').doc(firebaseUser.uid).get()
+              .toPromise().then(doc =>{
+                this.highScoreMultHard = doc.data().highScoreMultHard;
+              })
+            }
+          })
+        } else if(gameType == "division"){
+          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+            if(firebaseUser){
+              this.afs.collection('users').doc(firebaseUser.uid).update({
+                highScoreDivHard: highScore
+              })
+
+              this.afs.collection('users').doc(firebaseUser.uid).get()
+              .toPromise().then(doc =>{
+                this.highScoreDivHard = doc.data().highScoreDivHard;
+              })
+            }
+          })
+        }
+      }
+      //Wizard
+      if(mode == "wizard" && gameType == "subtraction"){
+        if(gameType == "subtraction"){
+          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+            if(firebaseUser){
+              this.afs.collection('users').doc(firebaseUser.uid).update({
+                highScoreSubWizard: highScore
+              })
+
+              this.afs.collection('users').doc(firebaseUser.uid).get()
+              .toPromise().then(doc =>{
+                this.highScoreSubWizard = doc.data().highScoreSubWizard;
+              })
+            }
+          })
+        } else if(gameType == "addition"){
+          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+            if(firebaseUser){
+              this.afs.collection('users').doc(firebaseUser.uid).update({
+                highScoreAddWizard: highScore
+              })
+
+              this.afs.collection('users').doc(firebaseUser.uid).get()
+              .toPromise().then(doc =>{
+                this.highScoreAddWizard = doc.data().highScoreAddWizard;
+              })
+            }
+          })
+        } else if(gameType == "multiplication"){
+          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+            if(firebaseUser){
+              this.afs.collection('users').doc(firebaseUser.uid).update({
+                highScoreMultWizard: highScore
+              })
+
+              this.afs.collection('users').doc(firebaseUser.uid).get()
+              .toPromise().then(doc =>{
+                this.highScoreMultWizard = doc.data().highScoreMultWizard;
+              })
+            }
+          })
+        } else if(gameType == "division"){
+          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+            if(firebaseUser){
+              this.afs.collection('users').doc(firebaseUser.uid).update({
+                highScoreDivWizard: highScore
+              })
+
+              this.afs.collection('users').doc(firebaseUser.uid).get()
+              .toPromise().then(doc =>{
+                this.highScoreDivWizard = doc.data().highScoreDivWizard;
+              })
+            }
+          })
+        }
+      }
     }
 
 
