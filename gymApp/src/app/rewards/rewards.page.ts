@@ -13,29 +13,29 @@ export class RewardsPage implements OnInit {
   public rewards = [
     {
       name: 'Red Background',
-      desc: 'Get a Score of at Least 10 on Subtraction Easy Mode',
+      desc: 'Get a Score of at Least 10 on Addition Easy Mode',
       color: 'Red',
-      locked: this.auth.highScoreSubEasy < 10
+      locked: this.auth.highScoreAddEasy < 10
     },
     {
       name: 'Blue Background',
-      desc: 'Get a Score of at Least 10 on Addition Easy Mode',
+      desc: 'Get a Score of at Least 10 on Subtraction Easy Mode',
       color: 'Blue',
-      locked: this.auth.highScoreAddEasy < 10
+      locked: this.auth.highScoreSubEasy < 10
 
     },
     {
-      name: 'Green Background',
+      name: 'Orange Background',
       desc: 'Get a Score of at Least 10 on Multiplication Easy Mode',
-      color: 'Green',
+      color: 'Orange',
       locked: this.auth.highScoreMultEasy < 10
     },
     {
-      name: 'Orange Background',
+      name: 'Green Background',
       desc: 'Get a Score of at Least 10 on Division Easy Mode',
-      color: 'Orange',
+      color: 'Green',
       locked: this.auth.highScoreDivEasy < 10
-    },
+    }
 ]
 
   ngOnInit() {

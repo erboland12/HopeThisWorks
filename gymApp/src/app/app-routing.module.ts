@@ -22,7 +22,10 @@ const routes: Routes = [
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
   { path: 'user', loadChildren: './models/user-profile/user-profile.module#UserProfilePageModule'},  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
-  { path: 'rewards', loadChildren: './rewards/rewards.module#RewardsPageModule' }
+  { path: 'rewards', loadChildren: './rewards/rewards.module#RewardsPageModule' },
+  { path: 'addition', loadChildren: './addition/addition.module#AdditionPageModule' },
+  { path: 'multiplication', loadChildren: './multiplication/multiplication.module#MultiplicationPageModule' },
+  { path: 'division', loadChildren: './division/division.module#DivisionPageModule' }
 
   
 ];

@@ -1,0 +1,161 @@
+
+  
+  .title{
+    text-align: center;
+    font-size: 1.5em;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  
+  }
+  h2{
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  
+  }
+  .diffBox{
+    margin: 1em;
+    margin-top: 25%;
+    padding: 2em;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: green;
+    color: whitesmoke;
+  }
+
+  .titleBox{
+    margin: 1em;
+    margin-top: 45%;
+    padding: 2em;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: green;
+    color: whitesmoke;
+  }
+  .mainBox{
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    border: 2px solid rgb(52, 91, 146);;
+    background-color: var(--ion-color-green);
+    background-size: cover;
+    overflow: hidden;
+  }
+  
+  .start{
+    width: 100%;
+    font-size: 150%;
+  }
+
+  .easyBtn{
+    width: 100%;
+    font-size: 150%;
+    background-color: rgb(34, 172, 34);
+    border: 0.5px solid black;
+  }
+
+  .medBtn{
+    width: 100%;
+    font-size: 150%;
+    background-color: rgb(197, 128, 0);
+    border: 0.5px solid black;
+  }
+
+  .hardBtn{
+    width: 100%;
+    font-size: 150%;
+    background-color: rgb(179, 28, 28);
+    border: 0.5px solid black;
+  }
+
+  .wizBtn{
+    width: 100%;
+    font-size: 150%;
+    background-color: black;
+    border: 0.5px solid black;
+  }
+  
+  .options{
+    height: auto;
+    color: whitesmoke;
+    border: 0.5px solid rgb(52, 91, 146);
+    background-color: rgba(57, 96, 146, 0.5);
+  }
+  .numbers{
+    display: inline-block;
+    margin: 0.2em;
+    color: whitesmoke;
+    
+    font-size: 250%;
+  }
+  h3{
+      font-size: 120%;
+  }
+  h4{
+      display: inline-block;
+      margin: 0.2em;
+  }
+  p{
+      display: inline-block;
+      margin: 0.2em;
+      font-size: 120%;
+  }
+
+  .scorePass{
+    color: var(--ion-color-success);
+  }
+
+  .time15{
+    color: var(--ion-color-warning);
+  }
+
+  .time5{
+    color: var(--ion-color-danger-tint);
+  }
+
+.questions{
+    text-align: center;
+    width:auto;
+    height: auto;
+}
+
+input {
+    height:60px;
+    width:130px;
+    font-size: 200%;
+    text-align: center;
+}
+.submit {
+    width: 70%;
+    font-size: 150%;
+    margin: 0.5em;
+    text-align: center;
+}
+.digits{
+    list-style-type: none;
+    margin: auto;
+}
+.answerRight{
+  font-size: 250%;
+  text-align: center;
+  color: green;
+  margin-top: 0.5em;
+  background-color: rgba(131,235,52,0.5);
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+
+}
+.answerWrong{
+  font-size: 250%;
+  text-align: center;
+  color: red;
+  margin-top: 1em;
+  background-color: rgba(235,86,52, 0.5);
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+
+.digitInput{
+  font-size: 125%;
+  margin: 0.3em;
+}

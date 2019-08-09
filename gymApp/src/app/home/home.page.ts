@@ -35,6 +35,18 @@ export class HomePage implements OnInit {
    navSubtract(){
      this.navCtrl.navigateForward('subtract');
    }
+
+   navAdd(){
+     this.navCtrl.navigateForward('addition');
+   }
+
+   navMult(){
+     this.navCtrl.navigateForward('multiplication');
+   }
+
+   navDiv(){
+     this.navCtrl.navigateForward('division');
+   }
    
    signOut(){
      this.auth.logged = false;

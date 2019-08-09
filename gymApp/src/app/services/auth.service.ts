@@ -34,6 +34,8 @@ export class AuthService{
     //Unlockable Colors
     red: boolean;
     orange: boolean;
+    blue: boolean;
+    green: boolean;
 
 
     //Subtraction High Scores
