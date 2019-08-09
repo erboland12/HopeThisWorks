@@ -75,6 +75,8 @@ export class ProfilePage implements OnInit {
 
     this.upSvc.getImageDetailList();
     this.stats.testing();
+
+    this.checkForColors();
   }
 
   get f() { return this.updateForm.controls; }
@@ -136,6 +138,24 @@ export class ProfilePage implements OnInit {
       this.imgSrc = '../assets/icon/profilePH.png';
       this.selectedImg = null;
     }
+  }
+
+  checkForColors(){
+    if(this.auth.highScoreSubEasy >= 10){
+      this.auth.red = false;
+    } else{
+      this.auth.red = true;
+    }
+    if(this.auth.highScoreSubIntermediate >= 10){
+      this.auth.orange = false;
+    }else{
+      this.auth.orange = true;
+    }
+    console.log(this.auth.highScoreSubEasy);
+    console.log(this.auth.highScoreSubIntermediate);
+    console.log(this.auth.red);
+    console.log(this.auth.orange);
+
   }
   
 

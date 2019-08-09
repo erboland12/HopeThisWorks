@@ -3,7 +3,6 @@ import { timer } from 'rxjs';
 import { NavController } from '@ionic/angular';
 import { DifficultyService } from '../services/difficulty.service';
 import { StatsService } from '../stats/stats.service';
-import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-subtract',

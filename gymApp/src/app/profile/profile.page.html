@@ -332,10 +332,10 @@
                 <ion-label><b>Background Color</b></ion-label>
                 <ion-select id="color" name="color" formControlName="color" [(ngModel)]="color">
                   <ion-select-option value="white">Default</ion-select-option>
-                  <ion-select-option value="red">red</ion-select-option>
-                  <ion-select-option value="orange">orange</ion-select-option>
-                  <ion-select-option value="green">green</ion-select-option>
-                  <ion-select-option value="blue">blue</ion-select-option>
+                  <ion-select-option [disabled]="this.auth.red" value="red">Red</ion-select-option>
+                  <ion-select-option [disabled]="this.auth.orange" value="orange">Orange</ion-select-option>
+                  <ion-select-option value="green">Green</ion-select-option>
+                  <ion-select-option value="blue">Blue</ion-select-option>
                 </ion-select>
               </div>
               <div class="form-group">
@@ -362,16 +362,50 @@
         <h2>Statistics</h2>
         <hr />
         <div>
-          <ion-list>
-            <ion-item *ngIf="this.auth.highScoreSubEasy != 0" lines="none" color="odd" class="odd">
-              Subtraction Easy -- High Score: <span text-align: right><b>{{this.auth.highScoreSubEasy}}</b></span></ion-item>
-            <ion-item *ngIf="this.auth.highScoreSubIntermediate != 0" lines="none" color="even" class="even">
-              Subtraction Inter. -- High Score: <span><b>{{this.auth.highScoreSubIntermediate}}</b></span></ion-item>
-            <ion-item *ngIf="this.auth.highScoreSubHard != 0" lines="none" color="odd" class="odd">
-              Subtraction Hard -- High Score: <span><b>{{this.auth.highScoreSubHard}}</b></span></ion-item>
-            <ion-item *ngIf="this.auth.highScoreSubWizard != 0" lines="none" color="even" class="even">
-              Subtraction Wizard -- High Score: <span><b>{{this.auth.highScoreSubWizard}}</b></span></ion-item>
-          </ion-list>
+          <ul>
+            <li *ngIf="this.auth.highScoreSubEasy != null" lines="none" color="odd" class="odd">
+              Subtraction Easy -- High Score: <span><b>{{ this.auth.highScoreSubEasy }}</b></span></li>
+            <li *ngIf="this.auth.highScoreSubIntermediate != null" lines="none" color="even" class="even">
+              Subtraction Inter. -- High Score: <span><b>{{ this.auth.highScoreSubIntermediate }}</b></span></li>
+            <li *ngIf="this.auth.highScoreSubHard != null" lines="none" color="odd" class="odd">
+              Subtraction Hard -- High Score: <span><b>{{ this.auth.highScoreSubHard }}</b></span></li>
+            <li *ngIf="this.auth.highScoreSubWizard != null" lines="none" color="even" class="even">
+              Subtraction Wizard -- High Score: <span><b>{{ this.auth.highScoreSubWizard }}</b></span></li>
+
+            <li *ngIf="this.auth.highScoreAddEasy != null" lines="none" color="odd" class="odd">
+              Addition Easy -- High Score: <span><b>{{ this.auth.highScoreAddEasy }}</b></span></li>
+            <li *ngIf="this.auth.highScoreAddIntermediate != null" lines="none" color="even" class="even">
+              Addition Inter. -- High Score: <span><b>{{ this.auth.highScoreAddIntermediate }}</b></span></li>
+            <li *ngIf="this.auth.highScoreAddHard != null" lines="none" color="odd" class="odd">
+              Addition Hard -- High Score: <span><b>{{ this.auth.highScoreAddHard }}</b></span></li>
+            <li *ngIf="this.auth.highScoreAddWizard != null" lines="none" color="even" class="even">
+              Addition Wizard -- High Score: <span><b>{{ this.auth.highScoreAddWizard }}</b></span></li>
+
+            <li *ngIf="this.auth.highScoreMultEasy != null" lines="none" color="odd" class="odd">
+              Multiplication Easy -- High Score: <span><b>{{ this.auth.highScoreMultEasy }}</b></span></li>
+            <li *ngIf="this.auth.highScoreMultIntermediate != null" lines="none" color="even" class="even">
+              Multiplication Inter. -- High Score: <span><b>{{ this.auth.highScoreMultIntermediate }}</b></span></li>
+            <li *ngIf="this.auth.highScoreMultHard != null" lines="none" color="odd" class="odd">
+              Multiplication Hard -- High Score: <span><b>{{ this.auth.highScoreMultHard }}</b></span></li>
+            <li *ngIf="this.auth.highScoreMultWizard != null" lines="none" color="even" class="even">
+              Multiplication Wizard -- High Score: <span><b>{{ this.auth.highScoreMultWizard }}</b></span></li>
+
+            <li *ngIf="this.auth.highScoreDivEasy != null" lines="none" color="odd" class="odd">
+              Division Easy -- High Score: <span><b>{{ this.auth.highScoreDivEasy }}</b></span></li>
+            <li *ngIf="this.auth.highScoreDivIntermediate != null" lines="none" color="even" class="even">
+              Division Inter. -- High Score: <span><b>{{ this.auth.highScoreDivIntermediate }}</b></span></li>
+            <li *ngIf="this.auth.highScoreDivHard != null" lines="none" color="odd" class="odd">
+              Division Hard -- High Score: <span><b>{{ this.auth.highScoreDivHard }}</b></span></li>
+            <li *ngIf="this.auth.highScoreDivWizard != null" lines="none" color="even" class="even">
+              Division Wizard -- High Score: <span><b>{{ this.auth.highScoreDivWizard }}</b></span></li>
+
+            <li *ngIf="this.auth.careerQuestions != null" lines="none" color="odd" class="odd">
+              Total Questions Attempted: <span><b>{{ this.auth.careerQuestions }}</b></span></li>
+            <li *ngIf="this.auth.careerRights != null" lines="none" color="even" class="even">
+              Total Questions Right: <span><b>{{ this.auth.careerRights }}</b></span></li>
+            <li *ngIf="this.auth.careerWrongs != null" lines="none" color="odd" class="odd">
+              Total Questions Wrong: <span><b>{{ this.auth.careerWrongs }}</b></span></li>
+            </ul>
         </div>
       </div>
     </div>

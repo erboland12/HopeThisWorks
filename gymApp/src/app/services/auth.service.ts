@@ -31,6 +31,11 @@ export class AuthService{
     color: string;
     photoURL: string;
 
+    //Unlockable Colors
+    red: boolean;
+    orange: boolean;
+
+
     //Subtraction High Scores
     highScoreSubEasy: number;
     highScoreSubIntermediate: number;
@@ -54,9 +59,14 @@ export class AuthService{
     highScoreDivIntermediate: number;
     highScoreDivHard: number;
     highScoreDivWizard: number;
+
+    //General Stats
+    careerQuestions: number;
+    careerRights: number;
+    careerWrongs: number;
   
     constructor(
-        private afAuth: AngularFireAuth,
+        public afAuth: AngularFireAuth,
         private afs: AngularFirestore,
         private db: AngularFireDatabase,
         private firestore: AngularFirestore,
@@ -157,7 +167,11 @@ export class AuthService{
             highScoreDivEasy: 0,
             highScoreDivIntermediate: 0,
             highScoreDivHard: 0,
-            highScoreDivWizard: 0
+            highScoreDivWizard: 0,
+
+            careerQuestions: 0,
+            careerRights: 0,
+            careerWrongs: 0
           });
         });
     }
@@ -264,6 +278,10 @@ export class AuthService{
               this.highScoreDivIntermediate = doc.data().highScoreDivIntermediate;
               this.highScoreDivHard = doc.data().highScoreDivHard;
               this.highScoreDivWizard = doc.data().highScoreDivWizard;
+
+              this.careerQuestions = doc.data().careerQuestions;
+              this.careerRights = doc.data().careerRights;
+              this.careerWrongs = doc.data().careerWrongs;
             })
 
         } else {
@@ -277,9 +295,10 @@ export class AuthService{
       if(mode == null){
         return;
       }
+      
       //Easy
       if(mode == "easy"){
-        if(gameType == "subtraction"){
+        if(gameType == "subtraction" && highScore >= this.highScoreSubEasy){
           this.afAuth.auth.onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
@@ -292,7 +311,7 @@ export class AuthService{
               })
             }
           })
-        } else if(gameType == "addition"){
+        } else if(gameType == "addition" && highScore >= this.highScoreAddEasy){
           this.afAuth.auth.onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
@@ -305,7 +324,7 @@ export class AuthService{
               })
             }
           })
-        } else if(gameType == "multiplication"){
+        } else if(gameType == "multiplication" && highScore >= this.highScoreMultEasy){
           this.afAuth.auth.onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
@@ -318,7 +337,7 @@ export class AuthService{
               })
             }
           })
-        } else if(gameType == "division"){
+        } else if(gameType == "division" && highScore >= this.highScoreDivEasy){
           this.afAuth.auth.onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
@@ -335,7 +354,7 @@ export class AuthService{
       }
       //Intermediate
       if(mode == "intermediate"){
-        if(gameType == "subtraction"){
+        if(gameType == "subtraction" && highScore >= this.highScoreSubIntermediate){
           this.afAuth.auth.onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
@@ -348,7 +367,7 @@ export class AuthService{
               })
             }
           })
-        } else if(gameType == "addition"){
+        } else if(gameType == "addition" && highScore >= this.highScoreAddIntermediate){
           this.afAuth.auth.onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
@@ -361,7 +380,7 @@ export class AuthService{
               })
             }
           })
-        } else if(gameType == "multiplication"){
+        } else if(gameType == "multiplication" && highScore >= this.highScoreMultIntermediate){
           this.afAuth.auth.onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
@@ -374,7 +393,7 @@ export class AuthService{
               })
             }
           })
-        } else if(gameType == "division"){
+        } else if(gameType == "division" && highScore >= this.highScoreDivIntermediate){
           this.afAuth.auth.onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
@@ -390,7 +409,7 @@ export class AuthService{
         }
       }
       //Hard
-      if(mode == "hard"){
+      if(mode == "hard" && highScore >= this.highScoreSubHard){
         if(gameType == "subtraction"){
           this.afAuth.auth.onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
@@ -404,7 +423,7 @@ export class AuthService{
               })
             }
           })
-        } else if(gameType == "addition"){
+        } else if(gameType == "addition" && highScore >= this.highScoreAddHard){
           this.afAuth.auth.onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
@@ -417,7 +436,7 @@ export class AuthService{
               })
             }
           })
-        } else if(gameType == "multiplication"){
+        } else if(gameType == "multiplication" && highScore >= this.highScoreMultHard){
           this.afAuth.auth.onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
@@ -430,7 +449,7 @@ export class AuthService{
               })
             }
           })
-        } else if(gameType == "division"){
+        } else if(gameType == "division"  && highScore >= this.highScoreDivHard){
           this.afAuth.auth.onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
@@ -446,8 +465,8 @@ export class AuthService{
         }
       }
       //Wizard
-      if(mode == "wizard" && gameType == "subtraction"){
-        if(gameType == "subtraction"){
+      if(mode == "wizard"){
+        if(gameType == "subtraction" && highScore >= this.highScoreSubWizard){
           this.afAuth.auth.onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
@@ -460,7 +479,7 @@ export class AuthService{
               })
             }
           })
-        } else if(gameType == "addition"){
+        } else if(gameType == "addition" && highScore >= this.highScoreAddWizard){
           this.afAuth.auth.onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
@@ -473,7 +492,7 @@ export class AuthService{
               })
             }
           })
-        } else if(gameType == "multiplication"){
+        } else if(gameType == "multiplication" && highScore >= this.highScoreMultWizard){
           this.afAuth.auth.onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
@@ -486,7 +505,7 @@ export class AuthService{
               })
             }
           })
-        } else if(gameType == "division"){
+        } else if(gameType == "division"  && highScore >= this.highScoreDivWizard){
           this.afAuth.auth.onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
@@ -503,7 +522,366 @@ export class AuthService{
       }
     }
 
+    updateCareerStats(total:number, right:number, wrong:number)
+    {
+      this.careerQuestions += total;
+      this.careerRights += right;
+      this.careerWrongs += wrong;
+      this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+        if(firebaseUser){
+          this.afs.collection('users').doc(firebaseUser.uid).update({
+            careerQuestions: this.careerQuestions,
+            careerRights: this.careerRights,
+            careerWrongs: this.careerWrongs
+          })
 
-    
-    
+          this.afs.collection('users').doc(firebaseUser.uid).get()
+            .toPromise().then(doc =>{
+              this.careerQuestions = doc.data().careerQuestions;
+              this.careerRights = doc.data().careerRights;
+              this.careerWrongs = doc.data().careerWrongs;
+            })
+        }
+      })
+    }
+
+    setScores(){
+      //Subtraction
+      if(this.highScoreSubEasy == null){
+        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          if(firebaseUser){
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              highScoreSubEasy: 0,
+              careerQuestions: 0,
+              careerRights: 0,
+              careerWrongs: 0
+            })
+
+            this.afs.collection('users').doc(firebaseUser.uid).get()
+            .toPromise().then(doc =>{
+              this.highScoreSubEasy = doc.data().highScoreSubEasy;
+              this.careerQuestions = doc.data().careerQuestions;
+              this.careerRights = doc.data().careerRights;
+              this.careerWrongs = doc.data().careerWrongs;
+            })
+          }
+        })
+      }
+
+      if(this.highScoreSubIntermediate == null){
+        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          if(firebaseUser){
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              highScoreSubIntermediate: 0,
+              careerQuestions: 0,
+              careerRights: 0,
+              careerWrongs: 0
+            })
+
+            this.afs.collection('users').doc(firebaseUser.uid).get()
+            .toPromise().then(doc =>{
+              this.highScoreSubIntermediate = doc.data().highScoreSubIntermediate;
+              this.careerQuestions = doc.data().careerQuestions;
+              this.careerRights = doc.data().careerRights;
+              this.careerWrongs = doc.data().careerWrongs;
+            })
+          }
+        })
+      }
+
+      if(this.highScoreSubHard == null){
+        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          if(firebaseUser){
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              highScoreSubHard: 0,
+              careerQuestions: 0,
+              careerRights: 0,
+              careerWrongs: 0
+            })
+
+            this.afs.collection('users').doc(firebaseUser.uid).get()
+            .toPromise().then(doc =>{
+              this.highScoreSubHard = doc.data().highScoreSubHard;
+              this.careerQuestions = doc.data().careerQuestions;
+              this.careerRights = doc.data().careerRights;
+              this.careerWrongs = doc.data().careerWrongs;
+            })
+          }
+        })
+      }
+
+      if(this.highScoreSubWizard == null){
+        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          if(firebaseUser){
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              highScoreSubWizard: 0,
+              careerQuestions: 0,
+              careerRights: 0,
+              careerWrongs: 0
+            })
+
+            this.afs.collection('users').doc(firebaseUser.uid).get()
+            .toPromise().then(doc =>{
+              this.highScoreSubWizard = doc.data().highScoreSubWizard;
+              this.careerQuestions = doc.data().careerQuestions;
+              this.careerRights = doc.data().careerRights;
+              this.careerWrongs = doc.data().careerWrongs;
+            })
+          }
+        })
+      }
+      //Addition
+      if(this.highScoreAddEasy == null){
+        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          if(firebaseUser){
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              highScoreAddEasy: 0,
+              careerQuestions: 0,
+              careerRights: 0,
+              careerWrongs: 0
+            })
+
+            this.afs.collection('users').doc(firebaseUser.uid).get()
+            .toPromise().then(doc =>{
+              this.highScoreAddEasy = doc.data().highScoreAddEasy;
+              this.careerQuestions = doc.data().careerQuestions;
+              this.careerRights = doc.data().careerRights;
+              this.careerWrongs = doc.data().careerWrongs;
+            })
+          }
+        })
+      }
+
+      if(this.highScoreAddIntermediate == null){
+        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          if(firebaseUser){
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              highScoreAddIntermediate: 0,
+              careerQuestions: 0,
+              careerRights: 0,
+              careerWrongs: 0
+            })
+
+            this.afs.collection('users').doc(firebaseUser.uid).get()
+            .toPromise().then(doc =>{
+              this.highScoreAddIntermediate = doc.data().highScoreAddIntermediate;
+              this.careerQuestions = doc.data().careerQuestions;
+              this.careerRights = doc.data().careerRights;
+              this.careerWrongs = doc.data().careerWrongs;
+            })
+          }
+        })
+      }
+
+      if(this.highScoreAddHard == null){
+        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          if(firebaseUser){
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              highScoreAddHard: 0,
+              careerQuestions: 0,
+              careerRights: 0,
+              careerWrongs: 0
+            })
+
+            this.afs.collection('users').doc(firebaseUser.uid).get()
+            .toPromise().then(doc =>{
+              this.highScoreAddHard = doc.data().highScoreAddHard;
+              this.careerQuestions = doc.data().careerQuestions;
+              this.careerRights = doc.data().careerRights;
+              this.careerWrongs = doc.data().careerWrongs;
+            })
+          }
+        })
+      }
+
+      if(this.highScoreAddWizard == null){
+        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          if(firebaseUser){
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              highScoreAddWizard: 0,
+              careerQuestions: 0,
+              careerRights: 0,
+              careerWrongs: 0
+            })
+
+            this.afs.collection('users').doc(firebaseUser.uid).get()
+            .toPromise().then(doc =>{
+              this.highScoreAddWizard = doc.data().highScoreAddWizard;
+              this.careerQuestions = doc.data().careerQuestions;
+              this.careerRights = doc.data().careerRights;
+              this.careerWrongs = doc.data().careerWrongs;
+            })
+          }
+        })
+      }
+      //Multiplication
+      if(this.highScoreMultEasy == null){
+        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          if(firebaseUser){
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              highScoreMultEasy: 0,
+              careerQuestions: 0,
+              careerRights: 0,
+              careerWrongs: 0
+            })
+
+            this.afs.collection('users').doc(firebaseUser.uid).get()
+            .toPromise().then(doc =>{
+              this.highScoreMultEasy = doc.data().highScoreMultEasy;
+              this.careerQuestions = doc.data().careerQuestions;
+              this.careerRights = doc.data().careerRights;
+              this.careerWrongs = doc.data().careerWrongs;
+            })
+          }
+        })
+      }
+
+      if(this.highScoreMultIntermediate == null){
+        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          if(firebaseUser){
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              highScoreMultIntermediate: 0,
+              careerQuestions: 0,
+              careerRights: 0,
+              careerWrongs: 0
+            })
+
+            this.afs.collection('users').doc(firebaseUser.uid).get()
+            .toPromise().then(doc =>{
+              this.highScoreMultIntermediate = doc.data().highScoreMultIntermediate;
+              this.careerQuestions = doc.data().careerQuestions;
+              this.careerRights = doc.data().careerRights;
+              this.careerWrongs = doc.data().careerWrongs;
+            })
+          }
+        })
+      }
+
+      if(this.highScoreMultHard == null){
+        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          if(firebaseUser){
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              highScoreMultHard: 0,
+              careerQuestions: 0,
+              careerRights: 0,
+              careerWrongs: 0
+            })
+
+            this.afs.collection('users').doc(firebaseUser.uid).get()
+            .toPromise().then(doc =>{
+              this.highScoreMultHard = doc.data().highScoreMultHard;
+              this.careerQuestions = doc.data().careerQuestions;
+              this.careerRights = doc.data().careerRights;
+              this.careerWrongs = doc.data().careerWrongs;
+            })
+          }
+        })
+      }
+
+      if(this.highScoreMultWizard == null){
+        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          if(firebaseUser){
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              highScoreMultWizard: 0,
+              careerQuestions: 0,
+              careerRights: 0,
+              careerWrongs: 0
+            })
+
+            this.afs.collection('users').doc(firebaseUser.uid).get()
+            .toPromise().then(doc =>{
+              this.highScoreMultWizard = doc.data().highScoreMultWizard;
+              this.careerQuestions = doc.data().careerQuestions;
+              this.careerRights = doc.data().careerRights;
+              this.careerWrongs = doc.data().careerWrongs;
+            })
+          }
+        })
+      }
+      //Division
+      if(this.highScoreDivEasy == null){
+        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          if(firebaseUser){
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              highScoreDivEasy: 0,
+              careerQuestions: 0,
+              careerRights: 0,
+              careerWrongs: 0
+            })
+
+            this.afs.collection('users').doc(firebaseUser.uid).get()
+            .toPromise().then(doc =>{
+              this.highScoreDivEasy = doc.data().highScoreDivEasy;
+              this.careerQuestions = doc.data().careerQuestions;
+              this.careerRights = doc.data().careerRights;
+              this.careerWrongs = doc.data().careerWrongs;
+            })
+          }
+        })
+      }
+
+      if(this.highScoreDivIntermediate == null){
+        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          if(firebaseUser){
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              highScoreDivIntermediate: 0,
+              careerQuestions: 0,
+              careerRights: 0,
+              careerWrongs: 0
+            })
+
+            this.afs.collection('users').doc(firebaseUser.uid).get()
+            .toPromise().then(doc =>{
+              this.highScoreDivIntermediate = doc.data().highScoreDivIntermediate;
+              this.careerQuestions = doc.data().careerQuestions;
+              this.careerRights = doc.data().careerRights;
+              this.careerWrongs = doc.data().careerWrongs;
+            })
+          }
+        })
+      }
+
+      if(this.highScoreDivHard == null){
+        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          if(firebaseUser){
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              highScoreDivHard: 0,
+              careerQuestions: 0,
+              careerRights: 0,
+              careerWrongs: 0
+            })
+
+            this.afs.collection('users').doc(firebaseUser.uid).get()
+            .toPromise().then(doc =>{
+              this.highScoreDivHard = doc.data().highScoreDivHard;
+              this.careerQuestions = doc.data().careerQuestions;
+              this.careerRights = doc.data().careerRights;
+              this.careerWrongs = doc.data().careerWrongs;
+            })
+          }
+        })
+      }
+      
+      if(this.highScoreDivWizard == null){
+        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          if(firebaseUser){
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              highScoreDivWizard: 0,
+              careerQuestions: 0,
+              careerRights: 0,
+              careerWrongs: 0
+            })
+
+            this.afs.collection('users').doc(firebaseUser.uid).get()
+            .toPromise().then(doc =>{
+              this.highScoreDivWizard = doc.data().highScoreDivWizard;
+              this.careerQuestions = doc.data().careerQuestions;
+              this.careerRights = doc.data().careerRights;
+              this.careerWrongs = doc.data().careerWrongs;
+            })
+          }
+        })
+      }
+    }
+        
 }

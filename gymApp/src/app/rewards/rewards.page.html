@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title class="title">
+        Rewards
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
+<ion-content>
+  <div class="mainBox" *ngIf="!logged">
+    <div class="notLogged">
+      You Must be Logged In to View This Page
+    </div>
+  </div>
+  <div class="mainBox" *ngIf="logged">
+    <div class="formWrapper">
+      <ion-list *ngFor = "let r of rewards"  [ngClass]="{'unlocked': r.locked == false}">
+        <ion-item lines="none" [ngClass]="{'bgRed': r.color == 'Red',
+                              'bgBlue': r.color == 'Blue', 
+                              'bgGreen': r.color == 'Green',
+                              'bgOrange': r.color == 'Orange'}" color="r.color">
+          <ion-icon *ngIf="r.locked" style="color: whitesmoke" slot="start" name="lock"></ion-icon>
+            <ion-label style="color: whitesmoke">
+              <b>{{r.name}}</b>
+            </ion-label>
+          </ion-item>
+          <div class="pictureBox">
+              {{r.desc}}
+          </div>
+      </ion-list>  
+    </div>
+  </div>
+</ion-content>

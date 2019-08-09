@@ -29,6 +29,11 @@ export class AppComponent implements OnInit {
       title: 'Contact Us',
       url: '/contact',
       icon: 'contact'
+    },
+    {
+      title: 'Rewards',
+      url: '/rewards',
+      icon: 'ribbon'
     }
   ];
 

@@ -46,6 +46,7 @@ export class ResultsPage implements OnInit {
   ngOnInit() {
     this.selectRandomMessage();
     this.selectRandomGoodMessage();
+    this.auth.setScores();
     console.log(this.diff.mode);
     console.log(this.diff.gameType);
     
@@ -67,19 +68,14 @@ export class ResultsPage implements OnInit {
   }
 
   updateHighScore(highScore: number){
-    if(highScore >= this.auth.highScoreSubEasy){
-        this.auth.updateHighScore(this.diff.mode, this.diff.gameType, highScore);
-       }
-    console.log(highScore);
-    console.log(this.diff.mode);
-    console.log(this.diff.gameType);
+    this.auth.updateCareerStats(this.diff.totalQuestions,this.diff.correctAnswers,this.diff.incorrectAnswers);
+    this.auth.updateHighScore(this.diff.mode, this.diff.gameType, highScore);
     this.reset();
   }
 
   playAgain(highScore: number){
     this.updateHighScore(highScore);
     this.reset();
-    //this.navCtrl.navigateForward('subtract');
     this.navCtrl.back();
   }
 
