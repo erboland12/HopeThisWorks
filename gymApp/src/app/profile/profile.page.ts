@@ -167,6 +167,10 @@ export class ProfilePage implements OnInit {
     console.log(this.auth.orange);
 
   }
+
+  cancel(){
+    this.updated=true;
+  }
   
 
 

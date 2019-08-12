@@ -12,6 +12,7 @@ import { switchMap} from 'rxjs/operators';
 import { AlertController, NavController } from '@ionic/angular';
 import { User } from './database.service';
 import { AngularFireDatabase } from 'angularfire2/database';
+import * as firebase from 'firebase';
 
 @Injectable()
 export class AuthService{
@@ -39,7 +40,7 @@ export class AuthService{
 
 
     //Subtraction High Scores
-    highScoreSubEasy: number;
+    highScoreSubEasy: number = 0;
     highScoreSubIntermediate: number;
     highScoreSubHard: number;
     highScoreSubWizard: number;
@@ -118,7 +119,6 @@ export class AuthService{
     }
 
     loginGoogle(){
-      var provider = new auth.GoogleAuthProvider;
       console.log("Redirecting to Google Login Provider...");
       this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider);
       this.navCtrl.navigateForward('home');
@@ -252,6 +252,7 @@ export class AuthService{
           this.afs.collection('users').doc(firebaseUser.uid).get()
             .toPromise().then(doc =>{
               console.log(doc.data().username);
+              console.log(doc.data().highScoreSubEasy)
               this.uname = doc.data().username;
               this.fname = doc.data().firstName;
               this.lname = doc.data().lastName;
@@ -284,7 +285,10 @@ export class AuthService{
               this.careerQuestions = doc.data().careerQuestions;
               this.careerRights = doc.data().careerRights;
               this.careerWrongs = doc.data().careerWrongs;
+
             })
+
+            
 
         } else {
           this.logged = false;
@@ -303,10 +307,11 @@ export class AuthService{
         if(gameType == "subtraction" && highScore >= this.highScoreSubEasy){
           this.afAuth.auth.onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
+              
               this.afs.collection('users').doc(firebaseUser.uid).update({
                 highScoreSubEasy: highScore
               })
-
+              
               this.afs.collection('users').doc(firebaseUser.uid).get()
               .toPromise().then(doc =>{
                 this.highScoreSubEasy = doc.data().highScoreSubEasy;
@@ -547,343 +552,15 @@ export class AuthService{
       })
     }
 
-    setScores(){
-      //Subtraction
-      if(this.highScoreSubEasy == null){
-        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
-          if(firebaseUser){
-            this.afs.collection('users').doc(firebaseUser.uid).update({
-              highScoreSubEasy: 0,
-              careerQuestions: 0,
-              careerRights: 0,
-              careerWrongs: 0
-            })
+    queryHighScores(){
+      var userCollection = this.afs.collection('users', ref => {
+        return ref.where('firstName','==','desc').limit(10);
+      });
 
-            this.afs.collection('users').doc(firebaseUser.uid).get()
-            .toPromise().then(doc =>{
-              this.highScoreSubEasy = doc.data().highScoreSubEasy;
-              this.careerQuestions = doc.data().careerQuestions;
-              this.careerRights = doc.data().careerRights;
-              this.careerWrongs = doc.data().careerWrongs;
-            })
-          }
-        })
-      }
+      console.log(userCollection.valueChanges());
 
-      if(this.highScoreSubIntermediate == null){
-        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
-          if(firebaseUser){
-            this.afs.collection('users').doc(firebaseUser.uid).update({
-              highScoreSubIntermediate: 0,
-              careerQuestions: 0,
-              careerRights: 0,
-              careerWrongs: 0
-            })
+     }
 
-            this.afs.collection('users').doc(firebaseUser.uid).get()
-            .toPromise().then(doc =>{
-              this.highScoreSubIntermediate = doc.data().highScoreSubIntermediate;
-              this.careerQuestions = doc.data().careerQuestions;
-              this.careerRights = doc.data().careerRights;
-              this.careerWrongs = doc.data().careerWrongs;
-            })
-          }
-        })
-      }
 
-      if(this.highScoreSubHard == null){
-        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
-          if(firebaseUser){
-            this.afs.collection('users').doc(firebaseUser.uid).update({
-              highScoreSubHard: 0,
-              careerQuestions: 0,
-              careerRights: 0,
-              careerWrongs: 0
-            })
-
-            this.afs.collection('users').doc(firebaseUser.uid).get()
-            .toPromise().then(doc =>{
-              this.highScoreSubHard = doc.data().highScoreSubHard;
-              this.careerQuestions = doc.data().careerQuestions;
-              this.careerRights = doc.data().careerRights;
-              this.careerWrongs = doc.data().careerWrongs;
-            })
-          }
-        })
-      }
-
-      if(this.highScoreSubWizard == null){
-        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
-          if(firebaseUser){
-            this.afs.collection('users').doc(firebaseUser.uid).update({
-              highScoreSubWizard: 0,
-              careerQuestions: 0,
-              careerRights: 0,
-              careerWrongs: 0
-            })
-
-            this.afs.collection('users').doc(firebaseUser.uid).get()
-            .toPromise().then(doc =>{
-              this.highScoreSubWizard = doc.data().highScoreSubWizard;
-              this.careerQuestions = doc.data().careerQuestions;
-              this.careerRights = doc.data().careerRights;
-              this.careerWrongs = doc.data().careerWrongs;
-            })
-          }
-        })
-      }
-      //Addition
-      if(this.highScoreAddEasy == null){
-        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
-          if(firebaseUser){
-            this.afs.collection('users').doc(firebaseUser.uid).update({
-              highScoreAddEasy: 0,
-              careerQuestions: 0,
-              careerRights: 0,
-              careerWrongs: 0
-            })
-
-            this.afs.collection('users').doc(firebaseUser.uid).get()
-            .toPromise().then(doc =>{
-              this.highScoreAddEasy = doc.data().highScoreAddEasy;
-              this.careerQuestions = doc.data().careerQuestions;
-              this.careerRights = doc.data().careerRights;
-              this.careerWrongs = doc.data().careerWrongs;
-            })
-          }
-        })
-      }
-
-      if(this.highScoreAddIntermediate == null){
-        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
-          if(firebaseUser){
-            this.afs.collection('users').doc(firebaseUser.uid).update({
-              highScoreAddIntermediate: 0,
-              careerQuestions: 0,
-              careerRights: 0,
-              careerWrongs: 0
-            })
-
-            this.afs.collection('users').doc(firebaseUser.uid).get()
-            .toPromise().then(doc =>{
-              this.highScoreAddIntermediate = doc.data().highScoreAddIntermediate;
-              this.careerQuestions = doc.data().careerQuestions;
-              this.careerRights = doc.data().careerRights;
-              this.careerWrongs = doc.data().careerWrongs;
-            })
-          }
-        })
-      }
-
-      if(this.highScoreAddHard == null){
-        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
-          if(firebaseUser){
-            this.afs.collection('users').doc(firebaseUser.uid).update({
-              highScoreAddHard: 0,
-              careerQuestions: 0,
-              careerRights: 0,
-              careerWrongs: 0
-            })
-
-            this.afs.collection('users').doc(firebaseUser.uid).get()
-            .toPromise().then(doc =>{
-              this.highScoreAddHard = doc.data().highScoreAddHard;
-              this.careerQuestions = doc.data().careerQuestions;
-              this.careerRights = doc.data().careerRights;
-              this.careerWrongs = doc.data().careerWrongs;
-            })
-          }
-        })
-      }
-
-      if(this.highScoreAddWizard == null){
-        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
-          if(firebaseUser){
-            this.afs.collection('users').doc(firebaseUser.uid).update({
-              highScoreAddWizard: 0,
-              careerQuestions: 0,
-              careerRights: 0,
-              careerWrongs: 0
-            })
-
-            this.afs.collection('users').doc(firebaseUser.uid).get()
-            .toPromise().then(doc =>{
-              this.highScoreAddWizard = doc.data().highScoreAddWizard;
-              this.careerQuestions = doc.data().careerQuestions;
-              this.careerRights = doc.data().careerRights;
-              this.careerWrongs = doc.data().careerWrongs;
-            })
-          }
-        })
-      }
-      //Multiplication
-      if(this.highScoreMultEasy == null){
-        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
-          if(firebaseUser){
-            this.afs.collection('users').doc(firebaseUser.uid).update({
-              highScoreMultEasy: 0,
-              careerQuestions: 0,
-              careerRights: 0,
-              careerWrongs: 0
-            })
-
-            this.afs.collection('users').doc(firebaseUser.uid).get()
-            .toPromise().then(doc =>{
-              this.highScoreMultEasy = doc.data().highScoreMultEasy;
-              this.careerQuestions = doc.data().careerQuestions;
-              this.careerRights = doc.data().careerRights;
-              this.careerWrongs = doc.data().careerWrongs;
-            })
-          }
-        })
-      }
-
-      if(this.highScoreMultIntermediate == null){
-        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
-          if(firebaseUser){
-            this.afs.collection('users').doc(firebaseUser.uid).update({
-              highScoreMultIntermediate: 0,
-              careerQuestions: 0,
-              careerRights: 0,
-              careerWrongs: 0
-            })
-
-            this.afs.collection('users').doc(firebaseUser.uid).get()
-            .toPromise().then(doc =>{
-              this.highScoreMultIntermediate = doc.data().highScoreMultIntermediate;
-              this.careerQuestions = doc.data().careerQuestions;
-              this.careerRights = doc.data().careerRights;
-              this.careerWrongs = doc.data().careerWrongs;
-            })
-          }
-        })
-      }
-
-      if(this.highScoreMultHard == null){
-        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
-          if(firebaseUser){
-            this.afs.collection('users').doc(firebaseUser.uid).update({
-              highScoreMultHard: 0,
-              careerQuestions: 0,
-              careerRights: 0,
-              careerWrongs: 0
-            })
-
-            this.afs.collection('users').doc(firebaseUser.uid).get()
-            .toPromise().then(doc =>{
-              this.highScoreMultHard = doc.data().highScoreMultHard;
-              this.careerQuestions = doc.data().careerQuestions;
-              this.careerRights = doc.data().careerRights;
-              this.careerWrongs = doc.data().careerWrongs;
-            })
-          }
-        })
-      }
-
-      if(this.highScoreMultWizard == null){
-        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
-          if(firebaseUser){
-            this.afs.collection('users').doc(firebaseUser.uid).update({
-              highScoreMultWizard: 0,
-              careerQuestions: 0,
-              careerRights: 0,
-              careerWrongs: 0
-            })
-
-            this.afs.collection('users').doc(firebaseUser.uid).get()
-            .toPromise().then(doc =>{
-              this.highScoreMultWizard = doc.data().highScoreMultWizard;
-              this.careerQuestions = doc.data().careerQuestions;
-              this.careerRights = doc.data().careerRights;
-              this.careerWrongs = doc.data().careerWrongs;
-            })
-          }
-        })
-      }
-      //Division
-      if(this.highScoreDivEasy == null){
-        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
-          if(firebaseUser){
-            this.afs.collection('users').doc(firebaseUser.uid).update({
-              highScoreDivEasy: 0,
-              careerQuestions: 0,
-              careerRights: 0,
-              careerWrongs: 0
-            })
-
-            this.afs.collection('users').doc(firebaseUser.uid).get()
-            .toPromise().then(doc =>{
-              this.highScoreDivEasy = doc.data().highScoreDivEasy;
-              this.careerQuestions = doc.data().careerQuestions;
-              this.careerRights = doc.data().careerRights;
-              this.careerWrongs = doc.data().careerWrongs;
-            })
-          }
-        })
-      }
-
-      if(this.highScoreDivIntermediate == null){
-        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
-          if(firebaseUser){
-            this.afs.collection('users').doc(firebaseUser.uid).update({
-              highScoreDivIntermediate: 0,
-              careerQuestions: 0,
-              careerRights: 0,
-              careerWrongs: 0
-            })
-
-            this.afs.collection('users').doc(firebaseUser.uid).get()
-            .toPromise().then(doc =>{
-              this.highScoreDivIntermediate = doc.data().highScoreDivIntermediate;
-              this.careerQuestions = doc.data().careerQuestions;
-              this.careerRights = doc.data().careerRights;
-              this.careerWrongs = doc.data().careerWrongs;
-            })
-          }
-        })
-      }
-
-      if(this.highScoreDivHard == null){
-        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
-          if(firebaseUser){
-            this.afs.collection('users').doc(firebaseUser.uid).update({
-              highScoreDivHard: 0,
-              careerQuestions: 0,
-              careerRights: 0,
-              careerWrongs: 0
-            })
-
-            this.afs.collection('users').doc(firebaseUser.uid).get()
-            .toPromise().then(doc =>{
-              this.highScoreDivHard = doc.data().highScoreDivHard;
-              this.careerQuestions = doc.data().careerQuestions;
-              this.careerRights = doc.data().careerRights;
-              this.careerWrongs = doc.data().careerWrongs;
-            })
-          }
-        })
-      }
-      
-      if(this.highScoreDivWizard == null){
-        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
-          if(firebaseUser){
-            this.afs.collection('users').doc(firebaseUser.uid).update({
-              highScoreDivWizard: 0,
-              careerQuestions: 0,
-              careerRights: 0,
-              careerWrongs: 0
-            })
-
-            this.afs.collection('users').doc(firebaseUser.uid).get()
-            .toPromise().then(doc =>{
-              this.highScoreDivWizard = doc.data().highScoreDivWizard;
-              this.careerQuestions = doc.data().careerQuestions;
-              this.careerRights = doc.data().careerRights;
-              this.careerWrongs = doc.data().careerWrongs;
-            })
-          }
-        })
-      }
-    }
         
 }

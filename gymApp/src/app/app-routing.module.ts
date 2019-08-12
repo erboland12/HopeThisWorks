@@ -25,7 +25,8 @@ const routes: Routes = [
   { path: 'rewards', loadChildren: './rewards/rewards.module#RewardsPageModule' },
   { path: 'addition', loadChildren: './addition/addition.module#AdditionPageModule' },
   { path: 'multiplication', loadChildren: './multiplication/multiplication.module#MultiplicationPageModule' },
-  { path: 'division', loadChildren: './division/division.module#DivisionPageModule' }
+  { path: 'division', loadChildren: './division/division.module#DivisionPageModule' },
+  { path: 'leaderboard', loadChildren: './leaderboard/leaderboard.module#LeaderboardPageModule' }
 
   
 ];

@@ -61,7 +61,7 @@
               </div>
             </div>
             <div class="form-group">
-              <ion-label><b>Display Name</b></ion-label>
+              <ion-label><b>Display Name*</b></ion-label>
               <ion-input formControlName="username" placeholder="" 
               [(ngModel)]="username" required></ion-input>
               <div *ngIf="updated && f.username.errors" class="invalid-feedback">
@@ -347,21 +347,22 @@
                 </div>
               </div>
               <div class="form-group">
-                <ion-label><b>Upload Profile Picture</b></ion-label>
+                <ion-label><b>Upload Profile Picture*</b></ion-label>
                 <ion-input accept="image/*" type="file" (change)="showPicture($event)"></ion-input>
                 <div *ngIf="percentage | async as pct">
                   <progress [value]="pct" max="100"></progress>
                 </div>
               </div>
           <div class="submitBtns">
-            <ion-button type="submit"><b>Save Changes</b></ion-button>
+            <ion-button color="success" type="submit"><b>Save Changes</b></ion-button>
+            <ion-button color="danger" (click)="cancel()"><b>Cancel</b></ion-button>
           </div>
         </form>
       </div>
       <div class="statsBox">
         <h2>Statistics</h2>
         <hr />
-        <div>
+        <div class="statsInner">
           <ul>
             <li *ngIf="this.auth.highScoreSubEasy != null" lines="none" color="odd" class="odd">
               Subtraction Easy -- High Score: <span><b>{{ this.auth.highScoreSubEasy }}</b></span></li>

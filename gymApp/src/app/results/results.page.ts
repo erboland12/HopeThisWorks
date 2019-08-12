@@ -46,7 +46,6 @@ export class ResultsPage implements OnInit {
   ngOnInit() {
     this.selectRandomMessage();
     this.selectRandomGoodMessage();
-    this.auth.setScores();
     console.log(this.diff.mode);
     console.log(this.diff.gameType);
     

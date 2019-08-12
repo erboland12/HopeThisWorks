@@ -34,6 +34,11 @@ export class AppComponent implements OnInit {
       title: 'Rewards',
       url: '/rewards',
       icon: 'ribbon'
+    },
+    {
+      title: 'Leaderboards',
+      url: '/leaderboard',
+      icon: 'clipboard'
     }
   ];
 

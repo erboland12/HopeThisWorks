@@ -1,0 +1,182 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title class="title">
+        Leaderboards
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+  <div class="mainBox">
+    <div class="formWrapper">
+      <ion-label>Game Mode</ion-label>
+      <ion-select [(ngModel)]="mode">
+        <ion-select-option value="add">Addition</ion-select-option>
+        <ion-select-option value="sub">Subtraction</ion-select-option>
+        <ion-select-option value="mult">Multiplication</ion-select-option>
+        <ion-select-option value="div">Division</ion-select-option>
+      </ion-select>
+      <div class='selectBox'>
+        <ion-label>Difficulty</ion-label>
+        <ion-select [(ngModel)]="difficulty">
+          <ion-select-option value="easy">Easy</ion-select-option>
+          <ion-select-option value="int">Intermediate</ion-select-option>
+          <ion-select-option value="hard">Hard</ion-select-option>
+          <ion-select-option value="wiz">Wizard</ion-select-option>
+        </ion-select>
+       </div> 
+    </div>
+
+    <div *ngIf="mode == 'sub' && difficulty == 'easy'"class="formWrapper">
+      <ul *ngFor="let user of user$ | async; let i = index;
+                  let even = even; let odd = odd;">
+        <li [ngClass]="{ 'gold': i == 0, 'silver': i == 1, 'bronze': i == 2 }">
+          {{i + 1}}. {{user.username}} <span style="float:right;">{{user.highScoreSubEasy}}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="mode == 'add' && difficulty == 'easy'"class="formWrapper">
+      <ul *ngFor="let user of user$2 | async; let i = index;
+                  let even = even; let odd = odd;">
+        <li [ngClass]="{ 'gold': i == 0, 'silver': i == 1, 'bronze': i == 2 }">
+          {{i + 1}}. {{user.username}} <span style="float:right;">{{user.highScoreAddEasy}}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="mode == 'mult' && difficulty == 'easy'"class="formWrapper">
+      <ul *ngFor="let user of user$3 | async; let i = index;
+                  let even = even; let odd = odd;">
+        <li [ngClass]="{ 'gold': i == 0, 'silver': i == 1, 'bronze': i == 2 }">
+          {{i + 1}}. {{user.username}} <span style="float:right;">{{user.highScoreMultEasy}}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="mode == 'div' && difficulty == 'easy'"class="formWrapper">
+      <ul *ngFor="let user of user$4 | async; let i = index;
+                  let even = even; let odd = odd;">
+        <li [ngClass]="{ 'gold': i == 0, 'silver': i == 1, 'bronze': i == 2 }">
+          {{i + 1}}. {{user.username}} <span style="float:right;">{{user.highScoreDivEasy}}</span>
+        </li>
+      </ul>
+    </div>
+
+
+    <div *ngIf="mode == 'sub' && difficulty == 'int'"class="formWrapper">
+        <ul *ngFor="let user of user$5 | async; let i = index;
+                    let even = even; let odd = odd;">
+          <li [ngClass]="{ 'gold': i == 0, 'silver': i == 1, 'bronze': i == 2 }">
+            {{i + 1}}. {{user.username}} <span style="float:right;">{{user.highScoreSubIntermediate}}</span>
+          </li>
+        </ul>
+      </div>
+  
+      <div *ngIf="mode == 'add' && difficulty == 'int'"class="formWrapper">
+        <ul *ngFor="let user of user$6 | async; let i = index;
+                    let even = even; let odd = odd;">
+          <li [ngClass]="{ 'gold': i == 0, 'silver': i == 1, 'bronze': i == 2 }">
+            {{i + 1}}. {{user.username}} <span style="float:right;">{{user.highScoreAddIntermediate}}</span>
+          </li>
+        </ul>
+      </div>
+  
+      <div *ngIf="mode == 'mult' && difficulty == 'int'"class="formWrapper">
+        <ul *ngFor="let user of user$7 | async; let i = index;
+                    let even = even; let odd = odd;">
+          <li [ngClass]="{ 'gold': i == 0, 'silver': i == 1, 'bronze': i == 2 }">
+            {{i + 1}}. {{user.username}} <span style="float:right;">{{user.highScoreMultIntermediate}}</span>
+          </li>
+        </ul>
+      </div>
+  
+      <div *ngIf="mode == 'div' && difficulty == 'int'"class="formWrapper">
+        <ul *ngFor="let user of user$8 | async; let i = index;
+                    let even = even; let odd = odd;">
+          <li [ngClass]="{ 'gold': i == 0, 'silver': i == 1, 'bronze': i == 2 }">
+            {{i + 1}}. {{user.username}} <span style="float:right;">{{user.highScoreDivIntermediate}}</span>
+          </li>
+        </ul>
+      </div>
+
+
+      <div *ngIf="mode == 'sub' && difficulty == 'hard'"class="formWrapper">
+          <ul *ngFor="let user of user$9 | async; let i = index;
+                      let even = even; let odd = odd;">
+            <li [ngClass]="{ 'gold': i == 0, 'silver': i == 1, 'bronze': i == 2 }">
+              {{i + 1}}. {{user.username}} <span style="float:right;">{{user.highScoreSubHard}}</span>
+            </li>
+          </ul>
+        </div>
+    
+        <div *ngIf="mode == 'add' && difficulty == 'hard'"class="formWrapper">
+          <ul *ngFor="let user of user$10 | async; let i = index;
+                      let even = even; let odd = odd;">
+            <li [ngClass]="{ 'gold': i == 0, 'silver': i == 1, 'bronze': i == 2 }">
+              {{i + 1}}. {{user.username}} <span style="float:right;">{{user.highScoreAddHard}}</span>
+            </li>
+          </ul>
+        </div>
+    
+        <div *ngIf="mode == 'mult' && difficulty == 'hard'"class="formWrapper">
+          <ul *ngFor="let user of user$11 | async; let i = index;
+                      let even = even; let odd = odd;">
+            <li [ngClass]="{ 'gold': i == 0, 'silver': i == 1, 'bronze': i == 2 }">
+              {{i + 1}}. {{user.username}} <span style="float:right;">{{user.highScoreMultHard}}</span>
+            </li>
+          </ul>
+        </div>
+    
+        <div *ngIf="mode == 'div' && difficulty == 'hard'"class="formWrapper">
+          <ul *ngFor="let user of user$12 | async; let i = index;
+                      let even = even; let odd = odd;">
+            <li [ngClass]="{ 'gold': i == 0, 'silver': i == 1, 'bronze': i == 2 }">
+              {{i + 1}}. {{user.username}} <span style="float:right;">{{user.highScoreDivHard}}</span>
+            </li>
+          </ul>
+        </div>
+    
+        
+        <div *ngIf="mode == 'sub' && difficulty == 'wiz'"class="formWrapper">
+            <ul *ngFor="let user of user$13 | async; let i = index;
+                        let even = even; let odd = odd;">
+              <li [ngClass]="{ 'gold': i == 0, 'silver': i == 1, 'bronze': i == 2 }">
+                {{i + 1}}. {{user.username}} <span style="float:right;">{{user.highScoreSubWizard}}</span>
+              </li>
+            </ul>
+          </div>
+      
+          <div *ngIf="mode == 'add' && difficulty == 'wiz'"class="formWrapper">
+            <ul *ngFor="let user of user$14 | async; let i = index;
+                        let even = even; let odd = odd;">
+              <li [ngClass]="{ 'gold': i == 0, 'silver': i == 1, 'bronze': i == 2 }">
+                {{i + 1}}. {{user.username}} <span style="float:right;">{{user.highScoreAddWizard}}</span>
+              </li>
+            </ul>
+          </div>
+      
+          <div *ngIf="mode == 'mult' && difficulty == 'wiz'"class="formWrapper">
+            <ul *ngFor="let user of user$15 | async; let i = index;
+                        let even = even; let odd = odd;">
+              <li [ngClass]="{ 'gold': i == 0, 'silver': i == 1, 'bronze': i == 2 }">
+                {{i + 1}}. {{user.username}} <span style="float:right;">{{user.highScoreMultWizard}}</span>
+              </li>
+            </ul>
+          </div>
+      
+          <div *ngIf="mode == 'div' && difficulty == 'wiz'"class="formWrapper">
+            <ul *ngFor="let user of user$16 | async; let i = index;
+                        let even = even; let odd = odd;">
+              <li [ngClass]="{ 'gold': i == 0, 'silver': i == 1, 'bronze': i == 2 }">
+                {{i + 1}}. {{user.username}} <span style="float:right;">{{user.highScoreDivWizard}}</span>
+              </li>
+            </ul>
+          </div>
+
+  </div>
+
+</ion-content>
