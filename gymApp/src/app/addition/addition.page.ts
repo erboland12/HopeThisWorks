@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { StatsService } from '../stats/stats.service';
 import { DifficultyService } from '../services/difficulty.service';
+import { timer, Observable, Subject, Subscription } from 'rxjs';
+import { take, map, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-addition',
@@ -9,6 +11,13 @@ import { DifficultyService } from '../services/difficulty.service';
   styleUrls: ['./addition.page.scss'],
 })
 export class AdditionPage implements OnInit {
+  private _counterSource$ = new Subject<any>();
+  private _subscription = Subscription.EMPTY;
+
+
+  @Input() counter: number;
+  @Input() interval: number;
+  @Output() value = new EventEmitter<number>();
 
   //Display booleans
   diffVisible = true;
@@ -24,7 +33,6 @@ export class AdditionPage implements OnInit {
   start = false;
   timeLeft: number;
   timesUp: number;
-  interval;
   interval2;
 
   //random numbers
@@ -42,8 +50,20 @@ export class AdditionPage implements OnInit {
 
   }
 
-  ngOnInit() {
 
+  x: number;
+  countdown: number;
+  startCountdownTimer(x: number) {
+    const interval = 1000;
+    const duration = x * 1000;
+    const stream$ = timer(0, interval).pipe(
+      map(value => (duration - value * interval)/1000)
+    );
+    stream$.subscribe(value => this.countdown = value);
+  }
+
+  ngOnInit() {
+    
   }
 
   readyClick(){
@@ -120,7 +140,7 @@ export class AdditionPage implements OnInit {
     console.log(arrayAdd);
     this.diff.totalQuestions++;
     console.log(this.diff.correctQuestions);
-
+    
   }
 
   timesOut(){
@@ -156,6 +176,7 @@ export class AdditionPage implements OnInit {
       this.diff.mode = "easy";
       this.diff.gameType = "addition";
       this.timesUp = 63;
+      this.x = 60;
     }
     if(difficulty == "intermediate"){
       this.rand1 = Math.floor((Math.random() * 1000) + 1);
@@ -163,6 +184,7 @@ export class AdditionPage implements OnInit {
       this.diff.mode = "intermediate";
       this.diff.gameType = "addition";
       this.timesUp = 93;
+      this.x = 90;
     }
     if(difficulty == "hard"){
       this.rand1 = Math.floor((Math.random() * 100000) + 10);
@@ -170,6 +192,7 @@ export class AdditionPage implements OnInit {
       this.diff.mode = "hard";
       this.diff.gameType = "addition";
       this.timesUp = 123;
+      this.x = 120;
     }
     if(difficulty == "wizard"){
       this.rand1 = Math.floor((Math.random() * 1000000) + 100);
@@ -177,6 +200,7 @@ export class AdditionPage implements OnInit {
       this.diff.mode = "wizard";
       this.diff.gameType = "addition";
       this.timesUp = 183;
+      this.x = 180;
     }
 
     console.log(this.diff.mode);
@@ -188,6 +212,7 @@ export class AdditionPage implements OnInit {
 
     this.diffVisible = false;
     this.titleVisible = true;
+    this.startCountdownTimer(this.x);
   } 
 
 }

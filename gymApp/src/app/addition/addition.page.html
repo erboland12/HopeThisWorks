@@ -13,6 +13,7 @@
   <div class="mainBox">
       <div class="diffBox" *ngIf="this.diffVisible == true">
         <h1 class="title">Pick A Difficulty:</h1>
+
         <hr />
         <ion-button color="grey" class="easyBtn" (click)="difficultyChosen('easy')"><b>Easy</b></ion-button>
         
@@ -37,7 +38,7 @@
       <div class="questions" *ngIf="this.questionsVisible == true">
         <div class="options">
           <p [ngClass]="{'time15': this.readyTimeLeft <= 15,
-                         'time5': this.readyTimeLeft <= 5}"><b>{{readyTimeLeft}} Seconds Left....</b></p>
+                         'time5': this.readyTimeLeft <= 5}"><b>{{countdown}} Seconds Left....</b></p>
           <p [ngClass]="{'scorePass': this.score >= 10}">Score: {{this.score}} / 10</p>
         </div>
         
