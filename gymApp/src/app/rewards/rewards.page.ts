@@ -35,6 +35,30 @@ export class RewardsPage implements OnInit {
       desc: 'Get a Score of at Least 10 on Division Easy Mode',
       color: 'Green',
       locked: this.auth.highScoreDivEasy < 10
+    },
+    {
+      name: 'Crimson Background',
+      desc: 'Get a Score of at Least 10 on Addition Hard Mode',
+      color: 'Crimson',
+      locked: this.auth.highScoreAddHard < 10
+    },
+    {
+      name: 'Neon Blue Background',
+      desc: 'Get a Score of at Least 10 on Subtraction Hard Mode',
+      color: 'NeonBlue',
+      locked: this.auth.highScoreSubHard < 10
+    },
+    {
+      name: 'Neon Orange Background',
+      desc: 'Get a Score of at Least 10 on Multiplication Hard Mode',
+      color: 'NeonOrange',
+      locked: this.auth.highScoreMultHard < 10
+    },
+    {
+      name: 'Lime Green Background',
+      desc: 'Get a Score of at Least 10 on Division Hard Mode',
+      color: 'LimeGreen',
+      locked: this.auth.highScoreDivHard < 10
     }
 ]
 

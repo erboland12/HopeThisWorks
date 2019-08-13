@@ -12,7 +12,11 @@
   <div class="mainBox" [ngClass]="{'bgRed': this.auth.color === 'red',
                                    'bgBlue': this.auth.color ==='blue',
                                    'bgGreen': this.auth.color === 'green',
-                                   'bgOrange': this.auth.color === 'orange'}">
+                                   'bgOrange': this.auth.color === 'orange',
+                                   'bgCrimson': this.auth.color == 'crimson',
+                                   'bgNeonBlue': this.auth.color == 'neonBlue',
+                                   'bgNeonOrange': this.auth.color == 'neonOrange',
+                                   'bgLimeGreen': this.auth.color == 'limeGreen'}">
     <div class="formWrapper">
       <div class="pictureBox">
         <img *ngIf="this.auth.photoURL == null" src="../../assets/icon/profilePH.png">
@@ -331,11 +335,14 @@
                 </div>
                 <ion-label><b>Background Color</b></ion-label>
                 <ion-select id="color" name="color" formControlName="color" [(ngModel)]="color">
-                  <ion-select-option value="white">Default</ion-select-option>
                   <ion-select-option [disabled]="this.auth.red" value="red">Red</ion-select-option>
                   <ion-select-option [disabled]="this.auth.orange" value="orange">Orange</ion-select-option>
                   <ion-select-option [disabled]="this.auth.green" value="green">Green</ion-select-option>
                   <ion-select-option [disabled]="this.auth.blue" value="blue">Blue</ion-select-option>
+                  <ion-select-option [disabled]="this.auth.crimson" value="crimson">Crimson</ion-select-option>
+                  <ion-select-option [disabled]="this.auth.neonOrange" value="neonOrange">Neon Orange</ion-select-option>
+                  <ion-select-option [disabled]="this.auth.limeGreen" value="limeGreen">Lime Green</ion-select-option>
+                  <ion-select-option [disabled]="this.auth.neonBlue" value="neonBlue">Neon Blue</ion-select-option>
                 </ion-select>
               </div>
               <div class="form-group">

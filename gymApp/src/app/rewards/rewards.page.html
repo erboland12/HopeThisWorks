@@ -22,7 +22,11 @@
         <ion-item lines="none" [ngClass]="{'bgRed': r.color == 'Red',
                               'bgBlue': r.color == 'Blue', 
                               'bgGreen': r.color == 'Green',
-                              'bgOrange': r.color == 'Orange'}" color="r.color">
+                              'bgOrange': r.color == 'Orange',
+                              'bgCrimson': r.color == 'Crimson',
+                              'bgNeonBlue': r.color == 'NeonBlue',
+                              'bgNeonOrange': r.color == 'NeonOrange',
+                              'bgLimeGreen': r.color == 'LimeGreen'}" color="r.color">
           <ion-icon *ngIf="r.locked" style="color: whitesmoke" slot="start" name="lock"></ion-icon>
             <ion-label style="color: whitesmoke">
               <b>{{r.name}}</b>

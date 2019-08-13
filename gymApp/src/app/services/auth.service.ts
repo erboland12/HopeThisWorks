@@ -37,6 +37,15 @@ export class AuthService{
     orange: boolean;
     blue: boolean;
     green: boolean;
+    crimson: boolean;
+    neonBlue: boolean;
+    neonOrange: boolean;
+    limeGreen: boolean;
+    diamond: boolean;
+    platinum: boolean;
+    gold: boolean;
+    silver: boolean;
+    bronze: boolean;
 
 
     //Subtraction High Scores

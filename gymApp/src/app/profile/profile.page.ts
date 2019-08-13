@@ -161,10 +161,28 @@ export class ProfilePage implements OnInit {
     } else{
       this.auth.green = true;
     }
-    console.log(this.auth.highScoreSubEasy);
-    console.log(this.auth.highScoreSubIntermediate);
-    console.log(this.auth.red);
-    console.log(this.auth.orange);
+
+    if(this.auth.highScoreAddHard >= 10){
+      this.auth.crimson = false;
+    } else{
+      this.auth.crimson = true;
+    }
+    if(this.auth.highScoreMultHard >= 10){
+      this.auth.neonOrange = false;
+    } else{
+      this.auth.neonOrange = true;
+    }
+    if(this.auth.highScoreSubHard >= 10){
+      this.auth.neonBlue = false;
+    } else{
+      this.auth.neonBlue = true;
+    }
+    if(this.auth.highScoreDivHard >= 10){
+      this.auth.limeGreen = false;
+    } else{
+      this.auth.limeGreen = true;
+    }
+
 
   }
 

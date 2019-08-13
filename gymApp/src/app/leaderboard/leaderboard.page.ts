@@ -35,8 +35,8 @@ export interface HighScore
 })
 
 export class LeaderboardPage implements OnInit {
-  mode = ''; 
-  difficulty = '';
+  mode = 'add'; 
+  difficulty = 'easy';
 
   //reference for each high score category
   userRef: AngularFirestoreCollection<HighScore>;
