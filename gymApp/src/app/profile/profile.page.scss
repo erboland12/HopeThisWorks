@@ -42,7 +42,7 @@
   }
 
   .submitBtns{
-    text-align: center;
+    text-align: left;
   }
 
   .submitBtns2{
@@ -76,6 +76,8 @@
 
   ion-input{
     border: 0.5px solid black;
+    padding-left: 0.3em;
+    width: auto;
   }
 
   ion-select{
@@ -87,7 +89,6 @@
     width: 280px;
     border-radius: 50%;
     border: 1.5px solid black;
-    margin: 0.5em;
     position: inherit;
   }
 
@@ -101,6 +102,7 @@
   .infoBox{
     text-align: left;
     border-radius: 5px;
+    font-size: 90%;
     background-color: whitesmoke;
     border: 0.5px solid rgb(52, 91, 146);
     box-shadow: 10px 10px 5px grey;
@@ -112,6 +114,19 @@
     height: 35px;
     width: 35px;
     display: inline-block;
+  }
+
+  .titleIcon{
+    color: grey;
+    padding-left: 0.8em;
+  }
+  .titleIcon2{
+    color: var(--ion-color-red);
+    padding-left: 0.8em;
+  }
+  .titleIcon3{
+    color: var(--ion-color-green);
+    padding-left: 0.8em;
   }
 
   ion-list{
@@ -214,8 +229,14 @@
 
   ion-row{
     float: right;
+    margin-top: 0.5em;
+    padding-top: 1.5em;
   }
 
   ::shadow /deep/ button[disabled] .alert-radio-label {
     color: gray;
+  }
+
+  ion-grid{
+    padding-top: 1.5em;
   }

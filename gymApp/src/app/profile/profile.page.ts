@@ -22,6 +22,14 @@ export class ProfilePage implements OnInit {
 
   updateForm: FormGroup;
 
+  nameEdit: boolean;
+  ageEdit: boolean;
+  backEdit: boolean;
+  locationEdit: boolean;
+  bioEdit: boolean;
+  usernameEdit: boolean;
+  photoEdit: boolean;
+
   task: AngularFireUploadTask;
 
   percentage: Observable<number>;
@@ -85,6 +93,10 @@ export class ProfilePage implements OnInit {
 
   edit(){
     this.updated = false;
+  }
+
+  finish(){
+    this.updated = true;
   }
 
   submitInfo(){
@@ -183,12 +195,157 @@ export class ProfilePage implements OnInit {
       this.auth.limeGreen = true;
     }
 
-
   }
 
   cancel(){
-    this.updated=true;
+    this.nameEdit = false;
+    this.photoEdit = false;
+    this.bioEdit = false;
+    this.ageEdit = false;
+    this.locationEdit = false;
+    this.backEdit = false;
+    this.usernameEdit = false;
   }
+
+  editName(){
+    this.nameEdit = true;
+    this.photoEdit = false;
+    this.bioEdit = false;
+    this.ageEdit = false;
+    this.locationEdit = false;
+    this.backEdit = false;
+    this.usernameEdit = false;
+  }
+
+  editAge(){
+    this.ageEdit = true;
+    this.nameEdit = false;
+    this.photoEdit = false;
+    this.bioEdit = false;
+    this.locationEdit = false;
+    this.backEdit = false;
+    this.usernameEdit = false;
+  }
+
+  editLocation(){
+    this.ageEdit = false;
+    this.nameEdit = false;
+    this.photoEdit = false;
+    this.bioEdit = false;
+    this.locationEdit = true;
+    this.backEdit = false;
+    this.usernameEdit = false;
+  }
+
+  editBio(){
+    this.ageEdit = false;
+    this.nameEdit = false;
+    this.photoEdit = false;
+    this.bioEdit = true;
+    this.locationEdit = false;
+    this.backEdit = false;
+    this.usernameEdit = false;
+  }
+
+  editUsername(){
+    this.ageEdit = false;
+    this.nameEdit = false;
+    this.photoEdit = false;
+    this.bioEdit = false;
+    this.locationEdit = false;
+    this.backEdit = false;
+    this.usernameEdit = true;
+  }
+
+  editBack(){
+    this.ageEdit = false;
+    this.nameEdit = false;
+    this.photoEdit = false;
+    this.bioEdit = false;
+    this.locationEdit = false;
+    this.backEdit = true;
+    this.usernameEdit = false;
+  }
+
+  editPhoto(){
+    this.ageEdit = false;
+    this.nameEdit = false;
+    this.photoEdit = true;
+    this.bioEdit = false;
+    this.locationEdit = false;
+    this.backEdit = false;
+    this.usernameEdit = false;
+  }
+
+  updateInfoName(fname:string, lname?:string){
+    if(lname != '' && fname != ''){
+      this.auth.updateUser(this.auth.uname, fname, lname);
+    } else if (lname == '' && fname != ''){
+      this.auth.updateUser(this.auth.uname, this.auth.fname, '');
+    }
+
+    this.nameEdit = false;
+  }
+
+  updateAge(age: number){
+    if(age != null){
+      this.auth.updateUser(this.auth.uname, this.auth.fname, this.auth.lname, age);
+    }
+
+    this.ageEdit = false;
+  }
+
+  updateLocation(location: string){
+    if(location != null){
+      this.auth.updateUser(this.auth.uname, this.auth.fname, this.auth.lname,
+                           this.auth.age, location);
+    }
+    this.locationEdit = false;
+  }
+
+  updateBio(bio: string){
+    if(bio != null){
+      this.auth.updateUser(this.auth.uname, this.auth.fname, this.auth.lname,
+        this.auth.age, this.auth.location, bio);
+    }
+    this.bioEdit = false;
+  }
+
+  updateUsername(uname: string){
+    if(uname != null){
+      this.auth.updateUser(uname, this.auth.fname);
+    }
+    this.usernameEdit = false;
+  }
+
+  updateBack(color: string){
+    if(color != null){
+      this.auth.updateUser(this.auth.uname, this.auth.fname, this.auth.lname,
+        this.auth.age, this.auth.location, this.auth.bio,color);
+    }
+    this.backEdit = false;
+  }
+
+  updatePhoto(){
+    this.photoEdit = false;
+    var filePath = `profilePics/${this.selectedImg.name.split('.').slice(0,-1).join('.')}_${new Date().getTime()}`;
+      const fileRef = this.storage.ref(filePath);
+      this.storage.upload(filePath, this.selectedImg).snapshotChanges().pipe(
+        finalize(() =>{
+          fileRef.getDownloadURL().subscribe((url) =>{
+            if(url){
+              this.photoURL = url;
+              this.auth.updateProfileURL(this.photoURL);
+              console.log(this.photoURL);
+              console.log(url);
+              this.upSvc.insertImageDetails(url);
+            }
+          })
+        })
+      ).subscribe();
+
+  }
+
   
 
 

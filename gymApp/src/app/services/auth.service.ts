@@ -187,8 +187,8 @@ export class AuthService{
         });
     }
 
-    updateUser(username, firstName, lastName, age, 
-               location, bio, color){
+    updateUser(username, firstName, lastName?, age?, 
+               location?, bio?, color?){
       this.afAuth.auth.onAuthStateChanged(firebaseUser => {
         if(firebaseUser){
           this.afs.collection('users').doc(firebaseUser.uid).update({
@@ -230,6 +230,14 @@ export class AuthService{
               this.bio = doc.data().bio;
               this.color = doc.data().color;
             })
+        }
+      })
+    }
+
+    updateUserInformation(){
+      this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+        if(firebaseUser){
+
         }
       })
     }
