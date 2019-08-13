@@ -21,14 +21,24 @@ export class AppComponent implements OnInit {
       icon: 'home'
     },
     {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
+      title: 'Addition',
+      url: '/addition',
+      src: '../assets/svgs/add.svg'
     },
     {
-      title: 'Contact Us',
-      url: '/contact',
-      icon: 'contact'
+      title: 'Subtraction',
+      url: '/subtract',
+      src: '../assets/svgs/sub.svg'
+    },
+    {
+      title: 'Multiplication',
+      url: '/multiplication',
+      src: '../assets/svgs/mult.svg'
+    },
+    {
+      title: 'Division',
+      url: '/division',
+      src: '../assets/svgs/div.svg'
     },
     {
       title: 'Rewards',
