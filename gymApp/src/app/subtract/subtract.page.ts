@@ -60,7 +60,18 @@ export class SubtractPage implements OnInit {
         this.timesUp--;
         this.timesOut();
       } else{
-        this.readyTimeLeft = 60;
+        if(this.difficulty == "easy"){
+          this.readyTimeLeft = 60;
+        }
+        if(this.difficulty == "intermediate"){
+          this.readyTimeLeft = 90;
+        }
+        if(this.difficulty == "hard"){
+          this.readyTimeLeft = 120;
+        }
+        if(this.difficulty == "wizard"){
+          this.readyTimeLeft = 180;
+        }
         this.readyVisible = false;
         this.questionsVisible = true;
       }
@@ -145,24 +156,28 @@ export class SubtractPage implements OnInit {
       this.rand2 = Math.floor((Math.random() * 100) + 1);
       this.diff.mode = "easy";
       this.diff.gameType = "subtraction";
+      this.timesUp = 63;
     }
     if(difficulty == "intermediate"){
       this.rand1 = Math.floor((Math.random() * 1000) + 1);
       this.rand2 = Math.floor((Math.random() * 1000) + 1);
       this.diff.mode = "intermediate";
       this.diff.gameType = "subtraction";
+      this.timesUp = 93;
     }
     if(difficulty == "hard"){
       this.rand1 = Math.floor((Math.random() * 100000) + 10);
       this.rand2 = Math.floor((Math.random() * 100000) + 10);
       this.diff.mode = "hard";
       this.diff.gameType = "subtraction";
+      this.timesUp = 123;
     }
     if(difficulty == "wizard"){
       this.rand1 = Math.floor((Math.random() * 1000000) + 100);
       this.rand2 = Math.floor((Math.random() * 1000000) + 100);
       this.diff.mode = "wizard";
       this.diff.gameType = "subtraction";
+      this.timesUp = 183;
     }
 
     console.log(this.diff.mode);

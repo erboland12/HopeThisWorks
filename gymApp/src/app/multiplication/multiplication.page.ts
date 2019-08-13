@@ -22,8 +22,8 @@ export class MultiplicationPage implements OnInit {
   //timer globals
   readyTimeLeft: number = 3;
   start = false;
-  timeLeft: number = 60;
-  timesUp: number = 63;
+  timeLeft: number;
+  timesUp: number;
   interval;
   interval2;
 
@@ -59,7 +59,18 @@ export class MultiplicationPage implements OnInit {
         this.timesUp--;
         this.timesOut();
       } else{
-        this.readyTimeLeft = 60;
+        if(this.difficulty == "easy"){
+          this.readyTimeLeft = 60;
+        }
+        if(this.difficulty == "intermediate"){
+          this.readyTimeLeft = 90;
+        }
+        if(this.difficulty == "hard"){
+          this.readyTimeLeft = 120;
+        }
+        if(this.difficulty == "wizard"){
+          this.readyTimeLeft = 180;
+        }
         this.readyVisible = false;
         this.questionsVisible = true;
       }
@@ -144,24 +155,28 @@ export class MultiplicationPage implements OnInit {
       this.rand2 = Math.floor((Math.random() * 25) + 1);
       this.diff.mode = "easy";
       this.diff.gameType = "multiplication";
+      this.timesUp = 63;
     }
     if(difficulty == "intermediate"){
       this.rand1 = Math.floor((Math.random() * 10) + 1);
       this.rand2 = Math.floor((Math.random() * 100) + 1);
       this.diff.mode = "intermediate";
       this.diff.gameType = "multiplication";
+      this.timesUp = 93;
     }
     if(difficulty == "hard"){
       this.rand1 = Math.floor((Math.random() * 30) + 1);
       this.rand2 = Math.floor((Math.random() * 250) + 10);
       this.diff.mode = "hard";
       this.diff.gameType = "multiplication";
+      this.timesUp = 123;
     }
     if(difficulty == "wizard"){
       this.rand1 = Math.floor((Math.random() * 100) + 1);
       this.rand2 = Math.floor((Math.random() * 500) + 1);
       this.diff.mode = "wizard";
       this.diff.gameType = "multiplication";
+      this.timesUp = 183;
     }
 
     console.log(this.diff.mode);

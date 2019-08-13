@@ -22,8 +22,8 @@ export class DivisionPage implements OnInit {
   //timer globals
   readyTimeLeft: number = 3;
   start = false;
-  timeLeft: number = 60;
-  timesUp: number = 63;
+  timeLeft: number;
+  timesUp: number;
   interval;
   interval2;
 
@@ -59,7 +59,18 @@ export class DivisionPage implements OnInit {
         this.timesUp--;
         this.timesOut();
       } else{
-        this.readyTimeLeft = 60;
+        if(this.difficulty == "easy"){
+          this.readyTimeLeft = 60;
+        }
+        if(this.difficulty == "intermediate"){
+          this.readyTimeLeft = 90;
+        }
+        if(this.difficulty == "hard"){
+          this.readyTimeLeft = 120;
+        }
+        if(this.difficulty == "wizard"){
+          this.readyTimeLeft = 180;
+        }
         this.readyVisible = false;
         this.questionsVisible = true;
       }
@@ -145,24 +156,28 @@ export class DivisionPage implements OnInit {
       this.rand2 = this.rand1 * Math.floor((Math.random() * 100) + 1);
       this.diff.mode = "easy";
       this.diff.gameType = "division";
+      this.timesUp = 63;
     }
     if(difficulty == "intermediate"){
       this.rand1 = Math.floor((Math.random() * 1000) + 1);
       this.rand2 = this.rand1 * Math.floor((Math.random() * 1000) + 1);
       this.diff.mode = "intermediate";
       this.diff.gameType = "division";
+      this.timesUp = 93;
     }
     if(difficulty == "hard"){
       this.rand1 = Math.floor((Math.random() * 100000) + 10);
       this.rand2 = this.rand1 * Math.floor((Math.random() * 100000) + 10);
       this.diff.mode = "hard";
       this.diff.gameType = "division";
+      this.timesUp = 123;
     }
     if(difficulty == "wizard"){
       this.rand1 = Math.floor((Math.random() * 1000000) + 100);
       this.rand2 = this.rand1 * Math.floor((Math.random() * 1000000) + 100);
       this.diff.mode = "wizard";
       this.diff.gameType = "division";
+      this.timesUp = 183;
     }
 
     console.log(this.diff.mode);
