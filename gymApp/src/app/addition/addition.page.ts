@@ -231,4 +231,10 @@ export class AdditionPage implements OnInit, OnDestroy {
     this.titleVisible = true;
   } 
 
+  quit(){
+    this.navCtrl.navigateForward('home').then(() => {
+      window.location.reload();
+    });
+  }
+
 }

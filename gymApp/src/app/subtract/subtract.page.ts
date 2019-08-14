@@ -189,7 +189,13 @@ export class SubtractPage implements OnInit {
 
     this.diffVisible = false;
     this.titleVisible = true;
-  } 
+  }
+   
+  quit(){
+    this.navCtrl.navigateForward('home').then(() => {
+      window.location.reload();
+    });
+  }
   
 
 }

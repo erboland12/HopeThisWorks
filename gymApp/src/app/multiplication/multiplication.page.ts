@@ -190,4 +190,10 @@ export class MultiplicationPage implements OnInit {
     this.titleVisible = true;
   } 
 
+  quit(){
+    this.navCtrl.navigateForward('home').then(() => {
+      window.location.reload();
+    });
+  }
+
 }

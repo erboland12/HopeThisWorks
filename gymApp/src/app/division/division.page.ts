@@ -191,4 +191,10 @@ export class DivisionPage implements OnInit {
     this.titleVisible = true;
   } 
 
+  quit(){
+    this.navCtrl.navigateForward('home').then(() => {
+      window.location.reload();
+    });
+  }
+
 }

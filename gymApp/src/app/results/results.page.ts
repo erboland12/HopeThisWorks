@@ -53,7 +53,29 @@ export class ResultsPage implements OnInit {
 
   reset(){
     this.diff.resetResults();
-    this.navCtrl.back();
+    if(this.diff.gameType == "addition"){
+      this.navCtrl.navigateBack('addition').then(() =>{
+        window.location.reload();
+      });
+    }
+
+    if(this.diff.gameType == "subtraction"){
+      this.navCtrl.navigateBack('subtract').then(() =>{
+        window.location.reload();
+      });
+    }
+
+    if(this.diff.gameType == "multiplication"){
+      this.navCtrl.navigateBack('multiplication').then(() =>{
+        window.location.reload();
+      });
+    }
+
+    if(this.diff.gameType == "division"){
+      this.navCtrl.navigateBack('division').then(() =>{
+        window.location.reload();
+      });
+    }
   }
 
   selectRandomMessage(){
@@ -74,13 +96,14 @@ export class ResultsPage implements OnInit {
   playAgain(highScore: number){
     this.updateHighScore(highScore);
     this.reset();
-    this.navCtrl.navigateForward('addition');
   }
 
   okBtn(highScore: number){
     this.updateHighScore(highScore);
-    this.reset();
-    this.navCtrl.back();
+    this.diff.resetResults();
+    this.navCtrl.navigateForward('home').then(() =>{
+      window.location.reload();
+    });
   }
 
 
