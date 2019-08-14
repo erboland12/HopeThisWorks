@@ -52,7 +52,7 @@
              <ion-button *ngIf="this.diff.correctAnswers >= 10" class="btnPass" 
               color="success" (click)="updateHighScore(this.diff.correctAnswers)">OK</ion-button>
               <ion-button *ngIf="this.diff.correctAnswers < 10" class="btnFail" 
-              color="danger" (click)="updateHighScore(this.diff.correctAnswers)">OK</ion-button>
+              color="danger" (click)="okBtn(this.diff.correctAnswers)">OK</ion-button>
           </ion-col>
           <ion-col col-6>
              <ion-button class='submit' (click)="playAgain(this.diff.correctAnswers)">Play Again</ion-button>

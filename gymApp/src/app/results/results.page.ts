@@ -53,7 +53,7 @@ export class ResultsPage implements OnInit {
 
   reset(){
     this.diff.resetResults();
-    this.navCtrl.navigateForward('home');
+    this.navCtrl.back();
   }
 
   selectRandomMessage(){
@@ -69,10 +69,15 @@ export class ResultsPage implements OnInit {
   updateHighScore(highScore: number){
     this.auth.updateCareerStats(this.diff.totalQuestions,this.diff.correctAnswers,this.diff.incorrectAnswers);
     this.auth.updateHighScore(this.diff.mode, this.diff.gameType, highScore);
-    this.reset();
   }
 
   playAgain(highScore: number){
+    this.updateHighScore(highScore);
+    this.reset();
+    this.navCtrl.navigateForward('addition');
+  }
+
+  okBtn(highScore: number){
     this.updateHighScore(highScore);
     this.reset();
     this.navCtrl.back();
