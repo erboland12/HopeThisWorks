@@ -22,6 +22,9 @@ export class AuthService{
     logged: boolean = false;
     emailNull: boolean = false;
     passwordNull: boolean = false;
+    emailSent: boolean;
+    emailReceived: boolean;
+    currentEmail: string = 'erboland@uvm.edu';
 
     uname: string;
     fname: string;
@@ -578,6 +581,40 @@ export class AuthService{
 
      }
 
+     emailSubmit(email: string){
+      return this.afAuth.auth.sendPasswordResetEmail(email).then(() =>{
+        console.log("email sent")
+          }).catch((error) => {
+          console.log(error)
+        })
+      }
+
+      // resetPassword(email: string){
+      //   return this.afAuth.auth.sendPasswordResetEmail(
+      //     email,
+      //     { url: 'http://localhost:8100/password-reset'}).then(() => {
+      //       this.emailReceived = true;
+      //     });
+      // }
+
+      resetPassword(email: string){
+        var auth = firebase.auth();
+        return auth.sendPasswordResetEmail(email)
+          .then(() => console.log("email sent"))
+          .catch((error) => console.log(error))
+      }
+
+      updateNewPassword(email: string,password: string){
+        // this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+        //   if(!firebaseUser){
+        //     this.afs.collection('users').doc(firebaseUser.uid).update({
+        //       email: email,
+        //       password: password
+        //     })
+        //   }
+        // })
+        console.log(this.afAuth.auth);
+      }
 
         
 }

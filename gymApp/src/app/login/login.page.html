@@ -18,17 +18,15 @@
       </div>
       <form [formGroup]="loginForm" (ngSubmit)="this.auth.loginEmail(username, password)">
         <div class="form-group">
-          <ion-label><b>Username</b></ion-label>
+          <ion-label><b>Email</b></ion-label>
           <ion-input formControlName="username" placeholder="" 
           [(ngModel)]="username" name="username"></ion-input>
         </div>
         <div class="form-group">
           <ion-label><b>Password</b></ion-label>
+          <a href="password-reset"  style="float:right; text-decoration: none;">Forgot Password?</a>
           <ion-input type="password" formControlName="password" placeholder="" 
           [(ngModel)]="password" name="password"></ion-input>
-        </div>
-        <div *ngIf="loginForm.invalid == true">
-          INVALID 
         </div>
         <div class="form-group">
           <div class="submitBtns">

@@ -27,7 +27,9 @@ const routes: Routes = [
   { path: 'addition', loadChildren: './addition/addition.module#AdditionPageModule', runGuardsAndResolvers: 'always'},
   { path: 'multiplication', loadChildren: './multiplication/multiplication.module#MultiplicationPageModule' },
   { path: 'division', loadChildren: './division/division.module#DivisionPageModule' },
-  { path: 'leaderboard', loadChildren: './leaderboard/leaderboard.module#LeaderboardPageModule' }
+  { path: 'leaderboard', loadChildren: './leaderboard/leaderboard.module#LeaderboardPageModule' },  { path: 'password-reset', loadChildren: './password-reset/password-reset.module#PasswordResetPageModule' },
+  { path: 'new-password', loadChildren: './new-password/new-password.module#NewPasswordPageModule' }
+
 
   
 ];
