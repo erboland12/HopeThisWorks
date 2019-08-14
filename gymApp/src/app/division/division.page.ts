@@ -197,4 +197,8 @@ export class DivisionPage implements OnInit {
     });
   }
 
+  refreshSum(){
+    this.sum = '';
+  }
+
 }

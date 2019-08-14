@@ -100,7 +100,7 @@ export class AdditionPage implements OnInit, OnDestroy {
         this.timesOut();
       } else{
         if(this.difficulty == "easy"){
-          this.readyTimeLeft = 10;
+          this.readyTimeLeft = 60;
         }
         if(this.difficulty == "intermediate"){
           this.readyTimeLeft = 90;
@@ -196,7 +196,7 @@ export class AdditionPage implements OnInit, OnDestroy {
       this.rand2 = Math.floor((Math.random() * 100) + 1);
       this.diff.mode = "easy";
       this.diff.gameType = "addition";
-      this.timesUp = 13;
+      this.timesUp = 63;
     }
     if(difficulty == "intermediate"){
       this.rand1 = Math.floor((Math.random() * 1000) + 1);
@@ -235,6 +235,10 @@ export class AdditionPage implements OnInit, OnDestroy {
     this.navCtrl.navigateForward('home').then(() => {
       window.location.reload();
     });
+  }
+
+  refreshSum(){
+    this.sum = '';
   }
 
 }

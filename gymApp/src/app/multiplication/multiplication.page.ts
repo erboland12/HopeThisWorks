@@ -196,4 +196,8 @@ export class MultiplicationPage implements OnInit {
     });
   }
 
+  refreshSum(){
+    this.sum = '';
+  }
+
 }

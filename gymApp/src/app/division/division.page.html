@@ -3,8 +3,8 @@
       <ion-buttons slot="start">
         <ion-icon *ngIf="this.diffVisible" (click)="quit()" style="width: 50px; height: 35px;" name="arrow-round-back" color="red"></ion-icon>
       </ion-buttons>
-      <ion-title>
-        
+      <ion-title class="title" *ngIf="this.diffVisible || this.titleVisible">
+        Division
       </ion-title>
     </ion-toolbar>
 </ion-header>

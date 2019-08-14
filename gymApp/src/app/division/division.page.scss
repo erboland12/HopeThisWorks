@@ -13,7 +13,7 @@
   }
   .diffBox{
     margin: 1em;
-    margin-top: 25%;
+    margin-top: 35%;
     padding: 2em;
     border: 2px solid black;
     border-radius: 10px;
@@ -23,7 +23,7 @@
 
   .titleBox{
     margin: 1em;
-    margin-top: 45%;
+    margin-top: 50%;
     padding: 2em;
     border: 2px solid black;
     border-radius: 10px;
@@ -32,12 +32,13 @@
   }
   .mainBox{
     margin: auto;
-    height: 100%;
+    height: auto;
+    min-height: 100%;
     width: 100%;
-    border: 2px solid rgb(52, 91, 146);;
+    border: 2px solid rgb(52, 91, 146);
     background-color: var(--ion-color-green);
     background-size: cover;
-    overflow: hidden;
+    overflow: scroll;
   }
   
   .start{
@@ -118,10 +119,12 @@
 }
 
 input {
-    height:60px;
-    width:130px;
-    font-size: 200%;
-    text-align: center;
+  height:60px;
+  width: auto;
+  max-width: 60%;
+  margin-left: 12%;
+  font-size: 200%;
+  text-align: center;
 }
 .submit {
     width: 70%;

@@ -196,6 +196,10 @@ export class SubtractPage implements OnInit {
       window.location.reload();
     });
   }
+
+  refreshSum(){
+    this.sum = '';
+  }
   
 
 }
