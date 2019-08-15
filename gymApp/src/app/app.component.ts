@@ -50,6 +50,11 @@ export class AppComponent implements OnInit {
       title: 'Leaderboards',
       url: '/leaderboard',
       icon: 'clipboard'
+    },
+    {
+      title: 'How To Play',
+      url: '/how-to-play',
+      icon: 'help-circle'
     }
   ];
 
@@ -64,7 +69,7 @@ export class AppComponent implements OnInit {
         },
         {
           title: 'Visual',
-          url: '/visual',
+          url: '/visual-settings',
           icon: 'eye'
         }
       ]

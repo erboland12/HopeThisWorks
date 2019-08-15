@@ -28,7 +28,9 @@ const routes: Routes = [
   { path: 'multiplication', loadChildren: './multiplication/multiplication.module#MultiplicationPageModule' },
   { path: 'division', loadChildren: './division/division.module#DivisionPageModule' },
   { path: 'leaderboard', loadChildren: './leaderboard/leaderboard.module#LeaderboardPageModule' },  { path: 'password-reset', loadChildren: './password-reset/password-reset.module#PasswordResetPageModule' },
-  { path: 'new-password', loadChildren: './new-password/new-password.module#NewPasswordPageModule' }
+  { path: 'new-password', loadChildren: './new-password/new-password.module#NewPasswordPageModule' },
+  { path: 'visual-settings', loadChildren: './visual-settings/visual-settings.module#VisualSettingsPageModule' },
+  { path: 'how-to-play', loadChildren: './how-to-play/how-to-play.module#HowToPlayPageModule' }
 
 
   

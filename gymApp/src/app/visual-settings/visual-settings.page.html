@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        Visual Settings
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+<ion-content>
+  <div class="mainBox">
+    <div class="formWrapper">
+      <div>
+        <h2>Brightness</h2>
+        <ion-item>
+          <ion-range lines="noneion" [(ngModel)]="range" min="0" max="100" step="1">
+            <ion-icon size="small" slot="start" name="sunny"></ion-icon>
+            <ion-icon slot="end" name="sunny"></ion-icon>
+          </ion-range>
+          <div>{{range}}</div>
+        </ion-item>
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -25,6 +25,8 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { UploadService } from './services/upload.service';
 import { StatsService } from './stats/stats.service';
+import { SettingsService } from './services/settings.service';
+import { Brightness} from '@ionic-native/brightness/ngx'; 
 
 @NgModule({
   declarations: [AppComponent],
@@ -46,11 +48,13 @@ import { StatsService } from './stats/stats.service';
   providers: [
     StatusBar,
     SplashScreen,
+    Brightness,
     UserService,
     AuthService,
     UploadService,
     DatabaseService,
     StatsService,
+    SettingsService,
     HttpClientModule,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
