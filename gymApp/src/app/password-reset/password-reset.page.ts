@@ -42,7 +42,21 @@ export class PasswordResetPage implements OnInit {
   //   }
 
     resetPassword(email: string) {
-     this.auth.resetPassword(email)
+      if(email != this.auth.afAuth.auth.currentUser.email){
+        let alert = this.alertCtrl.create({
+          subHeader: 'Process Failed',
+          message: 'The Email you Entered does not Equal the Email For this Account',
+          buttons: ['OK']
+        }).then(alert => alert.present());
+      } else{
+        let alert = this.alertCtrl.create({
+          subHeader: 'Success!',
+          message: 'Please Click the Link Sent to your Email Address to Complete The Password Reset Process',
+          buttons: ['OK']
+        }).then(alert => alert.present());
+        this.auth.emailSent = true;
+        this.auth.resetPassword(email)
+      }
     }
 
 }

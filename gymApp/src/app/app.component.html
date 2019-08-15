@@ -10,7 +10,7 @@
         <ion-list>
             <ion-menu-toggle auto-hide="false" *ngIf="!this.auth.afAuth.auth.currentUser">
               <ion-item [routerDirection]="'root'" [routerLink]="['/login']">
-                <ion-icon slot="start" [name]="'md-key'"></ion-icon>
+                <ion-icon slot="start" [name]="'lock'"></ion-icon>
                 <ion-label>
                   Log In
                 </ion-label>
@@ -32,16 +32,43 @@
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
+          <div *ngFor="let a of appSettings">
+            <ion-item button *ngIf="a.children?.length > 0" (click)="a.open = !a.open" [class.parent-active]="a.open" detail="false">
+              <ion-icon slot="start" name="cog" *ngIf="!a.open"></ion-icon>
+              <ion-icon slot="start" name="arrow-down" *ngIf="a.open"></ion-icon>
+              <ion-label>{{ a.title }}</ion-label>
+            </ion-item>
+        
+            <!-- Children List for clicked Item -->
+            <ion-list *ngIf="a.open">
+              <ion-menu-toggle>
+                <ion-item *ngFor="let sub of a.children" class="sub-item" [routerLink]="sub.url" routerDirection="root"
+                  routerLinkActive="active">
+                  <ion-icon [name]="sub.icon" slot="start"></ion-icon>
+                  <ion-label>
+                    {{ sub.title }}
+                  </ion-label>
+                </ion-item>
+                <ion-item [ngClass]="{'disabled': !this.auth.afAuth.auth.currentUser}" class="sub-item" [routerLink]="['/password-reset']" routerDirection="root"
+                  routerLinkActive="active">
+                  <ion-icon name="key" slot="start"></ion-icon>
+                  <ion-label>
+                    Change Password
+                  </ion-label>
+                </ion-item>
+              </ion-menu-toggle>
+            </ion-list>
+          </div>
         </ion-list>
       </ion-content>
-      <div *ngIf="this.user">
-          <ion-item [routerDirection]="'root'" [routerLink]="['/login']">
-              <ion-icon slot="start" [name]="'ios-undo'"></ion-icon>
-              <ion-label (click)="this.auth.signOut()">
-                Sign Out
-              </ion-label>
-            </ion-item>
-        </div>
+      <div *ngIf="this.auth.afAuth.auth.currentUser">
+        <ion-item [routerDirection]="'root'" [routerLink]="'home'">         
+          <ion-icon slot="start" [name]="'ios-undo'"></ion-icon>
+          <ion-label (click)="this.auth.signOut()">
+            Sign Out
+          </ion-label>
+        </ion-item>
+      </div>
     </ion-menu>
     <ion-router-outlet main></ion-router-outlet>
   </ion-split-pane>

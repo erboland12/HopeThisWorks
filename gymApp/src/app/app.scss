@@ -4,3 +4,18 @@
 // styles are for the entire app and not just one component. Additionally, this 
 // file can hold Sass mixins, functions, and placeholder classes to be imported 
 // and used throughout the application.
+
+ 
+.parent-active {
+    font-weight: 500;
+}
+ 
+.sub-item {
+    padding-left: 20px;
+    font-size: small;
+}
+
+.disabled {
+    pointer-events:none; 
+    opacity:0.4;        
+}

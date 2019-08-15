@@ -13,6 +13,7 @@ import { IUser } from './models/user.model';
   templateUrl: 'app.component.html'
 })
 export class AppComponent implements OnInit {
+  settings: boolean;
   public appPages = [
 
     {
@@ -52,6 +53,24 @@ export class AppComponent implements OnInit {
     }
   ];
 
+  public appSettings = [
+    {
+      title: 'Settings',
+      children: [
+        {
+          title: 'Audio',
+          url: '/audio',
+          icon: 'musical-notes'
+        },
+        {
+          title: 'Visual',
+          url: '/visual',
+          icon: 'eye'
+        }
+      ]
+    }
+  ]
+
   user: firebase.User;
 
   constructor(
@@ -76,5 +95,9 @@ export class AppComponent implements OnInit {
       .subscribe(user => {
         this.user = user;
       })
+  }
+
+  openSettings(){
+    this.settings = true;
   }
 }

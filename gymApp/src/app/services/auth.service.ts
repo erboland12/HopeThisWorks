@@ -589,13 +589,6 @@ export class AuthService{
         })
       }
 
-      // resetPassword(email: string){
-      //   return this.afAuth.auth.sendPasswordResetEmail(
-      //     email,
-      //     { url: 'http://localhost:8100/password-reset'}).then(() => {
-      //       this.emailReceived = true;
-      //     });
-      // }
 
       resetPassword(email: string){
         var auth = firebase.auth();
@@ -605,14 +598,15 @@ export class AuthService{
       }
 
       updateNewPassword(email: string,password: string){
-        // this.afAuth.auth.onAuthStateChanged(firebaseUser => {
-        //   if(!firebaseUser){
-        //     this.afs.collection('users').doc(firebaseUser.uid).update({
-        //       email: email,
-        //       password: password
-        //     })
-        //   }
-        // })
+        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          if(firebaseUser){
+            this.afs.collection('users').doc(firebaseUser.uid).update({
+              email: email,
+              password: password
+            })
+            firebaseUser.updatePassword(password);
+          }
+        })
         console.log(this.afAuth.auth);
       }
 
