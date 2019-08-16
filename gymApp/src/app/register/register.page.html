@@ -24,6 +24,7 @@
                 <div class="error" *ngIf="f.email.errors.required"><b>Email is Required</b></div>
                 <div class="error" *ngIf="f.email.errors.email"><b>Invalid Email Format</b></div>
               </div>
+              <div class="error" *ngIf="this.auth.emailInUse"><b>This Email Address has Already been Registered</b></div>
             </div>
             <div class="form-group">
               <ion-label><b>Password*</b></ion-label>

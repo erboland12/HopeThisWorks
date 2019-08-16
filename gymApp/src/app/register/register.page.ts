@@ -67,13 +67,16 @@ export class RegisterPage implements OnInit {
   signUp(){
     this.submitted = true;
     if (this.regForm.valid){
+      this.auth.emailInUse = false;
       this.auth.registerUser(this.email, this.password, this.firstName,
                              this.lastName, this.username);
-      let alert = this.alertCtrl.create({
-        message: 'Login Successful',
-        buttons: ['OK']
-      }).then(alert => alert.present());
-      this.navCtrl.navigateForward('login');
+      if(this.auth.emailInUse){
+        let alert = this.alertCtrl.create({
+          subHeader: 'Registration Failed',
+          message: 'That Email Account is Already In Use.  Please Try Another One',
+          buttons: ['OK']
+        }).then(alert => alert.present());
+      }
     } else{
       let alert = this.alertCtrl.create({
         subHeader: 'Registration Failed',

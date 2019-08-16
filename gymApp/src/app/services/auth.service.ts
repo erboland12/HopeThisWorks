@@ -34,6 +34,7 @@ export class AuthService{
     emailSent: boolean;
     emailReceived: boolean;
     currentEmail: string = 'erboland@uvm.edu';
+    emailInUse: boolean;
 
     uname: string;
     fname: string;
@@ -207,6 +208,11 @@ export class AuthService{
     registerUser(email, password, firstName, lastName, username){
       firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(cred => {
+          let alert = this.alertCtrl.create({
+            message: 'Login Successful',
+            buttons: ['OK']
+          }).then(alert => alert.present());
+          this.navCtrl.navigateForward('profile');
           return this.afs.collection('users').doc(cred.user.uid).set({
             email: email,
             password: password,
@@ -238,6 +244,11 @@ export class AuthService{
             careerRights: 0,
             careerWrongs: 0
           });
+          
+        }).catch((e) => {
+          console.log("ERROR")
+          this.emailInUse = true;
+          console.log(e);
         });
     }
 

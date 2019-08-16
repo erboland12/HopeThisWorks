@@ -53,16 +53,8 @@ export class LoginPage implements OnInit {
 
     this.afAuth.authState
     .subscribe(user2 => {
-      console.log(user2);
       this.user2 = user2;
     })
-
-    // this.auth.loggedCheck();
-
-    // this.userCollection = this.afs.collection('users', ref => {
-    //   return ref.where('email', '==', '')
-    // });
-    // this.users = this.userCollection.valueChanges();
 
   }
 
