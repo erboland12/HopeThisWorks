@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NavController, AlertController } from '@ionic/angular';
@@ -17,6 +17,8 @@ import { StatsService } from '../stats/stats.service';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
+  cdf: ChangeDetectorRef;
+
   updated: boolean;
   isUpdating: boolean;
 
@@ -344,6 +346,21 @@ export class ProfilePage implements OnInit {
         })
       ).subscribe();
 
+  }
+
+  onKeyPress(event) {
+    if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 46) {
+        return true
+    }
+    else {
+        return false
+    }
+  }
+
+  change(value){
+    //manually launch change detection
+    this.cdf.detectChanges();
+    this.age = value.length > 3 ? value.substring(0,) : value;
   }
 
   

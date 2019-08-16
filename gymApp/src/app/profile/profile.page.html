@@ -86,11 +86,11 @@
           <ion-row>
             <ion-col>
               <ion-label style="padding-top: 0.3em; text-align: center;"><b>First Name*</b></ion-label>
-              <ion-input [placeholder]="this.auth.fname" [(ngModel)]="firstName" maxlength = "15"></ion-input>
+              <ion-input [placeholder]="this.auth.fname" [(ngModel)]="firstName" (keypress)="onKeyPress($event)" maxlength="15" ></ion-input>
             </ion-col>
             <ion-col>
               <ion-label style="padding-top: 0.3em; text-align: center;"><b>Last Name</b></ion-label>
-              <ion-input [placeholder]="this.auth.lname" [(ngModel)]="lastName" maxlength = "20"></ion-input>
+              <ion-input [placeholder]="this.auth.lname" [(ngModel)]="lastName" (keypress)="onKeyPress($event)" maxlength="20" ></ion-input>
             </ion-col>
           </ion-row>
           <div class="submitBtns2">
@@ -103,7 +103,7 @@
         <h3 *ngIf="this.auth.age != null"><b>Age: </b>{{this.auth.age}}</h3>
         <ion-grid *ngIf="this.ageEdit">
             <ion-label style="padding-top: 0.3em; text-align: center;"><b>Age</b></ion-label>
-            <ion-input style="width: 50%;" type="number" [placeholder]="this.auth.age" [(ngModel)]="age" maxlength = "3"></ion-input>
+            <ion-input style="width: 50%;" type="number" [placeholder]="this.auth.age" [(ngModel)]="age" onKeyDown="if(this.value.length==2 && event.keyCode!=8) return false;" ></ion-input>
           <div class="submitBtns2">
             <ion-button color="success" (click)="updateAge(age)"><b>Save Changes</b></ion-button>
             <ion-button color="danger" (click)="cancel()"><b>Cancel</b></ion-button>
