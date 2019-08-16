@@ -57,7 +57,7 @@ export class LoginPage implements OnInit {
       this.user2 = user2;
     })
 
-    this.auth.loggedCheck();
+    // this.auth.loggedCheck();
 
     // this.userCollection = this.afs.collection('users', ref => {
     //   return ref.where('email', '==', '')

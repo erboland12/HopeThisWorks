@@ -59,7 +59,7 @@
         <ion-grid *ngIf="this.usernameEdit" class="formGroup">
             <ion-label style="padding-top: 0.3em; text-align: left;"><b>Username</b></ion-label>
             <ion-input [placeholder]="this.auth.uname" [(ngModel)]="username" maxlength = "16"></ion-input>
-          <div class="submitBtns">
+          <div class="submitBtns2">
             <ion-button style="text-align: center;" color="success" (click)="updateUsername(username)"><b>Save Changes</b></ion-button>
             <ion-button style="text-align: center;" color="danger" (click)="cancel()"><b>Cancel</b></ion-button>
           </div> 
@@ -93,7 +93,7 @@
               <ion-input [placeholder]="this.auth.lname" [(ngModel)]="lastName" maxlength = "20"></ion-input>
             </ion-col>
           </ion-row>
-          <div class="submitBtns">
+          <div class="submitBtns2">
             <ion-button color="success" (click)="updateInfoName(firstName, lastName)"><b>Save Changes</b></ion-button>
             <ion-button color="danger" (click)="cancel()"><b>Cancel</b></ion-button>
           </div>
@@ -104,7 +104,7 @@
         <ion-grid *ngIf="this.ageEdit">
             <ion-label style="padding-top: 0.3em; text-align: center;"><b>Age</b></ion-label>
             <ion-input style="width: 50%;" type="number" [placeholder]="this.auth.age" [(ngModel)]="age" maxlength = "3"></ion-input>
-          <div class="submitBtns">
+          <div class="submitBtns2">
             <ion-button color="success" (click)="updateAge(age)"><b>Save Changes</b></ion-button>
             <ion-button color="danger" (click)="cancel()"><b>Cancel</b></ion-button>
           </div> 
@@ -362,7 +362,7 @@
                 <ion-select-option value="Zambia">Zambia</ion-select-option>
                 <ion-select-option value="Zimbabwe">Zimbabwe</ion-select-option>
              </ion-select>
-          <div class="submitBtns">
+          <div class="submitBtns2">
             <ion-button color="success" (click)="updateLocation(location)"><b>Save Changes</b></ion-button>
             <ion-button color="danger" (click)="cancel()"><b>Cancel</b></ion-button>
           </div> 

@@ -7,6 +7,7 @@ import { AuthService } from './services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from 'firebase';
 import { IUser } from './models/user.model';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-root',
@@ -100,6 +101,9 @@ export class AppComponent implements OnInit {
       .subscribe(user => {
         this.user = user;
       })
+      
+
+    this.auth.afAuth.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
   }
 
   openSettings(){

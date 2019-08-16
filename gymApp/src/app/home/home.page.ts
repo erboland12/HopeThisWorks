@@ -47,6 +47,10 @@ export class HomePage implements OnInit {
    navDiv(){
      this.navCtrl.navigateForward('division');
    }
+
+   navHtp(){
+     this.navCtrl.navigateForward('how-to-play')
+   }
    
    signOut(){
      this.auth.logged = false;

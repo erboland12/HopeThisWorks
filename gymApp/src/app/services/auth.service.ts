@@ -14,8 +14,17 @@ import { User } from './database.service';
 import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase';
 
+export interface User {
+  uid: string;
+  email: string;
+  photoURL?: string;
+  displayName?: string;
+  myCustomData?: string;
+}
+
 @Injectable()
 export class AuthService{
+    
     userRef: AngularFirestoreCollection<IUser>;
     user: Observable<IUser>;
     user$: Observable<IUser[]>;
@@ -103,13 +112,55 @@ export class AuthService{
 
           this.userRef = this.afs.collection('users');
           this.user$ = this.userRef.valueChanges();
+
+          firebase.auth().onAuthStateChanged((user) => {
+            if (user){
+              console.log("User is logged")
+              this.afs.collection('users').doc(user.uid).get()
+            .toPromise().then(doc =>{
+              this.uname = doc.data().username;
+              this.fname = doc.data().firstName;
+              this.lname = doc.data().lastName;
+              this.age = doc.data().age;
+              this.location = doc.data().location;
+              this.bio = doc.data().bio;
+              this.color = doc.data().color;
+              this.photoURL = doc.data().photoURL;
+
+              this.highScoreSubEasy = doc.data().highScoreSubEasy;
+              this.highScoreSubIntermediate = doc.data().highScoreSubIntermediate;
+              this.highScoreSubHard = doc.data().highScoreSubHard;
+              this.highScoreSubWizard = doc.data().highScoreSubWizard;
+
+              this.highScoreAddEasy = doc.data().highScoreAddEasy;
+              this.highScoreAddIntermediate = doc.data().highScoreAddIntermediate;
+              this.highScoreAddHard = doc.data().highScoreAddHard;
+              this.highScoreAddWizard = doc.data().highScoreAddWizard;
+
+              this.highScoreMultEasy = doc.data().highScoreMultEasy;
+              this.highScoreMultIntermediate = doc.data().highScoreMultIntermediate;
+              this.highScoreMultHard = doc.data().highScoreMultHard;
+              this.highScoreMultWizard = doc.data().highScoreMultWizard;
+
+              this.highScoreDivEasy = doc.data().highScoreDivEasy;
+              this.highScoreDivIntermediate = doc.data().highScoreDivIntermediate;
+              this.highScoreDivHard = doc.data().highScoreDivHard;
+              this.highScoreDivWizard = doc.data().highScoreDivWizard;
+
+              this.careerQuestions = doc.data().careerQuestions;
+              this.careerRights = doc.data().careerRights;
+              this.careerWrongs = doc.data().careerWrongs;
+
+            })
+            }
+          })
         }
 
     isLoggedIn(){
         return !!this.logged
     }
 
-    loginEmail(email:string, password:string){      
+    loginEmail(email:string, password:string){    
       this.afAuth.auth.signInWithEmailAndPassword(email, password)
         .then(data => {
           console.log("Worked");
@@ -126,19 +177,19 @@ export class AuthService{
             message: 'Try Again',
             buttons: ['OK']
           }).then(alert => alert.present());
-        })
-        
+        }) 
+   
     }
 
-    loginGoogle(){
-      console.log("Redirecting to Google Login Provider...");
-      this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider);
+    async loginGoogle(){
+      const provider = new auth.GoogleAuthProvider();
+      const credential = await this.afAuth.auth.signInWithPopup(provider);
       this.navCtrl.navigateForward('home');
-      this.logged = true;
+      return this.updateUserGoogle(credential.user);
+      
     }
 
     logInFacebook(){
-      console.log("Redirecting to Facebook Login Provider...");
       this.afAuth.auth.signInWithPopup(new auth.FacebookAuthProvider);
       this.navCtrl.navigateForward('home');
       this.logged = true;
@@ -154,7 +205,7 @@ export class AuthService{
     }
 
     registerUser(email, password, firstName, lastName, username){
-      this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+      firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(cred => {
           return this.afs.collection('users').doc(cred.user.uid).set({
             email: email,
@@ -190,9 +241,9 @@ export class AuthService{
         });
     }
 
-    updateUser(username, firstName, lastName?, age?, 
+    updateUser(username, firstName?, lastName?, age?, 
                location?, bio?, color?){
-      this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+      firebase.auth().onAuthStateChanged(firebaseUser => {
         if(firebaseUser){
           this.afs.collection('users').doc(firebaseUser.uid).update({
             username: username,
@@ -237,16 +288,22 @@ export class AuthService{
       })
     }
 
-    updateUserInformation(){
-      this.afAuth.auth.onAuthStateChanged(firebaseUser => {
-        if(firebaseUser){
+    updateUserGoogle(user){
+      const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
 
-        }
-      })
+      const data = { 
+        uid: user.uid, 
+        username: user.displayName,
+        email: user.email
+
+      } 
+
+      return userRef.set(data, { merge: true })
+
     }
 
     updateProfileURL(photoURL){
-      this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+      firebase.auth().onAuthStateChanged(firebaseUser => {
         if(firebaseUser){
           if(photoURL == null){
             this.afs.collection('users').doc(firebaseUser.uid).update({
@@ -265,57 +322,54 @@ export class AuthService{
       }) 
     }
 
-    loggedCheck(){
-      this.afAuth.auth.onAuthStateChanged(firebaseUser => {
-        if(firebaseUser){
-          this.logged = true;
-          this.afs.collection('users').doc(firebaseUser.uid).get()
-            .toPromise().then(doc =>{
-              console.log(doc.data().username);
-              console.log(doc.data().highScoreSubEasy)
-              this.uname = doc.data().username;
-              this.fname = doc.data().firstName;
-              this.lname = doc.data().lastName;
-              this.age = doc.data().age;
-              this.location = doc.data().location;
-              this.bio = doc.data().bio;
-              this.color = doc.data().color;
-              this.photoURL = doc.data().photoURL;
+    // loggedCheck(){
+    //   firebase.auth().onAuthStateChanged(firebaseUser => {
+    //     if(firebaseUser){
+    //       this.logged = true;
+    //       this.afs.collection('users').doc(firebaseUser.uid).get()
+    //         .toPromise().then(doc =>{
+    //           this.uname = doc.data().username;
+    //           this.fname = doc.data().firstName;
+    //           this.lname = doc.data().lastName;
+    //           this.age = doc.data().age;
+    //           this.location = doc.data().location;
+    //           this.bio = doc.data().bio;
+    //           this.color = doc.data().color;
+    //           this.photoURL = doc.data().photoURL;
 
-              this.highScoreSubEasy = doc.data().highScoreSubEasy;
-              this.highScoreSubIntermediate = doc.data().highScoreSubIntermediate;
-              this.highScoreSubHard = doc.data().highScoreSubHard;
-              this.highScoreSubWizard = doc.data().highScoreSubWizard;
+    //           this.highScoreSubEasy = doc.data().highScoreSubEasy;
+    //           this.highScoreSubIntermediate = doc.data().highScoreSubIntermediate;
+    //           this.highScoreSubHard = doc.data().highScoreSubHard;
+    //           this.highScoreSubWizard = doc.data().highScoreSubWizard;
 
-              this.highScoreAddEasy = doc.data().highScoreAddEasy;
-              this.highScoreAddIntermediate = doc.data().highScoreAddIntermediate;
-              this.highScoreAddHard = doc.data().highScoreAddHard;
-              this.highScoreAddWizard = doc.data().highScoreAddWizard;
+    //           this.highScoreAddEasy = doc.data().highScoreAddEasy;
+    //           this.highScoreAddIntermediate = doc.data().highScoreAddIntermediate;
+    //           this.highScoreAddHard = doc.data().highScoreAddHard;
+    //           this.highScoreAddWizard = doc.data().highScoreAddWizard;
 
-              this.highScoreMultEasy = doc.data().highScoreMultEasy;
-              this.highScoreMultIntermediate = doc.data().highScoreMultIntermediate;
-              this.highScoreMultHard = doc.data().highScoreMultHard;
-              this.highScoreMultWizard = doc.data().highScoreMultWizard;
+    //           this.highScoreMultEasy = doc.data().highScoreMultEasy;
+    //           this.highScoreMultIntermediate = doc.data().highScoreMultIntermediate;
+    //           this.highScoreMultHard = doc.data().highScoreMultHard;
+    //           this.highScoreMultWizard = doc.data().highScoreMultWizard;
 
-              this.highScoreDivEasy = doc.data().highScoreDivEasy;
-              this.highScoreDivIntermediate = doc.data().highScoreDivIntermediate;
-              this.highScoreDivHard = doc.data().highScoreDivHard;
-              this.highScoreDivWizard = doc.data().highScoreDivWizard;
+    //           this.highScoreDivEasy = doc.data().highScoreDivEasy;
+    //           this.highScoreDivIntermediate = doc.data().highScoreDivIntermediate;
+    //           this.highScoreDivHard = doc.data().highScoreDivHard;
+    //           this.highScoreDivWizard = doc.data().highScoreDivWizard;
 
-              this.careerQuestions = doc.data().careerQuestions;
-              this.careerRights = doc.data().careerRights;
-              this.careerWrongs = doc.data().careerWrongs;
+    //           this.careerQuestions = doc.data().careerQuestions;
+    //           this.careerRights = doc.data().careerRights;
+    //           this.careerWrongs = doc.data().careerWrongs;
 
-            })
+    //         })
 
-            
 
-        } else {
-          this.logged = false;
-          console.log("Not logged in")
-        }
-      });
-    }
+    //     } else {
+    //       this.logged = false;
+    //       console.log("Not logged in")
+    //     }
+    //   });
+    // }
 
     updateHighScore(mode: string, gameType: string, highScore: number){
       if(mode == null){
@@ -325,7 +379,7 @@ export class AuthService{
       //Easy
       if(mode == "easy"){
         if(gameType == "subtraction" && highScore >= this.highScoreSubEasy){
-          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          firebase.auth().onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               
               this.afs.collection('users').doc(firebaseUser.uid).update({
@@ -339,7 +393,7 @@ export class AuthService{
             }
           })
         } else if(gameType == "addition" && highScore >= this.highScoreAddEasy){
-          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          firebase.auth().onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
                 highScoreAddEasy: highScore
@@ -352,7 +406,7 @@ export class AuthService{
             }
           })
         } else if(gameType == "multiplication" && highScore >= this.highScoreMultEasy){
-          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          firebase.auth().onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
                 highScoreMultEasy: highScore
@@ -365,7 +419,7 @@ export class AuthService{
             }
           })
         } else if(gameType == "division" && highScore >= this.highScoreDivEasy){
-          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          firebase.auth().onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
                 highScoreDivEasy: highScore
@@ -382,7 +436,7 @@ export class AuthService{
       //Intermediate
       if(mode == "intermediate"){
         if(gameType == "subtraction" && highScore >= this.highScoreSubIntermediate){
-          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          firebase.auth().onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
                 highScoreSubIntermediate: highScore
@@ -395,7 +449,7 @@ export class AuthService{
             }
           })
         } else if(gameType == "addition" && highScore >= this.highScoreAddIntermediate){
-          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          firebase.auth().onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
                 highScoreAddIntermediate: highScore
@@ -408,7 +462,7 @@ export class AuthService{
             }
           })
         } else if(gameType == "multiplication" && highScore >= this.highScoreMultIntermediate){
-          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          firebase.auth().onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
                 highScoreMultIntermediate: highScore
@@ -421,7 +475,7 @@ export class AuthService{
             }
           })
         } else if(gameType == "division" && highScore >= this.highScoreDivIntermediate){
-          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          firebase.auth().onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
                 highScoreDivIntermediate: highScore
@@ -438,7 +492,7 @@ export class AuthService{
       //Hard
       if(mode == "hard" && highScore >= this.highScoreSubHard){
         if(gameType == "subtraction"){
-          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          firebase.auth().onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
                 highScoreSubHard: highScore
@@ -451,7 +505,7 @@ export class AuthService{
             }
           })
         } else if(gameType == "addition" && highScore >= this.highScoreAddHard){
-          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          firebase.auth().onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
                 highScoreAddHard: highScore
@@ -464,7 +518,7 @@ export class AuthService{
             }
           })
         } else if(gameType == "multiplication" && highScore >= this.highScoreMultHard){
-          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          firebase.auth().onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
                 highScoreMultHard: highScore
@@ -477,7 +531,7 @@ export class AuthService{
             }
           })
         } else if(gameType == "division"  && highScore >= this.highScoreDivHard){
-          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          firebase.auth().onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
                 highScoreDivHard: highScore
@@ -494,7 +548,7 @@ export class AuthService{
       //Wizard
       if(mode == "wizard"){
         if(gameType == "subtraction" && highScore >= this.highScoreSubWizard){
-          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          firebase.auth().onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
                 highScoreSubWizard: highScore
@@ -507,7 +561,7 @@ export class AuthService{
             }
           })
         } else if(gameType == "addition" && highScore >= this.highScoreAddWizard){
-          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          firebase.auth().onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
                 highScoreAddWizard: highScore
@@ -520,7 +574,7 @@ export class AuthService{
             }
           })
         } else if(gameType == "multiplication" && highScore >= this.highScoreMultWizard){
-          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          firebase.auth().onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
                 highScoreMultWizard: highScore
@@ -533,7 +587,7 @@ export class AuthService{
             }
           })
         } else if(gameType == "division"  && highScore >= this.highScoreDivWizard){
-          this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+          firebase.auth().onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
               this.afs.collection('users').doc(firebaseUser.uid).update({
                 highScoreDivWizard: highScore
@@ -554,7 +608,7 @@ export class AuthService{
       this.careerQuestions += total;
       this.careerRights += right;
       this.careerWrongs += wrong;
-      this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+      firebase.auth().onAuthStateChanged(firebaseUser => {
         if(firebaseUser){
           this.afs.collection('users').doc(firebaseUser.uid).update({
             careerQuestions: this.careerQuestions,
@@ -582,7 +636,7 @@ export class AuthService{
      }
 
      emailSubmit(email: string){
-      return this.afAuth.auth.sendPasswordResetEmail(email).then(() =>{
+      return firebase.auth().sendPasswordResetEmail(email).then(() =>{
         console.log("email sent")
           }).catch((error) => {
           console.log(error)
@@ -598,7 +652,7 @@ export class AuthService{
       }
 
       updateNewPassword(email: string,password: string){
-        this.afAuth.auth.onAuthStateChanged(firebaseUser => {
+        firebase.auth().onAuthStateChanged(firebaseUser => {
           if(firebaseUser){
             this.afs.collection('users').doc(firebaseUser.uid).update({
               email: email,
@@ -607,7 +661,7 @@ export class AuthService{
             firebaseUser.updatePassword(password);
           }
         })
-        console.log(this.afAuth.auth);
+        console.log(firebase.auth());
       }
 
         

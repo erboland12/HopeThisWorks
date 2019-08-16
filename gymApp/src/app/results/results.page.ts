@@ -48,6 +48,8 @@ export class ResultsPage implements OnInit {
     this.selectRandomGoodMessage();
     console.log(this.diff.mode);
     console.log(this.diff.gameType);
+    console.log(this.diff.correctAnswers);
+    this.updateHighScore(this.diff.correctAnswers);
     
   }
 
@@ -93,14 +95,9 @@ export class ResultsPage implements OnInit {
     this.auth.updateHighScore(this.diff.mode, this.diff.gameType, highScore);
   }
 
-  playAgain(highScore: number){
-    this.updateHighScore(highScore);
-    this.reset();
-  }
-
-  okBtn(highScore: number){
-    this.updateHighScore(highScore);
+  okBtn(){
     this.diff.resetResults();
+    
     this.navCtrl.navigateForward('home').then(() =>{
       window.location.reload();
     });

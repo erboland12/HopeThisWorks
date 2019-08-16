@@ -1,9 +1,10 @@
 export class IUser {
-    firstName: string;
-    lastName: string;
+    uid?: string;
+    firstName?: string;
+    lastName?: string;
     username: string;
     email: string;
-    password: string;
+    password?: string;
     location?: {
         country: string,
         state: string,
